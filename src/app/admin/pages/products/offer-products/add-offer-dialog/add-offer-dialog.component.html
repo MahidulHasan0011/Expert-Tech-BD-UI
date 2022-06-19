@@ -1,0 +1,38 @@
+<div style="position: relative" class="dialog-container">
+
+  <mat-spinner *ngIf="isLoading"
+               style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Add Offer Info</h1>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="off" #formDirective="ngForm">
+    <div fxLayout="row wrap">
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Select offer tag" required
+                      formControlName="tag">
+            <mat-option *ngFor="let item of tagList" [value]="item">
+              {{item.tagName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Priority Number</mat-label>
+          <input matInput formControlName="priorityNumber" required placeholder="Enter a priorityNumber" type="number">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" style="margin-top: 15px;">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+    </div>
+
+  </form>
+
+
+</div>

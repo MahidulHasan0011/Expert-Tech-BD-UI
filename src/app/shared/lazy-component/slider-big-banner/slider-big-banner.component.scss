@@ -1,0 +1,36 @@
+
+.content {
+  width: 100%;
+  height: 100%;
+  // border-radius: 20px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.slider-big-banner {
+  ::ng-deep {
+    .swiper-wrapper {
+      width: 100%;
+      height: 406px;
+    }
+    .swiper-pagination-bullet-active {
+      background: #fcfcfc;
+    }
+  }
+}
+
+
+@media only screen and (max-device-width: 599px) {
+  .slider-big-banner {
+    ::ng-deep {
+      .swiper-wrapper {
+        height: 180px;
+      }
+    }
+  }
+}

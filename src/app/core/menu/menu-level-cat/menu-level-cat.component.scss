@@ -1,0 +1,63 @@
+@import "../../../../theme/variables";
+
+ul {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+li {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  //padding: 0 20px;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #ffffff54;
+  cursor: pointer;
+
+  mat-icon {
+    color: #FFFFFF;
+  }
+
+}
+
+
+a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  font-family: $font-en;
+  padding: 0;
+  margin: 0;
+}
+
+//.opened app-menu-level-cat {
+//  ::ng-deep {
+//    a {
+//      margin-left: 10px !important;
+//    }
+//  }
+//}
+
+.depth-1 {
+  background: $color-primary;
+  padding: 0 24px;
+}
+
+.depth-2 {
+  background: #004c6d;
+  padding: 0 36px;
+}
+
+.depth-3 {
+  background: #013448;
+  padding: 0 48px;
+}
+

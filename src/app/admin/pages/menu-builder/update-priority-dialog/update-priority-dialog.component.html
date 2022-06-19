@@ -1,0 +1,19 @@
+<form class="container-fluid" #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+  <div class="main-top">
+
+    <mat-form-field appearance="outline" class="mat-form-field">
+      <mat-label>Priority Number</mat-label>
+      <input matInput name="priority" [ngModel]="priority" placeholder="Enter priority number" type="number" required>
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div class="action-view">
+    <button class="btn-round" mat-raised-button color="primary" type="submit">Save Priority</button>
+  </div>
+
+
+</form>
+
+

@@ -1,0 +1,109 @@
+<!-- [routerLink]="['products/category', cat.slug]" -->
+<div class="nav-container">
+  <nav class="menu-nav">
+    <ul class="nav ul-center">
+      <li *ngFor="let cat of menuList | sort:'priority'">
+        <a class="icon-down cat-link">{{cat.categoryName}}</a>
+        <ul *ngIf="cat.subCategories.length > 0" class="sub-cat-container">
+          <li *ngFor="let subCat of cat.subCategories | sort:'priority'">
+            <a class="sub-link" [routerLink]="['products', cat.slug, subCat.slug]" [queryParams]="{page: 1}" [class.icon-down]="subCat?.brands.length > 0">{{subCat.subCatName}}</a>
+            <ul *ngIf="subCat?.brands.length > 0" class="brand-container">
+              <li *ngFor="let brand of subCat.brands">
+                <a class="brand-link" [routerLink]="['products', cat.slug, subCat.slug, brand.slug]" [queryParams]="{page: 1}">{{brand.brandName}}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<!--<mat-menu #menuOffer="matMenu">-->
+<!--  <div *ngFor="let data of promotionalOffers">-->
+<!--    <button mat-menu-item [routerLink]="['/offers/', data?.slug]">-->
+<!--      <span>{{data?.title}}</span>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</mat-menu> &lt;!&ndash; END USER DROP MENU &ndash;&gt;-->
+
+
+
+<!--<nav class="menu-nav">-->
+<!--  <ul class="nav-container">-->
+<!--    <li class="nav-item dropdown-trigger" *ngFor="let cat of menuList">-->
+<!--      <a class="nav-link">{{cat.category | uppercase}}</a>-->
+
+<!--      <div class="dropdown-menu" *ngIf="cat.subCategories.length > 0">-->
+<!--        <ul>-->
+<!--          <li *ngFor="let subCat of cat.subCategories; let i=index">-->
+<!--            <a [routerLink]="[cat.slug, subCat.slug]">{{subCat.subCatName}}</a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item" routerLink="/products/category/laptop">-->
+<!--      <a [routerLink]="['/products']" class="nav-link">LAPTOP</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a routerLink="/product-details" class="nav-link">COMPONENT</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">MONITOR</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">TABLET</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a routerLink="/product-details" class="nav-link">PC</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">OFFICE</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">EQUIPMENT</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">CAMERA</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">SECURITY</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">NETWORKING</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">ACCESSORIES</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">PROJECTOR</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">STORAGE</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">GADGET</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">TELEVISION</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">GAMING</a>-->
+<!--    </li>-->
+
+<!--    <li class="nav-item">-->
+<!--      <a href="#" class="nav-link">PHOTOCOPIER</a>-->
+<!--    </li>-->
+
+
+<!--  </ul>-->
+<!--</nav>-->
+
+

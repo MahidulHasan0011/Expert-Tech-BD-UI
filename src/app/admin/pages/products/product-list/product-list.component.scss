@@ -1,0 +1,51 @@
+@import "src/theme/variables";
+@import "src/theme/exports/table-one";
+// Search Area with auto complete
+.search {
+  max-width: 570px;
+  width: 100%;
+  // max-width: 600px;
+  position: relative;
+  z-index: 1299 !important;
+
+  .search-form {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    // border: 1px solid #006EA4;
+    border-radius: 8px;
+    // border-right: none;
+
+
+    input {
+      width: 100%;
+      height: 45px;
+      outline: none;
+      border: none;
+      padding: 0 60px 0 20px;
+      font-size: 17px;
+    }
+
+    .icon {
+      height: 55px;
+      line-height: 55px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      text-align: center;
+      font-size: 24px;
+      color: #ffffff;
+      background: $bg-secondary;
+      width: 70px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.img-product-view {
+  width: 250px;
+  height: 250px;
+  object-fit: scale-down;
+  margin: 0 auto;
+}

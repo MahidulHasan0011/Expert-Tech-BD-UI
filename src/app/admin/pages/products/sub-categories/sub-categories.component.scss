@@ -1,0 +1,59 @@
+@import "src/theme/exports/table-one";
+
+.dialog-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  //overflow-x: hidden;
+  //overflow-y: scroll;
+}
+
+.header-dialog {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.filter-input-container {
+  h2 {
+    font-size: 18px;
+    color: #565656;
+    padding: 5px 0;
+  }
+
+  .filter-view {
+    position: relative;
+    margin-bottom: 10px;
+
+    .remove-filter {
+      //width: 85px;
+      //height: 85px;
+      //border: 1px solid red;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      right: 15px;
+    }
+  }
+}
+
+.form-action-bottom {
+  margin-top: 25px;
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    button {
+      padding: 9px 25px;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .btn-submit {
+      background: #00B969;
+    }
+  }
+}

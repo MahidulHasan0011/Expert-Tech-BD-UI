@@ -1,0 +1,146 @@
+<!--<button (click)="test()">Test</button>-->
+
+<div class="container-cart" fxLayoutAlign="start start" fxLayoutGap="25px">
+  <div class="cart-item-view" fxFlex="70">
+    <div class="card">
+      <div class="card-title">
+        <h2>My Order ({{ order?.orderedItems.length }} Items)</h2>
+      </div>
+      <!-- END CARD HEADER AREA -->
+
+      <div class="line"></div>
+
+      <div
+        class="card-content"
+        *ngIf="order?.orderedItems.length > 0; else cartEmpty"
+      >
+        <div
+          *ngFor="let item of order?.orderedItems; let i = index"
+          class="cart-item"
+        >
+          <div class="info">
+            <div class="img-thumb">
+              <img [src]="item.product | productImage: 'single'" />
+            </div>
+            <div class="product">
+              <div class="desc">
+                <h4>{{ item.product.name }}</h4>
+                <p>
+                  Category:
+                  <a [routerLink]="['/']">{{
+                    item.product.categorySlug | slugToNormal
+                  }}</a>
+                </p>
+                <!--                <p>Sub Category: <a [routerLink]="['/']">{{item.product.subCategorySlug | slugToNormal}}</a></p>-->
+                <p>
+                  Brand:
+                  <a [routerLink]="['/']">{{
+                    item.product.brandSlug | slugToNormal
+                  }}</a>
+                </p>
+              </div>
+
+              <div class="amount">
+                <!--                <span class="old-p"><del>Tk. {{0}}</del></span>-->
+                <p>Unit Price: {{ item.price }} X {{ item.quantity }}</p>
+                <p class="color">Total: {{ item.quantity * item.price }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="action">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="Product Details"
+              [routerLink]="['/product/', item.product.slug]"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- END CARD CONTENT AREA -->
+    </div>
+    <!-- END MAIN CARD -->
+
+    <div class="action-cancel">
+      <button
+        *ngIf="
+          order?.deliveryStatus === orderStatusEnum &&
+          order?.paymentStatus === 'unpaid'
+        "
+        mat-raised-button
+        color="warn"
+        (click)="cancelOrderByUser()"
+      >
+        <mat-icon>remove_circle_outline</mat-icon>
+        Cancel Order
+      </button>
+    </div>
+  </div>
+  <!-- END LEFT CART ITEM VIEW -->
+
+  <div class="checkout-summary card" fxFlex="30">
+    <div class="title">
+      <h3>Checkout Summary</h3>
+    </div>
+
+    <ul class="payable-total">
+      <li>
+        <span>Subtotal</span>
+        <span>{{ order?.subTotal }}৳</span>
+      </li>
+      <li>
+        <span>Shipping</span>
+        <span>{{ order?.shippingFee }}৳</span>
+      </li>
+      <li>
+        <span>Total</span>
+        <span>{{ order?.subTotal + order?.shippingFee }}৳</span>
+      </li>
+      <li>
+        <span>Payable Total</span>
+        <span>{{ order?.totalAmount }}৳</span>
+      </li>
+    </ul>
+
+    <div class="info">
+      <h3>Shipping Info</h3>
+      <p>
+        Name: <span>{{ order?.name }}</span>
+      </p>
+      <p>
+        Phone No: <span>{{ order?.phoneNo }}</span>
+      </p>
+      <p>
+        Email: <span>{{ order?.email ? order.email : "N/A" }}</span>
+      </p>
+      <p>
+        Other Phone:
+        <span>{{
+          order?.alternativePhoneNo ? order?.alternativePhoneNo : "N/A"
+        }}</span>
+      </p>
+      <p>
+        Address: <span>{{ order?.shippingAddress }}</span>
+      </p>
+    </div>
+  </div>
+  <!-- END RIGHT CHECKOUT VIEW -->
+</div>
+
+<ng-template #cartEmpty>
+  <div class="empty">
+    <h2>No Cart Items</h2>
+    <div class="action">
+      <button
+        routerLink="/"
+        mat-raised-button
+        color="accent"
+        class="btn-shopping"
+      >
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+</ng-template>

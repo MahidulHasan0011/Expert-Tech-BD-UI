@@ -1,0 +1,90 @@
+<div class="dialog-container">
+
+    <div class="dialog-container">
+  
+      <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2>Branch Info</h2>
+        <button mat-button mat-dialog-close>Cancel</button>
+      </div>
+  
+      <form [formGroup]="form" (ngSubmit)="onSubmitBranch()" class="form">
+  
+        <div class="form-input-area" fxLayout="row wrap">
+  
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Primary Phone No</mat-label>
+            <input formControlName="primaryPhoneNo" matInput placeholder="Primary Phone No" type="tel" required>
+            <mat-icon matSuffix>call</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+  
+  
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Secondary Phone No</mat-label>
+            <input formControlName="secondaryPhoneNo" matInput placeholder="Secondary Phone No" type="tel">
+            <mat-icon matSuffix>call</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Address Line One</mat-label>
+            <input formControlName="addressLineOne" matInput placeholder="Address Line One" required>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Address Line Two</mat-label>
+            <input formControlName="addressLineTwo" matInput placeholder="Address Line Two">
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="Email" type="email">
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Shop Open Time</mat-label>
+            <input formControlName="shopOpenTime" matInput placeholder="Shop Open Time" required>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Notification or Alert</mat-label>
+            <input formControlName="notification" matInput placeholder="Notification or Alert">
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Branch Type</mat-label>
+            <input formControlName="type" matInput placeholder="Showroom, Sales Center, Service Center, etc." required>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field px-1" fxFlex.gt-xs="50" fxFlex="100">
+            <mat-label>Priority</mat-label>
+            <input formControlName="priority" matInput placeholder="Priority" type="number" required>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+  
+        </div>
+        <div class="action-area">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Save
+          </button>
+        </div>
+  
+      </form>
+    </div>
+  
+  
+  </div>
+  

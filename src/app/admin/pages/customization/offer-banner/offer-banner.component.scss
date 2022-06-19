@@ -1,0 +1,36 @@
+@import "src/theme/exports/table-one";
+
+.container-fluid {
+  width: 100%;
+}
+
+.data-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  margin-top: 50px;
+}
+
+.data-card {
+  .img-thumb {
+    width: 100%;
+    height: 280px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: scale-down;
+    }
+  }
+}
+@media(max-width:756px){
+  .data-view{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media(max-width:450px){
+  .data-view{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+

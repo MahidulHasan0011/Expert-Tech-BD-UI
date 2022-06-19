@@ -1,0 +1,57 @@
+<div class="container-fluid" fxLayout.lt-sm="column" fxLayout="row" fxLayoutGap="16px" >
+  <div class="side-bar">
+    <div class="profile-view">
+      <div class="img-thumb">
+        <img [src]="imgPlaceHolder" [alt]="'Picked Image'">
+        <div class="edit-profile-img">
+          <button mat-icon-button (click)="profileImagePicker.click()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <input [hidden]="true" #profileImagePicker type="file" (change)="fileChangeEvent($event)" accept="image/*"/>
+      </div>
+      <div class="desc">
+        <h2>{{user?.fullName}}</h2>
+        <p>{{user?.phoneNo ? user.phoneNo : 'N/A'}}</p>
+      </div>
+    </div> <!--  END PROFILE VIEW -->
+
+    <div class="nav-link">
+      <ul>
+        <li [routerLink]="['basic-info']" routerLinkActive="active-list">
+          <mat-icon>perm_identity</mat-icon>
+          <span> Basic Information</span>
+        </li>
+        <li [routerLink]="['address']" routerLinkActive="active-list">
+          <mat-icon class="material-icons-outlined">room</mat-icon>
+          <span> Address</span>
+        </li>
+        <li [routerLink]="['order-list']" routerLinkActive="active-list">
+          <mat-icon>insert_emoticon</mat-icon>
+          <span> Order List</span>
+        </li>
+        <li [routerLink]="['reviews']" routerLinkActive="active-list">
+          <mat-icon>star</mat-icon>
+          <span> Review</span>
+        </li>
+        <li [routerLink]="['change-password']" routerLinkActive="active-list">
+          <mat-icon>lock</mat-icon>
+          <span> Change Password</span>
+        </li>
+        <li [routerLink]="['transactions']" routerLinkActive="active-list">
+          <mat-icon>payments</mat-icon>
+          <span> Transactions</span>
+        </li>
+        <li (click)="onLogout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+  <div class="content-view" fxFlex>
+    <router-outlet></router-outlet>
+  </div>
+</div>

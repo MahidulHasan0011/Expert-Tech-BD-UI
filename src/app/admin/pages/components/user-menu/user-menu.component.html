@@ -1,0 +1,30 @@
+<button mat-icon-button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" >
+    <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
+    <span (mouseleave)="userMenuTrigger.closeMenu()">
+        <mat-toolbar color="primary">
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+              <img [src]="admin?.profileImg ? admin.profileImg : '/assets/images/avatar/user_low.png'" alt="" width="80" class="mat-elevation-z6">
+<!--                <img [src]="userImage" alt="user-image" width="80" class="mat-elevation-z6">-->
+                <p>{{admin?.name ? admin.name : 'N/A'}} <br> <small>{{admin?.role?.name ? admin?.role?.name : 'N/A'}}</small></p>
+            </div>
+        </mat-toolbar>
+        <a mat-menu-item routerLink="/admin/my-profile">
+            <mat-icon>person</mat-icon>
+            <span>My Profile</span>
+        </a>
+
+        <a mat-menu-item href="https://softlabit.com/" target="_blank">
+            <mat-icon>help</mat-icon>
+            <span>Help</span>
+        </a>
+
+        <div class="divider"></div>
+        <a mat-menu-item (click)="onLogout()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Log out</span>
+        </a>
+    </span>
+</mat-menu>

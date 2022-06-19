@@ -1,0 +1,175 @@
+<div class="footer-bg big-footer">
+  <div class="footer-container">
+    <div
+      class="container"
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="start start"
+      fxLayoutGap="10"
+    >
+      <div class="info" fxFlex="30">
+        <div class="info-list">
+          <img
+            src="/assets/images/ssl/bcs-member-250x100-min-250x100.png"
+            alt=""
+          />
+        </div>
+        <div class="contact">
+          <h4>Support</h4>
+          <ul>
+            <li class="helpline-btn footer-big-btn">
+              <a href="tel:{{ contactInfo?.primaryPhoneNo }}">
+                <div class="ic"><i class="material-icons">phone</i></div>
+                <h5>{{ contactInfo?.primaryPhoneNo }}</h5>
+              </a>
+            </li>
+            <li class="helpline-btn footer-big-btn">
+              <a href="tel:{{ contactInfo?.secondaryPhoneNo }}">
+                <div class="ic"><i class="material-icons">phone</i></div>
+                <h5>{{ contactInfo?.secondaryPhoneNo }}</h5>
+              </a>
+            </li>
+            <li class="helpline-btn footer-big-btn">
+              <a href="tel:{{ contactInfo?.email }}">
+                <div class="ic"><i class="material-icons">email</i></div>
+                <h5>{{ contactInfo?.email }}</h5>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="address" fxFlex="70">
+        <div
+          class="branches"
+          fxLayout="row wrap"
+          fxLayout.lt-md="column"
+          fxLayoutAlign=""
+          fxLayoutGap="10px"
+        >
+          <div
+            class="address-card"
+            fxFlex="32"
+            fxFlex.lt-md="100"
+            *ngFor="let branch of branches; let i = index"
+          >
+            <h3 class="title">
+              R One Branch - {{ i + 1 }} - {{ branch.type }}
+            </h3>
+            <p class="address-line">{{ branch.addressLineOne }}</p>
+            <p class="address-line">{{ branch?.addressLineTwo }}</p>
+            <p class="closed-day">
+              <mat-icon style="margin-right: 5px">call</mat-icon>
+              {{ branch.primaryPhoneNo }}
+            </p>
+            <p class="closed-day">{{ branch.shopOpenTime }}</p>
+            <p class="closed-day">{{ branch?.notification }}</p>
+          </div>
+        </div>
+        <div class="service-center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer-area">
+  <!--footer-menu-area-->
+  <div class="footer-menu-area">
+    <div class="container">
+      <ul>
+        <li><a routerLink="/pages/about-us">About us</a></li>
+        <li><a routerLink="/pages/contact-us">Contact Us </a></li>
+        <li><a routerLink="/pages/online-delivery">Online Delivery</a></li>
+        <li><a routerLink="/pages/privacy-policy">Privacy Policy</a></li>
+        <li>
+          <a routerLink="/pages/refund-and-return-policy">Refund & Return</a>
+        </li>
+        <li>
+          <a routerLink="/pages/terms-and-conditions">Terms & Conditions</a>
+        </li>
+        <li><a routerLink="/pages/accessories-deals">Accessories Deals</a></li>
+        <li><a routerLink="/pages/emi-terms">EMI Information</a></li>
+        <li><a routerLink="/pages/monitor-deals">Monitor Deals</a></li>
+        <li><a routerLink="/pages/career">Career</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!--footer-main-area-->
+  <div class="footer-main-area">
+    <div class="container">
+      <!---main-details-->
+      <div class="footer-main-details">
+        <!---follow-us-area-->
+        <div class="follow-us-area">
+          <div class="footer-title">
+            <h2>FOLLOW US</h2>
+          </div>
+          <ul class="footer-social-menu">
+            <li>
+              <a [href]="contactInfo?.facebookLink">
+                <i class="fab fa-facebook-f"></i>
+                <p class="sub">Facebook</p>
+              </a>
+            </li>
+            <li>
+              <a [href]="contactInfo?.facebookLink">
+                <i class="fab fa-facebook-messenger"></i>
+                <p class="sub">Messenger</p>
+              </a>
+            </li>
+            <li>
+              <a [href]="contactInfo?.youtubeLink">
+                <i class="fab fa-youtube"></i>
+                <p class="sub">YouTube</p>
+              </a>
+            </li>
+            <li>
+              <a [href]="contactInfo?.instagramLink">
+                <i class="fab fa-instagram"></i>
+                <p class="sub">Instagram</p>
+              </a>
+            </li>
+            <li>
+              <a [href]="contactInfo?.twitterLink">
+                <i class="fab fa-twitter"></i>
+                <p class="sub">Twitter</p>
+              </a>
+            </li>
+            <li>
+              <a [href]="contactInfo?.instagramLink">
+                <i class="fab fa-linkedin-in"></i>
+                <p class="sub">linkedin</p>
+              </a>
+            </li>
+            <!--            <li>-->
+            <!--              <a [href]="contactInfo.twitterLink">-->
+            <!--                <i class="fab fa-whatsapp"></i>-->
+            <!--                <p class="sub">whatsapp</p>-->
+            <!--              </a>-->
+            <!--            </li>-->
+          </ul>
+          <!-- <div class="ntt-area">
+            <h5>COPYRIGHT © 2021, Expert Tech BD</h5>
+          </div> -->
+        </div>
+        <!---pay-with-area-->
+        <div class="pay-with">
+          <div class="footer-title">
+            <h2>PAY WITH</h2>
+          </div>
+          <div class="pay-img">
+            <img
+              src="/assets/images/ssl/SSLCommerz-Pay-With-logo-All-470x80h.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ntt-area">
+          <h5>COPYRIGHT © 2021, Expert Tech BD</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,23 @@
+export const environment = {
+  production: true,
+  apiBaseLink: 'https://api.experttechbd.com.bd',
+  ftpBaseLink: 'https://ftp.experttechbd.com.bd',
+  appBaseUrl: '/',
+  userBaseUrl: '/account',
+  userLoginUrl: '/login',
+  userDashboardUrl: '/dashboard',
+  adminLoginUrl: 'admin/login',
+  adminBaseUrl: 'admin',
+  storageSecret: 'SOFT_2021_IT_1998',
+  sslIpnUrl: 'https://api.experttechbd.com.bd/api/payment-ssl/ipn',
+  firebaseConfig: {
+    apiKey: 'TEST',
+    authDomain: 'TEST',
+    projectId: 'TEST',
+    storageBucket: 'TEST',
+    messagingSenderId: 'TEST',
+    appId: 'TEST',
+    measurementId: 'TEST',
+  },
+  VERSION: 3,
+};

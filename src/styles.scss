@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+/* some change */
+@import "theme/theme";
+@import "theme/fonts";
+@import "~perfect-scrollbar/css/perfect-scrollbar.css";
+@import "theme/base";
+
+// ####
+@import "theme/admin";
+@import "theme/gradients";
+@import "theme/rtl";
+@import "theme/base-emporium";
+// ### TABLE
+@import "theme/table";
+
+// Font Awesome
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+// Swiper
+@import "~swiper/swiper-bundle";
+
+//::ng-deep.custom-bread-crumb li a{
+//  text-transform: uppercase !important;
+//}
+
+.custom-bread-crumb li a,
+.custom-bread-crumb li span {
+  text-transform: capitalize !important;
+}
+
+.mat-drawer-container{
+  background-color: #F2F4F8!important;
+}
+.container,
+.container-fluid{
+  max-width:  $theme-max-width!important;
+}

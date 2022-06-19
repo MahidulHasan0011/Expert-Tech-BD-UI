@@ -1,0 +1,155 @@
+<!--&lt;!&ndash;-offer-section1&ndash;&gt;-->
+<!--<section class="offer-section-1">-->
+<!--  &lt;!&ndash;offer-title&ndash;&gt;-->
+<!--  &lt;!&ndash; [ngStyle]="{'background': 'url(' + promotionalOffer?.image + ') no-repeat 0 0 / cover'}" &ndash;&gt;-->
+<!--  &lt;!&ndash;-<div class="offer-title">-->
+<!--    <h2>{{promotionalOffer?.title}}</h2>-->
+<!--  </div>&ndash;&gt;-->
+<!--  <div class="section1-container">-->
+<!--    <div class="description">-->
+<!--      <p>{{promotionalOffer?.shortDescription}}</p>-->
+<!--    </div>-->
+<!--    <div class="description" [innerHTML]="promotionalOffer?.description | safeHtmlCustom"></div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!--<div class="container-fluid">-->
+<!--  <div class="counter" *ngIf="startDateTimeData && !isCampaignStart">-->
+<!--    <p>Campaign Start: </p>-->
+<!--    <app-time-counter-one [endDate]="startDateTimeData"></app-time-counter-one>-->
+<!--  </div>-->
+
+<!--  <div class="counter" *ngIf="endDateTimeData && isCampaignRunning">-->
+<!--    <p>Campaign End: </p>-->
+<!--    <app-time-counter-one [endDate]="endDateTimeData"></app-time-counter-one>-->
+<!--  </div>-->
+<!--  <section class="section-2 section-deal-of-day section-md" *ngIf="isCampaignRunning">-->
+<!--    <div class="container">-->
+
+<!--      <div class="deal-title">-->
+<!--        <h2>{{offerProducts?.name}}</h2>-->
+<!--        <div class="line"></div>-->
+<!--      </div>-->
+
+<!--      <div class="deal-on-play-view">-->
+<!--        <ng-container *ngFor="let p of products">-->
+<!--          <app-product-card-one [product]="p"></app-product-card-one>-->
+<!--        </ng-container>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </section>&lt;!&ndash;Deal On Play end&ndash;&gt;-->
+
+<!--</div>-->
+
+  <!-- OFFER SERVICES Category Area -->
+  <div class="container off-ser-cat-area">
+    <div class="off-ser-cat-body">
+      <div
+        class="off-serv-cat-item"
+        *ngFor="
+          let data of allOfferCategoryCard | sort: 'priority';
+          let i = index
+        "
+      >
+        <a routerLink="/{{data.link}}" class="off-serv-cat-info">
+          <img
+            [src]="
+              data?.image ? data.image : '/assets/images/placeholder/test.png'
+            "
+            width="80"
+            height="80"
+            [alt]="data.title"
+            class="off-serv-cat-img"
+          />
+          <div class="off-serv-cat-content">
+            <div class="off-serv-cat-title">
+              {{ data.promotionalOffer?.title }}
+            </div>
+            <div class="off-serv-cat-text">
+              {{ data.title }}
+              <p style="font-size: 13px; color: 31daff">
+                {{ data.description }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- End OFFER SERVICES Category Area -->
+<!---offer-section1-->
+<section class="offer-section-1" *ngIf="promotionalOffer">
+  <!--offer-title-->
+  <!-- [ngStyle]="{'background': 'url(' + promotionalOffer?.image + ') no-repeat 0 0 / cover'}" -->
+  <!---<div class="offer-title">
+    <h2>{{promotionalOffer?.title}}</h2>
+  </div>-->
+  <div class="section1-container">
+    <div class="offer-details">
+      <div
+        class="description"
+        [innerHTML]="promotionalOffer?.description | safeHtmlCustom"
+      ></div>
+      <div style="text-align: center; margin-bottom: 20px; margin-top: 20px">
+        <p class="mark1" id="validity">
+          {{ promotionalOffer?.shortDescription }}
+        </p>
+      </div>
+      <!-- <div class="description">
+        <p>{{promotionalOffer?.shortDescription}}</p>
+      </div> -->
+    </div>
+    <div class="offer-counter">
+      <div class="counter" *ngIf="startDateTimeData && campaignStatus === 0">
+        <p class="campaignEndP">Campaign Will Start:</p>
+        <app-time-counter-one
+          [endDate]="startDateTimeData"
+        ></app-time-counter-one>
+      </div>
+
+      <div class="counter" *ngIf="endDateTimeData && campaignStatus === 2">
+        <p>Campaign End:</p>
+        <app-time-counter-one
+          [endDate]="endDateTimeData"
+        ></app-time-counter-one>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <p class="megaP"  id="comingSoon">স্টার টেক এ আসছে <span style="color: #EF4A23; background: unset;font-size: unset; font-weight: unset;">১২-১২ মেগা ফ্ল্যাশ সেল</span> !!! বিভিন্ন মডেলের প্রযুক্তি পণ্যে থাকবে অবিশ্বাস্য মূল্য ছাড় !!! অফার গুলো দেখতে এই পেইজ ভিজিট করুন ১১ ডিসেম্বর শনিবার রাত ৯ টায়।</p>
+
+<div style="text-align: center; margin-bottom: 20px; margin-top: 20px">
+  <p class="mark1" id="validity">অফারটি চলবে ১১ ডিসেম্বর শনিবার রাত ৯ টা থেকে রবিবার রাত ৯ টা পর্যন্ত</p>
+</div> -->
+
+<div class="container-fluid" *ngIf="campaignStatus === 2">
+  <section class="section-2 section-deal-of-day section-md">
+    <div class="container" *ngFor="let data of offerProducts">
+      <div class="deal-title">
+        <h2 class="oName">{{ data?.name }}</h2>
+        <!-- <div class="line"></div> -->
+        <!-- <p class="oTitle"> Get exciting discounts on Selected Products</p> -->
+      </div>
+
+      <div class="deal-on-play-view">
+        <ng-container *ngFor="let p of data?.products">
+          <app-product-card-offer [product]="p"></app-product-card-offer>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+  <!--Deal On Play end-->
+</div>
+
+<!-- TEMPLATE -->
+<ngx-spinner
+  style="width: 100vw; height: 100vh"
+  bdColor="rgba(0,0,0,0.25)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>

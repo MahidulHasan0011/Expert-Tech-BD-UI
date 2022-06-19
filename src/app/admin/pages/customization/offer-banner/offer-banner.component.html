@@ -1,0 +1,34 @@
+<div class="top-action">
+  <button mat-raised-button color="primary" (click)="navigateTo('add-new')">Add Offer Banner</button>
+</div>
+
+
+<hr class="center-square">
+
+<div class="table-container">
+  <table>
+    <thead>
+    <tr class="table-head">
+      <th scope="col">{{'Image'}}</th>
+      <th scope="col">{{'Name'}}</th>
+      <th scope="col">{{'Path'}}</th>
+      <th scope="col">{{'Actions'}}</th>
+    </tr>
+    </thead> <!-- End Table Head -->
+    <tr *ngFor="let data of offerBannerCards">
+      <td [attr.data-label]="'Image'">
+        <img class="table-image" [src]="data?.image ? data.image : '/assets/images/placeholder/test.png'"
+             [alt]="data.title">
+      </td>
+      <td [attr.data-label]="'Name'">{{data.title}}</td>
+      <td [attr.data-label]="'Path'">{{data.url}}</td>
+      <td [attr.data-label]="'Actions'">
+        <button (click)="openConfirmDialog(data)" mat-raised-button color="warn">Delete</button>
+
+      </td>
+    </tr><!-- End Table Body -->
+
+  </table>
+
+</div>
+

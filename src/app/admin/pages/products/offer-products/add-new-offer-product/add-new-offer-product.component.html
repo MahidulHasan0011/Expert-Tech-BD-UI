@@ -1,0 +1,42 @@
+<div class="search">
+  <form class="search-form" #searchForm=ngForm>
+    <input #searchInput
+           type="text"
+           placeholder="Search here..."
+           name="searchTerm"
+           autocomplete="off"
+           ngModel
+           required>
+    <div class="icon">
+      <mat-icon>search</mat-icon>
+    </div>
+  </form>
+</div>
+
+
+<div fxLayout="row wrap" *ngIf="searchProducts.length > 0">
+  <div *ngFor="let product of searchProducts" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="p-1">
+    <mat-card class="product-item text-center">
+      <mat-chip-list *ngIf="product.discount">
+        <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
+      </mat-chip-list>
+      <img class="img-product-view" [src]="product | productImage : 'single' " alt="">
+      <h4 class="category text-muted">{{ product?.category.categoryName}}</h4>
+      <div class="title text-truncate">
+        {{product.name}}
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
+        <div fxLayout="column" fxLayoutAlign="center start">
+          <p class="new-price">${{product.salePrice | number : '1.2-2'}}</p>
+        </div>
+      </div>
+      <div class="divider mt-2"></div>
+      <div class="icons">
+        <button mat-raised-button color="warn" matTooltip="Remove" (click)="openCategoryDialog(product._id)">
+          <mat-icon>add</mat-icon>
+          Add to Offer List
+        </button>
+      </div>
+    </mat-card>
+  </div>
+</div>

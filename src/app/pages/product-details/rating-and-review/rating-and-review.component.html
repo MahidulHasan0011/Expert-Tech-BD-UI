@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div class="input-area" [fxShow]="userService.getUserStatus()">
+    <div class="rating">
+      <p>Your Rating *</p>
+      <app-star-rating [rating]="rating" (ratingUpdated)="onRatingChanged($event)"
+                       [showSnackbar]="false"></app-star-rating>
+    </div>
+    <form class="form" #formElement="ngForm" (ngSubmit)="onSubmitReview(formElement)">
+      <p>Your Reviews *</p>
+      <mat-form-field class="rating-form-field" appearance="outline">
+        <mat-label>Please write your honest opinion and give a rating</mat-label>
+        <textarea ngModel name="text" matInput rows="5" required></textarea>
+      </mat-form-field>
+      <div class="action">
+        <button mat-raised-button type="submit" color="primary">Submit</button>
+      </div>
+    </form>
+  </div> <!-- END REVIEW CARD-->
+
+  <div class="login-card" [fxHide]="userService.getUserStatus()">
+    <button type="button" [routerLink]="['/login']" [queryParams]="{redirectFrom: pageUrl }" mat-raised-button color="accent">
+      Login
+    </button>
+    <p>For submit your review, you need to login first.</p>
+  </div> <!-- END LOGIN CARD for Un Authorized User-->
+
+  <div class="reviews">
+<!--    <div class="title">-->
+<!--      <h2>Reviews</h2>-->
+<!--    </div>-->
+    <div class="review-list" *ngIf="reviews.length > 0">
+      <div class="item" *ngFor="let review of reviews">
+        <div class="img-thumb">
+          <img src="/assets/images/avatar/user_low.png" alt="">
+        </div>
+        <div class="main-view">
+          <div class="top">
+            <h4 class="name">{{review.user.fullName}}</h4>
+            <span class="date">({{review.createdAt | date}})</span>
+          </div>
+          <div class="rating">
+            <app-star-rating [rating]="review.rating" [showRateText]="false" [showSnackbar]="false"></app-star-rating>
+          </div>
+          <div class="desc">
+            <p>{{review.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- END REVIEW LIST -->
+  </div>
+
+</div>

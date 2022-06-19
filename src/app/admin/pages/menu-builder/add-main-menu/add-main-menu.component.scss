@@ -1,0 +1,46 @@
+.container-fluid {
+  width: 95%;
+  max-width: 1050px;
+  margin: 25px  auto;
+}
+
+.main-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-form-field {
+    width: 380px;
+  }
+}
+
+.sub-cat-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-top: 30px;
+
+  .m-card {
+    h3 {
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+}
+
+.action-view {
+  text-align: center;
+  margin-top: 18px;
+
+  .btn-round {
+    padding: 5px 35px;
+    border-radius: 35px !important;
+  }
+}

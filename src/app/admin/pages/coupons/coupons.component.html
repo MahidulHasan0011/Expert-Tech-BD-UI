@@ -1,0 +1,81 @@
+
+    <mat-card class="p-0">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+            <h2>Coupons List</h2>
+            <button mat-raised-button color="primary" (click)="openCouponDialog()">Add Coupon</button>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card>
+
+
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr class="table-head">
+          <th scope="col">{{'Title'}}</th>
+          <th scope="col">{{'Code'}}</th>
+          <th scope="col">{{'Amount'}}</th>
+          <th scope="col">{{'Expiry Date'}}</th>
+          <th scope="col">{{'Actions'}}</th>
+        </tr>
+        </thead> <!-- End Table Head -->
+        <tr *ngFor="let data of coupons  | paginate: { itemsPerPage: count, currentPage: page }; let i = index">
+          <td [attr.data-label]="'Title'">{{data.couponName}}</td>
+          <td [attr.data-label]="'Code'">{{data.couponCode}}</td>
+          <td [attr.data-label]="'Amount'">{{data.couponAmount}}</td>
+          <td [attr.data-label]="'Expiry Date'">{{data.couponEndDate | date:"dd MMMM, yyyy"}}</td>
+          <td [attr.data-label]="'Actions'">
+            <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openCouponDialog(coupon)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="deleteCoupon(coupon._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr><!-- End Table Body -->
+
+      </table>
+
+    </div>
+
+
+<!--    <div class="mat-table admin-table">-->
+<!--      <div class="mat-header-row">-->
+<!--        <div class="mat-header-cell">Title</div>-->
+<!--        <div class="mat-header-cell">Code</div>-->
+<!--        &lt;!&ndash; <div class="mat-header-cell">Discount Type</div> &ndash;&gt;-->
+<!--        <div class="mat-header-cell">Amount</div>-->
+<!--        &lt;!&ndash; <div class="mat-header-cell">Store</div> &ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="mat-header-cell">Usage Limit</div> &ndash;&gt;-->
+<!--        <div class="mat-header-cell">Expiry Date</div>-->
+<!--        <div class="mat-header-cell"></div>-->
+<!--      </div>-->
+<!--      <div *ngFor="let coupon of coupons | paginate: { itemsPerPage: count, currentPage: page }" class="mat-row">-->
+<!--        <div class="mat-cell">{{coupon.couponName}}</div>-->
+<!--        <div class="mat-cell">{{coupon.couponCode}}</div>-->
+<!--        &lt;!&ndash; <div class="mat-cell">{{ ( discountTypes | filterById : coupon.discountType )?.name }}</div> &ndash;&gt;-->
+<!--        <div class="mat-cell">{{coupon.couponAmount}}</div>-->
+<!--        &lt;!&ndash; <div class="mat-cell">{{ ( stores | filterById : coupon.storeId )?.name }}</div> &ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="mat-cell">{{coupon.limit.perCoupon}}</div> &ndash;&gt;-->
+<!--        <div class="mat-cell">{{coupon.couponEndDate | date:"dd MMMM, yyyy"}}</div>-->
+<!--        <div class="mat-cell">-->
+<!--          <div class="p-1 actions">-->
+<!--            <button mat-mini-fab color="primary" matTooltip="Edit" (click)="openCouponDialog(coupon)">-->
+<!--              <mat-icon>edit</mat-icon>-->
+<!--            </button>-->
+<!--            <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="deleteCoupon(coupon._id)">-->
+<!--              <mat-icon>delete</mat-icon>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div *ngIf="coupons.length > 0" fxLayout="row wrap">
+        <div fxFlex="100">
+            <mat-card class="p-0 text-center">
+                <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+            </mat-card>
+        </div>
+    </div>
+

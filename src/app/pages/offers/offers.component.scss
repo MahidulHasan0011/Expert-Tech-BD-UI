@@ -1,0 +1,293 @@
+@import "src/theme/offer";
+
+.section-2 {
+  background: #f2f4f8;
+}
+
+.container-fluid {
+  padding: 0px 0;
+  min-height: 70vh;
+}
+
+.container {
+  margin-bottom: 30px;
+}
+.section1-container {
+  padding: 30px;
+  background: #f2f4f8;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.description {
+  padding: 15px 0;
+}
+
+.deal-title {
+  padding: 20px 0;
+  h2 {
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    text-transform: capitalize;
+    // background: rgba(255, 255, 255, 1);
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: rgba(221, 221, 221, 1);
+    border-radius: 5px;
+    box-shadow: none;
+    padding: 10px;
+    margin-top: 10px;
+    background: #6e2594;
+  }
+}
+@media (min-width: 960px) and (max-width: 1440px) {
+  .container-fluid,
+  .section1-container {
+    width: $theme-max-width !important;
+    margin: auto;
+  }
+}
+
+.deal-of-the-day-view {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px 8px;
+
+  .deal-of-the-card {
+    border: 1px solid #f4f4f4;
+    width: 100%;
+  }
+}
+
+.deal-on-play-view {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 15px 8px;
+}
+
+@media (min-width: 1410px) {
+  .deal-on-play-view,
+  .deal-of-the-day-view {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 1150px) {
+  .deal-on-play-view,
+  .deal-of-the-day-view {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .deal-on-play-view,
+  .deal-of-the-day-view {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .deal-on-play-view,
+  .deal-of-the-day-view {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/**** offer-section-1 ***/
+.offer-section-1 {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+}
+
+.offer-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  //background-position: center;
+  //background-attachment: scroll;
+  //background-size: cover;
+  //background-repeat: no-repeat;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.offer-title h2 {
+  color: #000;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize !important;
+  font-size: 40px;
+  display: block;
+  line-height: 50px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.offer-title::after {
+  content: "";
+  display: block;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+}
+
+.description {
+  display: block;
+  width: 100%;
+  //text-align: center;
+  text-align: center;
+}
+
+.description p {
+  color: #000;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 15px;
+  display: block;
+  line-height: 28px;
+}
+
+@media (max-width: 600px) {
+  // .offer-section-1 {
+  //   margin-bottom: 6vh;
+  // }
+  // .offer-title {
+  //   min-height: 320px;
+  // }
+  // .offer-title h2 {
+  //   font-size: 35px;
+  //   line-height: 45px;
+  // }
+  .description p {
+    font-size: 14px;
+    line-height: 26px;
+  }
+}
+
+.campaingEndP {
+  font-size: 15px;
+  line-height: 26px;
+  margin-bottom: 10px !important;
+  color: #01132d;
+}
+
+/*
+OFFER SERVICES CATEGORY
+*/
+.off-ser-cat-area {
+  margin-top: 10px;
+}
+.off-ser-cat-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-right: 10px;
+  flex-wrap: wrap;
+  .off-serv-cat-item {
+    // width: calc(100% / 4 - 0.01px);
+    flex: 0 0 24%;
+    .off-serv-cat-info {
+      background: rgba(249, 249, 249, 1);
+      border-radius: 10px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: rgba(64, 144, 106, 1);
+      box-shadow: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-align: left;
+      padding-bottom: 4px;
+      transition: 0.2 ease all !important;
+      justify-content: flex-start!important;
+      padding: 5px 15px!important;
+      .off-serv-cat-img {
+        margin-right: 15px;
+        border-radius: 0px;
+        align-self: center;
+      }
+      .off-serv-cat-content {
+        align-self: center;
+        // padding-top: 15px;
+        // display: flex;
+        .off-serv-cat-title {
+          font-size: 13px;
+          color: rgba(55, 59, 63, 1);
+          font-weight: 400;
+          margin-bottom: 1px;
+          display: block;
+        }
+        .off-serv-cat-text {
+          color: rgba(5, 23, 36, 1);
+          line-height: 1.25;
+          font-size: 18px;
+          color: rgba(5, 23, 36, 1);
+          font-weight: 700;
+          display: block;
+        }
+      }
+    }
+    .off-serv-cat-info:hover {
+      background: #000a1f;
+      box-shadow: 0 5px 60px -10px rgb(0 0 0 / 30%);
+      color: #ffffff!important;
+    }
+    .off-serv-cat-info:hover .off-serv-cat-title{
+      color: #ffffff!important;
+    }
+    .off-serv-cat-info:hover .off-serv-cat-content .off-serv-cat-text {
+      color: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 599px) {
+  .off-serv-cat-info {
+    flex: 0 0 49%;
+  }
+  .off-serv-cat-item {
+    flex: 0 0 50%;
+  }
+  .off-ser-cat-body {
+    .off-serv-cat-item {
+      // width: calc(100% / 4 - 0.01px);
+      flex: 0 0 49%;
+      .off-serv-cat-info {
+        flex-direction: column;
+        justify-content: space-between!important;
+        padding: 10px 15px !important;
+        .off-serv-cat-img {
+          margin-right: 15px;
+          border-radius: 0px;
+          align-self: center;
+        }
+        .off-serv-cat-content {
+          align-self: center;
+          .off-serv-cat-title {
+            text-align: center;
+          }
+          .off-serv-cat-text {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

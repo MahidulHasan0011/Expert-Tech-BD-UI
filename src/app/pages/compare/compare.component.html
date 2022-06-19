@@ -1,0 +1,110 @@
+<!--<div class="specification" [innerHTML]="compareList[0]?.extraData.specification | safeHtmlCustom"></div>-->
+
+<!--<div class="container-compare">-->
+<!--  <div class="compare-table-container">-->
+<!--    <table class="data-table" cellpadding="0" cellspacing="0">-->
+<!--      <colgroup>-->
+<!--        <col class="name">-->
+<!--        <col class="value">-->
+<!--      </colgroup>-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <td class="heading-row" colspan="3">Basic Information</td>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr>-->
+<!--        <td class="name">Name</td>-->
+<!--        <td *ngFor="let a of compareList" class="value">{{a.name}}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+
+<!--&lt;!&ndash;    <div class="specification" [innerHTML]="compareList[0]?.extraData.specification | safeHtmlCustom"></div>&ndash;&gt;-->
+
+<!--  </div>-->
+<!--</div>-->
+
+<!--{{compareList[0]?.extraData.specification | json}}-->
+
+
+<!--<div class="specification" [innerHTML]="specifications | safeHtmlCustom"></div>-->
+
+<div class="container-compare" *ngIf="compareListFromDB.length > 0 else noData">
+  <div class="specification item" *ngFor="let c of compareListFromDB ">
+    <table class="data-table" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col class="name">
+        <col class="value">
+      </colgroup>
+      <thead>
+      <tr>
+        <td class="heading-row" colspan="3">Product Details</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td class="name">Name</td>
+        <td class="value">{{c?.name}}</td>
+      </tr>
+      <tr>
+        <td class="name">Image</td>
+        <td class="value">
+          <img style="width: 90px" [src]="c | productImage : 'single'" alt="">
+        </td>
+      </tr>
+      <tr>
+        <td class="name">Price</td>
+        <td class="value">{{c?.salePrice}}</td>
+      </tr>
+      <tr>
+        <td class="name">Available</td>
+        <td class="value">In Stock</td>
+      </tr>
+      <tr>
+        <td class="name">Brand</td>
+        <td class="value">{{c?.brandName}}</td>
+      </tr>
+
+    </table>
+
+    <table class="data-table" cellpadding="0" cellspacing="0" *ngFor="let s of c.extraData.specification">
+      <colgroup>
+        <col class="name">
+        <col class="value">
+      </colgroup>
+      <thead>
+      <tr>
+        <td class="heading-row" colspan="3">{{s?.heading}}</td>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let t of s.tableData">
+        <td class="name">{{t?.name}}</td>
+        <td class="value">{{t?.value}}</td>
+      </tr>
+
+    </table>
+
+    <div class="action">
+      <button mat-raised-button color="warn" (click)="removeItem(c._id)">Remove</button>
+    </div>
+  </div>
+  <br>
+</div>
+<br>
+
+<!--<div class="container-compare">-->
+<!--  <div class="specification" *ngFor="let c of compareList" [innerHTML]="c.extraData.specification | safeHtmlCustom"></div>-->
+<!--</div>-->
+
+
+<ng-template #noData>
+  <div style="text-align: center; margin-top: 50px;">
+    <h2>No Items in Compare List</h2>
+  </div>
+</ng-template>
+
+

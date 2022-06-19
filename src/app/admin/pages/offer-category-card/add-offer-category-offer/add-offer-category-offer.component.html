@@ -1,0 +1,118 @@
+<div style="position: relative">
+  <mat-spinner
+    *ngIf="isLoading"
+    style="
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    "
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Offer Category Card</h1>
+  </div>
+
+  <form
+    [formGroup]="dataForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+    #templateForm="ngForm"
+    fxLayout="column"
+    fxLayoutAlign="space-around center"
+  >
+    <div
+      (click)="onHoldInputData()"
+      class="imag-view"
+      [routerLink]="[id ? '../../../' : '../../', 'image-gallery']"
+      [state]="{ url: router.url }"
+    >
+      <img [src]="pickedImage" alt="" />
+    </div>
+    <div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Offer Category Card Title</mat-label>
+            <input
+              matInput
+              formControlName="title"
+              required
+              placeholder="Enter Title  Here"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Link</mat-label>
+            <input
+              matInput
+              formControlName="link"
+              required
+              placeholder="Enter a link"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" class="w-100">
+          <!-- <angular-editor
+            id="description"
+            formControlName="description"
+            [config]="editorConfigDesc"
+          ></angular-editor> -->
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Offer Category Card Description</mat-label>
+            <input
+              matInput
+              formControlName="description"
+              required
+              placeholder="Enter Description  Here"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Campaign Offer</mat-label>
+            <mat-select formControlName="promotionalOffer">
+              <mat-option
+                *ngFor="let data of promotionalOffers"
+                [value]="data._id"
+              >
+                {{ data.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Priority</mat-label>
+            <input
+              formControlName="priority"
+              matInput
+              placeholder="Priority"
+              type="number"
+              required
+            />
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="save-btn">
+      <button mat-raised-button color="primary" type="submit">
+        {{
+          OfferCategoryCard
+            ? "Edit Offer Category Card"
+            : "Add Offer Category Card"
+        }}
+      </button>
+    </div>
+  </form>
+</div>

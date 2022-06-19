@@ -1,0 +1,64 @@
+<!--- Login-area -->
+<section class="login-area">
+    <div class="container">
+      <div class="login-details-start">
+        <!--- login-title -->
+        <div class="login-title clearfix">
+          <div class="login-title-left">
+            <!-- <h2>Welcome to Expert Tech BD! Please login</h2> -->
+          </div>
+          <!-- <div class="login-title-right">
+            <h3>New member? <a routerLink="/registration">Register now</a></h3>
+          </div> -->
+        </div>
+        <div class="login-details">
+          <div class="login-form">
+            <form [formGroup]="formData" (ngSubmit)="onSubmitForm()">
+                <div class="phone-num">
+                    <label for="username"> User Name <sup>*</sup></label>
+                    <input type="text" formControlName="username" required placeholder="Please enter your username" id="username">
+                    <!-- <span class="invalid" *ngIf="email.touched && email.invalid">Enter a valid email</span> -->
+                  </div> <!-- Phone -->
+              <div class="phone-num">
+                <input type="password" formControlName="password"
+                     required placeholder="Minimum 6 characters with a number and latter"
+                     id="pass">
+              <!-- <mat-error class="invalid" *ngIf="password.touched && password.invalid">This field is required</mat-error> -->
+              <!-- <span class="view"><i class="fa fa-eye"></i></span> -->
+              </div>
+              <div class="login-btn">
+                <button type="submit" color="primary">Confirm</button>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- <div class="other-login">
+            <div class="other-login-details">
+              <h3>Or, login with</h3>
+              <ul>
+                <li><a (click)="userService.FacebookAuth()" class="login-facebook"><span><i class="fab fa-facebook-f"></i></span>Facebook</a>
+                </li>
+                <li><a (click)="userService.GoogleAuth()" class="login-google"><span><i class="fab fa-google-plus-g"></i></span>Google</a>
+                </li>
+              </ul>
+            </div>
+          </div> -->
+
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- NGX SPINNER -->
+  <ngx-spinner style="width: 100vw; height: 100vh"
+               bdColor = "rgba(0,0,0,0.25)"
+               size = "medium"
+               color = "#fff"
+               type = "ball-clip-rotate"
+               [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+  </ngx-spinner>

@@ -1,0 +1,507 @@
+<!---checkout-top-area-->
+<div class="checkout-top-area">
+
+  <!---checkout-top-headline-->
+  <div class="checkout-headline" *ngIf="headLine == true">
+    <div class="headline-left">
+      <h3><i class="fa fa-info-circle"></i> <span>নির্দিষ্ট মডেল এর প্রসেসর, মাদারবোর্ড গ্রাফিক্স কার্ড, র‍্যাম ও মনিটর সীমিত থাকায় সিংগেল প্রোডাক্ট অনলাইন ডেলিভারি
+        দেওয়া সম্ভব না ও হতে পারে।</span></h3>
+    </div>
+    <!--headline-right-->
+    <div class="headline-right">
+      <span (click)="headLinkHide()">X</span>
+    </div>
+  </div><!---checkout-top-headline-end-->
+
+  <!--top-login--->
+  <div class="top-login" *ngIf="!isUser">
+    <!--check-out-single-title-->
+    <div class="checkout-single-title">
+      <h3>Login Or Register</h3>
+    </div>
+    <!---top-login-radio-->
+    <div class="top-login-radio" >
+      <mat-radio-group class="radio-group-area" aria-label="Select payment method" [(ngModel)]="authOption">
+        <mat-radio-button *ngFor="let data of options" [value]="data.value">
+          <span class="radio" >{{data.viewValue}}</span>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+  </div>
+</div>
+
+<!-------------------checkout-main------------->
+<div class="checkout-area">
+  <div class="checkout-main">
+
+    <!--checkout-left-area-->
+    <div class="checkout-left-area">
+
+      <!---login-area-->
+      <div class="login-area" *ngIf="authOption===0">
+        <form [formGroup]="loginDataForm" (ngSubmit)="onSubmitLogin()" #formTemplate="ngForm">
+           <!--check-out-single-title-->
+          <div class="checkout-single-title">
+            <h3>Login Or Register</h3>
+          </div>
+          <!---login-input-area-->
+          <div class="login-input-area">
+            <!---form-input-->
+            <div class="form-input">
+              <h3>E-mail</h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="email" formControlName="username"  matInput placeholder="Enter your E-mail..">
+              </mat-form-field>
+            </div>
+            <!---form-input-->
+            <div class="form-input">
+              <h3>Password</h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="password" formControlName="password"  matInput placeholder="Enter your password..">
+              </mat-form-field>
+            </div>
+            <!--forgott-->
+            <div class="login-forgott">
+              <a href="#">Forgotten Password</a>
+            </div>
+             <!--login-btn-->
+             <div class="login-btn">
+              <button type="submit"  >Login <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div><!---login-input-area-end-->
+        </form>
+
+      </div><!---login-area-end-->
+      
+      <!----personal-details---->
+      <form [formGroup]="dataForm" (ngSubmit)="onSubmitForm()" #formTemplate="ngForm">
+      <div class="personal-details" *ngIf="authOption===1">
+         <!--check-out-single-title-->
+         <div class="checkout-single-title">
+          <h3>Your Personal Details</h3>
+        </div>
+        <!---personal-input-area-->
+        <div class="personal-input-area">
+            <!---form-input-->
+            <div class="form-input">
+              <h3>Name <span>*</span></h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="text" formControlName="fullName" matInput placeholder="Enter your name">
+              </mat-form-field>
+            </div>
+          <!---form-input-->
+          <div class="form-input">
+              <h3>E-mail <span>*</span></h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="email" formControlName="email"  matInput placeholder="Enter your email address">
+              </mat-form-field>
+          </div>
+          <!---form-input-->
+          <div class="form-input">
+            <h3>Mobile <span>*</span></h3>
+            <mat-form-field appearance="outline" class="form-field">
+              <!-- <mat-label>Outline form field</mat-label> -->
+              <input type="text"  matInput formControlName="phoneNo" placeholder="Enter your mobile number">
+            </mat-form-field>
+          </div>
+           <!---form-input-->
+           <div class="form-input" *ngIf="!isUser">
+              <h3>Password <span>*</span></h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="password" formControlName="password"  matInput placeholder="Enter password">
+              </mat-form-field>
+          </div>
+           <!---form-input-->
+           <div class="form-input" *ngIf="!isUser">
+            <h3>Confirm Password<span>*</span></h3>
+            <mat-form-field appearance="outline" class="form-field">
+              <!-- <mat-label>Outline form field</mat-label> -->
+              <input type="password"  formControlName="confirmPassword" matInput placeholder="Confirm your password">
+            </mat-form-field>
+        </div>
+        </div>
+      </div> <!----personal-details-end---->
+      <!---bill-address-->
+      <div class="bill-address">
+          <!--check-out-single-title-->
+          <div class="checkout-single-title">
+            <h3>Billing Address</h3>
+          </div>
+          <!---bill-input-area-->
+          <div class="bill-input-area">
+            <!---form-input-->
+            <div class="form-input">
+              <h3>Address <span>*</span></h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <!-- <mat-label>Outline form field</mat-label> -->
+                <input type="text"  matInput formControlName="billingAddress" placeholder="Enter your full billing address..">
+              </mat-form-field>
+            </div>
+            <!---form-input-->
+            <div class="form-input">
+              <h3>Region / State</h3>
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select State</mat-label>
+                <mat-select formControlName="selectedDeliveryCity">
+                  <mat-option *ngFor="let city of cities" [value]="city.value" >
+                    {{city.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <!--mat-check-area-->
+            <mat-checkbox class="mat-check">My delivery and billing addresses are the same.</mat-checkbox>
+          </div>
+      </div>
+
+      <!--shipping-address-->
+      <div class="shipping-address">
+        <!--check-out-single-title-->
+        <div class="checkout-single-title">
+          <h3>Shipping Address</h3>
+        </div>
+        <!---shipping-input-area-->
+        <div class="shipping-input-area">
+           <!---form-input-->
+           <div class="form-input">
+            <h3>Name <span>*</span></h3>
+            <mat-form-field appearance="outline" class="form-field">
+              <!-- <mat-label>Outline form field</mat-label> -->
+              <input type="text"   matInput formControlName="shippingName" placeholder="Enter your name..">
+            </mat-form-field>
+          </div>
+
+           <!---form-input-->
+           <div class="form-input">
+            <h3>Address <span>*</span></h3>
+            <mat-form-field appearance="outline" class="form-field">
+              <!-- <mat-label>Outline form field</mat-label> -->
+              <input type="text" formControlName='shippingAddress'  matInput placeholder="Enter your full shipping address..">
+            </mat-form-field>
+          </div>
+            <!---form-input-->
+            <div class="form-input">
+              <h3>Region / State</h3>
+              <mat-form-field appearance="outline" class="form-field" >
+                <mat-label>Select State</mat-label>
+               
+                <mat-select formControlName="selectedShippingCity">
+                  <mat-option *ngFor="let city of cities" [value]="city.value" >
+                    {{city.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </div>
+
+      </div> <!--shipping-address-end-->
+    </form>
+    </div><!--checkout-left-area-end-->
+
+    <!---checkout-right-->
+    <div class="checkout-right-area">
+      <!---method-area-->
+      <div class="method-area">
+        <!---method-info-->
+        <div class="method">
+          <!---method-top-->
+          <div class="method-top">
+            <div>
+              <span>1</span>
+            </div>
+            <div>
+              <h3>Payment Method</h3>
+            </div>
+          </div><!---method-top-end-->
+          <!---select-->
+          <div class="select-method">
+            <h3>Select a payment method</h3>
+            <mat-radio-group class="radio-group-area" aria-label="Select payment method" [(ngModel)]="selectedPaymentType">
+              <mat-radio-button *ngFor="let data of paymentTypes" [value]="data.value">
+                <span class="radio" >{{data.viewValue}}</span>
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <!---we-accept-->
+          <div class="we-accept">
+            <h3>We Accepted:</h3>
+            <img src="./assets/images/ssl/SSLCommerz-Pay-With-logo-All-470x80h.png" alt="">
+          </div>
+        </div><!---method-info-end-->
+         <!---method-info-->
+         <div class="method">
+          <!---method-top-->
+          <div class="method-top">
+            <div>
+              <span>2</span>
+            </div>
+            <div>
+              <h3>Delivery Method</h3>
+            </div>
+          </div><!---method-top-end-->
+          <!---select-->
+          <div class="select-method">
+            <h3>Select a delivery method</h3>
+            <mat-radio-group class="radio-group-area" aria-label="Select payment method" [(ngModel)]="selectedDeliveryOption">
+              <mat-radio-button *ngFor="let data of delivery" [value]="data.value">
+                <span>{{data.viewValue}}</span>
+              </mat-radio-button>
+            </mat-radio-group>
+            <!-- <mat-radio-group >
+              <ul>
+                <li><mat-radio-button class="radio" value="1">Home Delivery - 60tk</mat-radio-button></li>
+                <li> <mat-radio-button class="radio" value="2">Store Pickup - 0tk</mat-radio-button></li>
+              </ul>
+            </mat-radio-group> -->
+          </div>
+        </div><!---method-info-end-->
+
+      </div><!---method-area-end-->
+      <!---coupon-and voucher-->
+      <div class="cupon-voucher-area" style="display: none;">
+        <!--coupon-voucher-info-->
+        <div class="cupon-voucher-info">
+           <!---form-input-->
+           <div class="form-input">
+            <!-- <h3>Address <span>*</span></h3> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Gift Voucher</mat-label>
+              <input type="text"  matInput formControlName="billingAddress" placeholder="Gift voucher..">
+            </mat-form-field> -->
+          </div>
+          <!---cupon-voucher-btn-->
+          <!-- <div class="cupon-voucher-btn">
+            <button>Apply Voucher</button>
+          </div> -->
+        </div> <!--cupon-voucher-info-end-->
+          <!--cupon-voucher-info-->
+          <div class="cupon-voucher-info">
+            <!---form-input-->
+            <div class="form-input">
+             <!-- <h3>Address <span>*</span></h3> -->
+             <!-- <mat-form-field appearance="outline" class="form-field">
+               <mat-label>Coupon Code</mat-label>
+               <input type="text"  matInput placeholder="Coupon code..">
+             </mat-form-field> -->
+           </div>
+           <!---cupon-voucher-btn-->
+           <!-- <div class="cupon-voucher-btn">
+             <button>Apply Coupon</button>
+           </div> -->
+         </div> <!--cupon-voucher-info-end-->
+
+      </div><!---cupon-and voucher-end-->
+
+      <!--shipping-cart-area-->
+      <div class="shipping-cart-area">
+         <!--check-out-single-title-->
+         <div class="checkout-single-title" style="padding:5px; box-sizing:border-box;">
+          <h3>Shipping Cart</h3>
+        </div>
+        <!--shipping-cart-table-->
+        <div class="shipping-cart-table-area">
+          <!---table-->
+          <div class="shipping-cart-table">
+            <!---table-head-->
+            <div class="table-head">
+              <!---table-row-->
+              <div class="table-row">
+                <div class="table-heading image">
+                    <h3>Image</h3>
+                </div>
+                <div class="table-heading name">
+                  <h3>Product Name</h3>
+              </div>
+              <!-- <div class="table-heading model">
+                <h3>Model</h3>
+              </div> -->
+              <div class="table-heading quantity">
+                 <h3>Quantity</h3>
+              </div>
+              <div class="table-heading price">
+                <h3>Unit Price</h3>
+              </div>
+              <div class="table-heading total">
+                <h3>Total</h3>
+             </div>
+              </div> <!---table-row-end-->
+            </div><!---table-head-end-->
+            <!---table-body-->
+            <div class="table-body">
+              <!--table-row-->
+              <div class="table-row" *ngFor="let item of carts;let i=index" >
+                <!---table-data-->
+                <div class="table-data image">
+                  <img class="table-image" [src]="item?.product?.images ? item.product.images[0].small : '/assets/images/placeholder/test.png'"
+                  [alt]="item.product.name">
+                </div>
+                <!---table-data-->
+                <div class="table-data name">
+                  <a href="#">{{item?.product?.name}}</a>
+                </div>
+                  <!---table-data-->
+                  <!-- <div class="table-data model">
+                      <h3>AMD Athlon</h3>
+                      <h3>3000G</h3>
+                  </div> -->
+                  <div class="table-data quantity">
+                      <ul>
+                        <li class="input">
+                          <div><input type="text" readonly value={{item.selectedQty}} style="border-right:none;"></div>
+                          <div>
+                            <span style="border-bottom:none;"><i class="fa fa-angle-up" (click)="incrementQty(item._id,i)" ></i></span>
+                            <span><i class="fa fa-angle-down" (click)="decrementQty(item._id,i,item.selectedQty)" ></i></span>
+                          </div>
+                        </li>
+                       <!--  <li class="reload">
+                          <button><i class="fa fa-sync"></i></button>
+                        </li> -->
+                        <li (click)="onDeleteCartItem(item._id,item.product._id)" class="cross">
+                          <button>X</button>
+                        </li>
+                      </ul>
+                  </div>
+
+                  <!---price-->
+                  <div class="table-data price">
+                      <h3>{{item?.product?.salePrice}} tk</h3>
+                  </div>
+                  <!--total-->
+                  <div class="table-data total">
+                    <h3 >{{item.product.salePrice*item.selectedQty}}tk</h3>
+                  </div>
+                
+
+              </div>    <!--table-row-end-->
+            </div>   <!---table-body-end-->
+
+
+          </div><!---table-end-->
+
+        </div> <!--shipping-cart-table-end-->
+              <!----cart-responsive-info-->
+              <div class="cart-responsive">
+                <!---cart-product-details-->
+              <div class="cart-product-details">
+                <!--cart-product-head-->
+                <div class="cart-product-head">
+                  <div class="product-remove display-none"></div>
+                  <div class="product-thumnil display-none"></div>
+                  <div class="product-title display-none">
+                    <h2>Product</h2>
+                  </div>
+                  <div class="product-price display-none">
+                    <h2>Price</h2>
+                  </div>
+                  <div class="product-Quantity display-none">
+                    <h2>Quantity</h2>
+                  </div>
+                  <div class="product-subtotal display-none">
+                    <h2> Subtotal</h2>
+                  </div>
+                </div>
+                <!--cart-product-body-->
+                <div *ngFor="let c of carts; let i = index;" class="cart-product-body">
+                  <!--remove-->
+                  <div class="product-remove change-height width-change" (click)="onDeleteCartItem(c?._id, c?.product?._id)">
+                    <span>X</span>
+                  </div>
+                  <!--thumnil-->
+                  <div class="product-thumnil change-height width-change">
+                    <img
+                      [src]="c?.product | productImage : 'single' "
+                      [alt]="c?.product?.name">
+                  </div>
+                  <!--product-title-->
+                  <div class="product-title change-height width-change">
+                    <h2>Product:</h2>
+                    <a href="javascript:">{{c?.product?.name}}</a>
+                  </div>
+                  <!---product-price-->
+                  <div class="product-price change-height width-change">
+                    <h2>Price:</h2>
+                  <!--<span>৳{{c?.product | price: 'priceWithDiscount'}}.00</span>-->
+                    <span>৳{{(c?.product | price: 'priceWithDiscount') | number:'':'bn'}}</span>
+                  </div>
+                  <!--quantity-->
+                  <div class="product-Quantity change-height width-change">
+                    <h2>Quantity:</h2>
+                    <div class="quantity-btn ">
+                      <div>
+                        <button id="cart-mines" type="button" (click)="decrementQty(c?._id, i, c?.selectedQty)">-</button>
+                      </div>
+                      <div>
+                        <input type="text" name="item" [value]="c?.selectedQty" id="cart-value">
+                      </div>
+                      <div>
+                        <button type="button" id="cart-plus" (click)="incrementQty(c?._id, i)">+</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--subtotal-->
+                  <div class="product-subtotal change-height width-change">
+                    <h2>Subtotal:</h2>
+                    <span>৳{{(c?.product | price: 'priceWithDiscount') * c?.selectedQty}}.00   </span>
+                  </div>
+                </div> <!-- ITEM 1 -->
+              </div><!---end-->
+            </div><!---cart-responsive-end-->
+
+            <!-----summery-area----------->
+            <div class="summery-area">
+              <!--summery-details-->
+              <div class="summery-details">
+                <!---summery-left-->
+                <div class="summery-details-left">
+                  <h3>Sub Total:</h3>
+                </div>
+                <!---summery-right-->
+                <div class="summmery-right">
+                  <h3> <span>{{cartSubTotal}}৳   </span></h3>
+                </div>
+              </div>   <!--summery-details-end-->
+                 <!--summery-details-->
+                 <div class="summery-details">
+                  <!---summery-left-->
+                  <div class="summery-details-left">
+                    <h3>Standard Shipping <span>(Product & Location Dependent):</span></h3>
+                  </div>
+                  <!---summery-right-->
+                  <div class="summmery-right">
+                    <h3> {{selectedDeliveryOption===0?shippingchargedata?.deliveryInDhaka:0}} ৳</h3>
+                  </div>
+                </div>   <!--summery-details-end-->
+                 <!--summery-details-->
+              <div class="summery-details">
+                <!---summery-left-->
+                <div class="summery-details-left">
+                  <h3>Total:</h3>
+                </div>
+                <!---summery-right-->
+                <div class="summmery-right">
+                  <h3> <span> {{selectedDeliveryOption===0?shippingchargedata?.deliveryInDhaka+cartSubTotal:cartSubTotal}} ৳   </span></h3>
+                </div>
+              </div>   <!--summery-details-end-->
+            </div><!-----summery-area-end----------->
+
+      </div><!--shipping-cart-area-end-->
+
+    </div>
+  </div>
+
+  <div  class="checkout-sub-container" >
+    <mat-checkbox class="mat-check"   [(ngModel)]="requiredCheck"  >  
+      I hvae read and agree to the 
+      <a href="/pages/terms-and-conditions">term and conditions</a> ,
+      <a href="/pages/privacy-policy"> privacy policy</a> and 
+      <a href="/pages/refund-and-return-policy">refund and return</a> policy
+    </mat-checkbox>
+     <button mat-raised-button color='primary' (click)="onConfirmOrder()" > Confirm Order</button>
+  </div>
+</div>

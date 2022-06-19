@@ -1,0 +1,149 @@
+<div class="card product-card">
+  <a class="card-inner">
+    <div class="marks">
+      <span class="mark"
+        >Save: {{ product | price: "discountPrice" | number: "":"bn" }}৳</span
+      >
+    </div>
+    <a class="img-thumb" [routerLink]="['/product/' + product.slug]">
+      <!-- <img
+        [defaultImage]="'/assets/images/png/image-placeholder-r1.png'"
+        [lazyLoad]="product | productImage: 'single'"
+        alt=""
+        src=""
+      /> -->
+      <img
+      alt=""
+      [src]="product | productImage: 'single'"
+    />
+      <div *ngIf="product?.availableQuantity == 0">Out of Stock</div>
+      <div *ngIf="product?.availableQuantity < 0">Upcoming</div>
+    </a>
+    <div class="desc">
+      <a
+        style="cursor: pointer"
+        class="title"
+        [routerLink]="['/product/' + product.slug]"
+        >{{ product?.name }}</a
+      >
+    </div>
+       <div class="product-features">
+         <ul>
+           <li *ngFor="let fe of product?.features">{{fe}}</li>
+         </ul>
+       </div>
+  </a>
+
+  <div class="productCard__footer">
+    <div class="productCard__price">
+      <!--            <span class="productCard__regularPrice">Tk. {{product?.regularPrice}}</span>-->
+      <span class="productCard__salePrice"
+        >{{
+          product
+            ? (product | price: "priceWithDiscount" | number: "":"bn")
+            : 0
+        }}৳</span
+      >
+      <span class="productCard__regularPrice"
+        ><del
+          >{{
+            product ? (product | price: "regularPrice" | number: "":"bn") : 0
+          }}৳</del
+        ></span
+      >
+    </div>
+
+    <!-- <div class="productCard__footerIcons"> -->
+    <!--      <button mat-mini-fab color="primary" (click)="addToCompareList($event, product)">-->
+    <!--        <mat-icon>compare_arrows</mat-icon>-->
+    <!--      </button>-->
+
+    <!-- </div> -->
+  </div>
+  <!-- <div class="action">
+    <button
+      [routerLink]="['/product/' + product.slug]"
+      class="btn btn-hover-anim"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      Buy Now
+    </button>
+  </div> -->
+  <div class="action">
+    <button
+      class="btn btn-hover-anim"
+      (click)="addToCart($event)"
+    >
+      <mat-icon>shopping_cart</mat-icon>
+      Buy Now
+    </button>
+  </div>
+  <!--  <div class="action">-->
+  <!--    <button  [routerLink]="['/product/' + product.slug]" *ngIf="!existsInCart && product?.availableQuantity > 0" class="btn btn-hover-anim" (click)="addToCart($event)">-->
+  <!--      <mat-icon>shopping_cart</mat-icon>-->
+  <!--      Add to Cart-->
+  <!--    </button>-->
+
+  <!--    <button  [routerLink]="['/product/' + product.slug]" *ngIf="product?.availableQuantity < 0" class="btn btn-hover-anim">-->
+  <!--      <mat-icon>shopping_cart</mat-icon>-->
+  <!--      Up Coming-->
+  <!--    </button>-->
+
+  <!--    <button *ngIf="existsInCart" class="btn btn-hover-anim"  (click)="viewInCart($event)">-->
+  <!--      <mat-icon>shopping_cart</mat-icon>-->
+  <!--      View on Cart-->
+  <!--    </button>-->
+
+  <!--    <button *ngIf="product?.availableQuantity == 0 || !product?.availableQuantity" class="btn btn-hover-anim" [routerLink]="['/product/' + product.slug]">-->
+  <!--      <mat-icon>shopping_cart</mat-icon>-->
+  <!--      Out of Stock-->
+  <!--    </button>-->
+  <!--    <button *ngIf="product?.availableQuantity < 0" class="btn btn-hover-anim"  [routerLink]="['/product/' + product.slug]">-->
+  <!--      <mat-icon>shopping_cart</mat-icon>-->
+  <!--      Upcoming-->
+  <!--    </button>-->
+  <!--  </div>-->
+</div>
+
+<!--<a class="section2-product" (click)="onNavigate()">-->
+
+<!--  &lt;!&ndash;product-img&ndash;&gt;-->
+
+<!--  <div class="section2-product-img">-->
+<!--    <img [src]="data && data.images ? data.images[0] : '/assets/images/placeholder/test.png'" alt="">-->
+<!--    <span class="save"><small>৳</small> {{data | price: 'discountPrice'}} <small>SAVE</small></span>-->
+<!--    <button [fxHide]="true" mat-icon-button class="heart" (click)="addToCart($event)">-->
+<!--      <span><i class="fa fa-heart"></i></span>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;product-content&ndash;&gt;-->
+
+<!--  <div class="product-content">-->
+<!--    <div class="sub-title">-->
+<!--      <span>{{data.productName}}</span>-->
+<!--    </div>-->
+<!--    <div class="order-link">-->
+<!--      <a [routerLink]="['/']">{{data.categorySlug | slugToNormal}}</a>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash;product-prices&ndash;&gt;-->
+
+<!--    <div class="price">-->
+<!--      <h1>  <small>ট</small>{{data | price: 'priceWithDiscount' }}</h1>-->
+<!--      <del><span>ট</span>{{data.price}}</del>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash;rating-and-buy&ndash;&gt;-->
+
+<!--    <div class="orderRating clearfix">-->
+<!--      <div class="rating">-->
+<!--        <app-star-rating-view-one></app-star-rating-view-one>-->
+<!--      </div>-->
+<!--      <div class="buy">-->
+<!--        <a *ngIf="!existsInCart" (click)="addToCart($event)">Add to Cart</a>-->
+<!--        <a *ngIf="existsInCart" (click)="viewInCart($event)">View on Cart</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</a>-->

@@ -1,0 +1,37 @@
+<div class="dialog-container">
+
+  <div class="dialog-container">
+    <div class="header" fxLayout="column">
+      <p class="dial-p"><mat-icon>check_circle</mat-icon>You have added <span>{{product.name}}</span> to your shopping cart.</p>
+      <div class="action-area">
+        <button mat-button mat-dialog-close mat-raised-button color="primary" (click)="goToCart()">View Cart</button>
+        <button mat-button mat-dialog-close mat-stroked-button color="primary"  (click)="onProceedToCheckOut()" >Confirm Order</button>
+      </div>
+    </div>
+    <div class="cart-section2-table" fxLayout="column" fxLayoutAlign="center">
+      <!-- <button mat-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+      </button> -->
+      <p><mat-icon mat-dialog-close>close</mat-icon></p>
+
+      <table>
+        <tr class="clearfix">
+          <th>Cart Quantity: </th>
+          <td><p>{{cart.selectedQty}}</p></td>
+          <!-- <td><p>৳{{data}}.00</p></td> -->
+        </tr>
+        <tr>
+          <th>Cart Total: </th>
+          <td>{{
+            product
+              ? (product | price: "priceWithDiscount" | number: "":"bn")
+              : 0
+          }}৳</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+

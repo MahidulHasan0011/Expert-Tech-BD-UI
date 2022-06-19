@@ -1,0 +1,87 @@
+@import "src/theme/variables";
+@import "src/theme/cart";
+@import "src/theme/cart-calculation";
+
+/* name */
+.name-container{
+    display: flex;
+    margin-right: 15px;
+}
+/* Data feild */
+.data-feild{
+    width: 100%;
+    .data-feild-sub{
+        width: 100%;
+        input{
+            width: 100%;
+        }
+    }
+}
+.pass-feild{
+  width: 100%;
+  .pass-feild-sub{
+    width: 100%;
+    input{
+      width: 100%;
+    }
+  }
+}
+/*pass-area*/
+.pass-details {
+    display: block;
+    margin-bottom: 30px;
+  }
+  
+  .pass-details label {
+    display: block;
+    font-size: 14px;
+    color: #707171 !important;
+    font-style: normal;
+    font-weight: 400;
+    font-family: $font-en-primary;
+    margin-bottom: 8px;
+  }
+  
+  .pass-details input {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #e2e4e5;
+    padding: 12px 15px;
+    font-family: $font-en-primary;
+    font-style: normal;
+    font-size: 15px;
+    color: #707171;
+  }
+  
+  .pass {
+    position: relative;
+    z-index: 4;
+  }
+  
+  .pass .view {
+    color: #707171;
+    font-style: normal;
+    font-size: 16px;
+    position: absolute;
+    top: 8px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+  
+  }
+
+  /* area container */
+  .area-detail{
+    //   width: 50%;
+      display: flex;
+      div{
+        //    width: 30%;
+      }
+  }

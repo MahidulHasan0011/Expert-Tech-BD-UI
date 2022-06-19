@@ -1,0 +1,79 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {FileData} from '../interfaces/file-data';
+import {environment} from '../../environments/environment';
+import {Product} from '../interfaces/product';
+import {UtilsService} from "./utils.service";
+
+const API_UPLOAD = environment.ftpBaseLink + '/api/upload/';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FileUploadService {
+
+  constructor(
+    private httpClient: HttpClient,
+    private utilsService: UtilsService
+  ) {
+  }
+
+
+  /**
+   * UPLOAD IMAGE
+   */
+
+  uploadSingleImage(fileData: FileData) {
+    const data = new FormData();
+    data.append('folderPath', fileData.folderPath);
+    // data.append('image', fileData.images[0], fileData.fileName);
+    data.append('image', fileData.file, fileData.fileName);
+    console.log("saving carousal...");
+    return this.httpClient.post<{ message: string, downloadUrl: string }>(API_UPLOAD + 'single-image-original', data);
+
+  }
+
+  uploadSingleConvertToMulti(fileData: string, fileName?: string) {
+    const data = new FormData();
+    data.append('productImage', fileData, fileName);
+    return this.httpClient.post<{ images: object }>(API_UPLOAD + 'single-image-to-multi-convert', data);
+
+  }
+
+
+  uploadMultiImageOriginal(files: File[]) {
+    const data = new FormData();
+    files.forEach(f => {
+      const fileName = this.utilsService.getImageName(f.name) + this.utilsService.getRandomInt(100, 5000) + '.' + f.name.split('.').pop();
+      data.append('imageMulti', f, fileName);
+    });
+    return this.httpClient.post<{ downloadUrls: string[] }>(API_UPLOAD + 'multi-image-original', data);
+
+  }
+
+
+  /**
+   * REMOVE IMAGE
+   */
+
+  removeFileMultiArray(data: string[]) {
+    return this.httpClient.post<{ message: string }>(API_UPLOAD + '/remove-file-multi', {data});
+  }
+  //
+  // removeSingleFile(url: string) {
+  //   return this.httpClient.post<{ message: string }>(API_UPLOAD + 'remove-file-single', {url});
+  // }
+
+
+  /**
+   * REMOVE IMAGE previous
+   */
+
+  removeFileMulti(data: object | object[]) {
+    return this.httpClient.post<{ message: string }>(API_UPLOAD + 'remove-file-multi', data);
+  }
+
+  removeSingleFile(data: object) {
+    return this.httpClient.post<{ message: string }>(API_UPLOAD + 'remove-file-single', data);
+  }
+}

@@ -1,0 +1,272 @@
+<app-ng-dynamic-breadcrumb [fontSize]="'14px'"></app-ng-dynamic-breadcrumb>
+<div style="margin-bottom: 12px"></div>
+
+<mat-sidenav-container>
+  <mat-sidenav
+    #sidenav
+    [opened]="sidenavOpen"
+    [mode]="sidenavOpen ? 'side' : 'over'"
+    class="filter-sidenav"
+    perfectScrollbar
+  >
+    <mat-accordion displayMode="flat" multi="true">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4 style="color: #2c2c2c; font-weight: 500">Price Range</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          class="text-muted"
+          style="padding-top: 24px"
+        >
+          <span
+            >From: <b>৳{{ priceRangeQuery?.min }}</b></span
+          >
+          <span
+            >To: <b>৳{{ priceRangeQuery?.max }}</b></span
+          >
+        </div>
+        <!--        <div>-->
+        <!--          <button mat-icon-button (click)="findRange()">-->
+        <!--            <mat-icon>check</mat-icon>-->
+        <!--          </button>-->
+        <!--          <button mat-icon-button (click)="discardRange()">-->
+        <!--            <mat-icon>close</mat-icon>-->
+        <!--          </button>-->
+        <!--        </div>-->
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          class="filter-price"
+        >
+          <mat-slider
+            color="primary"
+            max="{{ priceRange?.max }}"
+            min="{{ null }}"
+            value="null"
+            thumb-label="true"
+            (change)="onInputChangeMin($event)"
+          ></mat-slider>
+          <mat-slider
+            color="warn"
+            max="{{ priceRange?.max }}"
+            min="{{ priceRange?.min }}"
+            value="{{ priceRange?.max }}"
+            thumb-label="true"
+            (change)="onInputChangeMax($event)"
+          ></mat-slider>
+        </div>
+      </mat-expansion-panel>
+      <!-- END PRICE FILTER -->
+
+      <mat-expansion-panel expanded="false" *ngFor="let f of dataFields">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="text-transform: capitalize">
+            <h4 style="color: #2c2c2c; font-weight: 500">{{ f.title }}</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayout="column">
+          <mat-checkbox
+            *ngFor="let it of f.components"
+            color="primary"
+            (change)="onFilterDataChange($event, it, f.key)"
+          >
+            {{ it.key }}
+          </mat-checkbox>
+        </div>
+      </mat-expansion-panel>
+      <!-- END CONDITION FILTER -->
+    </mat-accordion>
+  </mat-sidenav>
+  <!-- END LEFT FILTER AREA -->
+
+  <mat-sidenav-content class="all-products" ngClass.gt-sm="p-left">
+    <div class="sub-cat-list" *ngIf="menuLabels.length > 0">
+      <a
+        *ngFor="let link of menuLabels"
+        [routerLink]="['/products', catSlug, subCatSlug, link.slug]"
+      >
+        {{ link.brandName }}
+      </a>
+    </div>
+    <div class="sub-cat-list" *ngIf="subCategoriesTag.length > 0">
+      <a
+        *ngFor="let link of subCategoriesTag"
+        [routerLink]="['/products', catSlug, link.slug]"
+      >
+        {{ link.subCatName }}
+      </a>
+    </div>
+
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      class="filter-row mat-elevation-z1 text-muted"
+    >
+      <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>filter_alt</mat-icon>
+      </button>
+      <div>
+        <a
+          mat-button
+          [matMenuTriggerFor]="sortMenu"
+          #sortMenuTrigger="matMenuTrigger"
+        >
+          {{ sort }}
+          <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+        </a>
+        <mat-menu
+          #sortMenu="matMenu"
+          xPosition="before"
+          class="app-dropdown"
+          overlapTrigger="true"
+        >
+          <span (mouseleave)="sortMenuTrigger.closeMenu()">
+            <button
+              mat-menu-item
+              *ngFor="let sort of sorting"
+              (click)="changeSorting(sort)"
+            >
+              <span style="color: #000000">{{ sort }}</span>
+            </button>
+          </span>
+        </mat-menu>
+      </div>
+      <div>
+        <a
+          mat-button
+          [matMenuTriggerFor]="countsMenu"
+          #countsMenuTrigger="matMenuTrigger"
+        >
+          Show {{ count }}
+          <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+        </a>
+        <mat-menu
+          #countsMenu="matMenu"
+          xPosition="before"
+          class="app-dropdown"
+          overlapTrigger="true"
+        >
+          <span (mouseleave)="countsMenuTrigger.closeMenu()">
+            <button
+              mat-menu-item
+              *ngFor="let count of counts"
+              (click)="changeCount(count)"
+            >
+              <span style="color: #000000">{{ count }}</span>
+            </button>
+          </span>
+        </mat-menu>
+        <button fxHide.xs mat-icon-button (click)="changeViewType('list')">
+          <mat-icon>view_list</mat-icon>
+        </button>
+        <!--        <button mat-icon-button (click)="changeViewType('grid', 33.3)">-->
+        <!--          <mat-icon>view_module</mat-icon>-->
+        <!--        </button>-->
+        <button fxHide.xs mat-icon-button (click)="changeViewType('grid')">
+          <mat-icon>view_comfy</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- HEADER AREA -->
+
+    <div class="" *ngIf="noProduct === false">
+      <div *ngIf="viewType == 'grid'" class="products-wrapper">
+        <ng-container
+          *ngFor="
+            let product of products
+              | paginate
+                : {
+                    itemsPerPage: productsPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalProducts
+                  }
+          "
+        >
+          <app-product-card-one
+            [product]="product"
+            [carts]="carts"
+          ></app-product-card-one>
+        </ng-container>
+      </div>
+      <!-- END GRID VIEW -->
+
+      <div
+        *ngIf="viewType == 'list'"
+        fxLayout="row wrap"
+        class="products-wrapper-list"
+      >
+        <div
+          *ngFor="
+            let product of products
+              | paginate
+                : {
+                    itemsPerPage: productsPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalProducts
+                  }
+          "
+          class="product-col-list"
+        >
+          <app-product-card-two [product]="product"></app-product-card-two>
+        </div>
+      </div>
+
+      <!--      <div *ngIf="products.length > 0" fxLayout="row wrap">-->
+      <!--        <div fxFlex="100">-->
+      <!--          <mat-card class="p-0 text-center">-->
+      <!--            <pagination-controls class="product-pagination" autoHide="true" maxSize="5"-->
+      <!--                                 (pageChange)="onPageChanged($event)"></pagination-controls>-->
+      <!--          </mat-card>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </div>
+  </mat-sidenav-content>
+  <!-- END MAIN PRODUCT VIEW -->
+</mat-sidenav-container>
+
+<!--<mat-paginator-->
+<!--  [length]="totalProducts"-->
+<!--  [pageSize]="productsPerPage"-->
+<!--  [pageSizeOptions]="pageSizeOption"-->
+<!--  (page)="onChangePage($event)"-->
+<!--&gt;</mat-paginator>-->
+
+<div *ngIf="products.length > 0" fxLayout="row wrap" style="margin-top: 15px">
+  <div fxFlex="100" class="p-1">
+    <mat-card class="p-0 text-center">
+      <!--      <mat-paginator-->
+      <!--        [length]="totalProducts"-->
+      <!--        [pageSize]="productsPerPage"-->
+      <!--        [pageSizeOptions]="pageSizeOption"-->
+      <!--        (page)="onChangePage($event)"-->
+      <!--      ></mat-paginator>-->
+      <pagination-controls
+        class="product-pagination"
+        autoHide="true"
+        maxSize="20"
+        (pageChange)="onChangePage($event)"
+      ></pagination-controls>
+    </mat-card>
+  </div>
+</div>
+
+<!-- TEMPLATE -->
+<ngx-spinner
+  style="width: 100vw; height: 100vh"
+  bdColor="rgba(0,0,0,0.25)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<!--<ng-template #noData>-->
+<!--  <div style="margin-top: 50px; text-align: center">-->
+<!--    <h2>No Product Found</h2>-->
+<!--  </div>-->
+<!--</ng-template>-->

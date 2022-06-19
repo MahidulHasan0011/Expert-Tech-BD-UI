@@ -1,0 +1,69 @@
+<div style="position: relative" class="dialog-container">
+
+  <mat-spinner *ngIf="isLoading"
+               style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Add New Category</h1>
+    <mat-checkbox [(ngModel)]="autoSlug" (change)="autoGenerateSlug()" color="primary">Auto Slug</mat-checkbox>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="off" #formDirective="ngForm">
+    <div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Category Name</mat-label>
+            <input matInput formControlName="categoryName" required placeholder="Enter category name">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Slug</mat-label>
+            <input matInput formControlName="slug" required placeholder="Enter a slug">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <label>Price Range</label>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+        <div fxFlex="50">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Min Price</mat-label>
+            <input matInput formControlName="min" required placeholder="Enter minimum price range" type="number">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Max Price</mat-label>
+            <input matInput formControlName="max" required placeholder="Enter maximum price range" type="number">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div> <!-- END OF MAIN FORM -->
+
+<!--    <div class="filter-input-container">-->
+<!--      <h2>Filter Adjust *</h2>-->
+<!--      <mat-card *ngFor="let f of formControllers; let i = index" class="filter-view">-->
+<!--        <app-filter-form-builder [formDisabled]="f.disable" (newItemEvent)="onF($event, i)"></app-filter-form-builder>-->
+<!--        <button *ngIf="f.disable" class="remove-filter" mat-mini-fab color="warn" (click)="removeFilter(i)">-->
+<!--          <mat-icon>delete</mat-icon>-->
+<!--        </button>-->
+<!--      </mat-card>-->
+<!--    </div> &lt;!&ndash; END OF DYNAMIC FILTER BUILDER &ndash;&gt;-->
+
+    <div class="form-action-bottom">
+      <div class="actions">
+        <button [disabled]="isLoading" mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>
+        <button [disabled]="isLoading" mat-raised-button color="primary" type="submit" class="btn-submit">Save Category</button>
+      </div>
+    </div> <!-- END OF BOTTOM ACTION VIEW -->
+
+  </form>
+
+
+</div>

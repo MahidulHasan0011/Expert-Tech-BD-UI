@@ -1,0 +1,89 @@
+<mat-card class="container">
+  <mat-spinner
+    *ngIf="isLoading"
+    style="
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    "
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Add New Carousel</h1>
+  </div>
+
+  <form
+    [formGroup]="dataForm"
+    (ngSubmit)="onSubmit()"
+    autocomplete="off"
+    #formDirective="ngForm"
+  >
+    <div class="image-view-area">
+      <img class="img-placeholder" [src]="pickedImage" alt="" />
+      <!-- <input [hidden]="true" #profileImagePicker type="file" (change)="fileChangeEvent($event)" accept="image/*" /> -->
+      <!-- <button class="btn-upload" mat-raised-button (click)="profileImagePicker.click()">Upload Image</button> -->
+      <button
+        class="btn-upload"
+        mat-raised-button
+        (click)="openComponentDialog()"
+      >
+        Upload Image
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{ "title" | titlecase }}</mat-label>
+            <input matInput formControlName="title" placeholder="Enter title" />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{ "sub Title" | titlecase }}</mat-label>
+            <input
+              matInput
+              formControlName="subTitle"
+              placeholder="Enter subTitle"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{ "priority" | titlecase }}</mat-label>
+            <input
+              matInput
+              formControlName="priority"
+              placeholder="Enter priority"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{ "url" | titlecase }}</mat-label>
+            <input
+              matInput
+              formControlName="url"
+              required
+              placeholder="Enter url"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="save-btn">
+      <button mat-raised-button color="primary" type="submit">
+        {{ Carousel ? "Edit Carousel" : "Add Carousel" }}
+      </button>
+    </div>
+  </form>
+</mat-card>

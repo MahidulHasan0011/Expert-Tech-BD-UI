@@ -1,0 +1,290 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    [opened]="false"
+    mode="over"
+    #sidenav
+    class="sidenav mat-elevation-z6"
+  >
+    <button
+      mat-icon-button
+      color="warn"
+      class="close"
+      (click)="sidenav.close()"
+    >
+      <mat-icon color="warn">close</mat-icon>
+    </button>
+    <div class="divider"></div>
+
+    <!--    <app-sidenav-menu [menuItems]="sidenavMenuItems" [menuParentId]="'0'"></app-sidenav-menu>-->
+    <div class="cat-menu">
+      <app-menu-level-cat
+        *ngFor="let m of menuItem2"
+        [menu]="m"
+      ></app-menu-level-cat>
+    </div>
+    <div class="divider"></div>
+  </mat-sidenav>
+
+  <div class="scrollable-header" (click)="onClickHeader()">
+    <!--     HEADER With Auto Complete Search -->
+    <div [fxHide.xs]="true" class="contact-header">
+      <div class="contact-header-container">
+        <div class="left">
+          <mat-icon>call</mat-icon>
+          <p>
+            {{ contactInfoData?.primaryPhoneNo }} ({{
+              contactInfoData?.shopOpenTime
+            }})
+          </p>
+        </div>
+
+        <div class="right">
+          <mat-icon>account_circle</mat-icon>
+          <span style="color: #ffffff">
+            <a
+              *ngIf="!isUserAuth"
+              style="margin-right: 5px"
+              routerLink="/registration"
+              >Registration</a
+            >
+            <span *ngIf="!isUserAuth">or</span>
+            <a routerLink="/login" style="margin-left: 5px">{{
+              isUserAuth ? user?.fullName : "Login"
+            }}</a></span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- END CONTACT HEADER -->
+
+    <div [fxHide.gt-xs]="true" class="contact-header">
+      <div class="contact-header-container">
+        <div class="left">
+          <mat-icon>call</mat-icon>
+          <!--          <p>{{contactInfoData?.primaryPhoneNo}} ({{contactInfoData?.shopOpenTime}})</p>-->
+        </div>
+
+        <!-- <div class="right">
+          <mat-icon>account_circle</mat-icon>
+          <span style="color: #FFFFFF">
+        <a *ngIf="!isUserLoggedIn" style="margin-right: 5px;" routerLink="/registration">Registration</a>
+        <span *ngIf="!isUserLoggedIn">or</span>
+        <a routerLink="/login" style="margin-left: 5px;">{{ isUserLoggedIn ? user?.fullName : 'Login'}}</a></span>
+        </div> -->
+      </div>
+    </div>
+    <!-- END CONTACT HEADER MOBILE-->
+
+    <div class="toolbar-container">
+      <div class="primary-toolbar">
+        <div class="tool-menu-left">
+          <div class="hamburger-menu" fxHide="false" fxHide.gt-sm>
+            <button
+              mat-button
+              (click)="sidenav.toggle()"
+              class="sidenav-toggle"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+          <a class="logo" routerLink="/">
+            <!--          <img class="logo" src="/assets/images/logo/logo-nav-new.png" alt="">-->
+            <img class="logo" src="/assets/images/logo/logo-roc.png" alt="" />
+          </a>
+        </div>
+
+        <div
+          [fxHide.xs]="!showSearch"
+          class="search"
+          (click)="onClickSearchArea($event)"
+        >
+          <form
+            class="search-form"
+            #searchForm="ngForm"
+            (ngSubmit)="onSubmitSearch()"
+          >
+            <input
+              #searchInput
+              type="text"
+              placeholder="Search here..."
+              (focus)="handleFocus($event)"
+              name="searchTerm"
+              autocomplete="off"
+              ngModel
+              required
+              [(ngModel)]="searchString"
+              (keyup)="handleKeyUp($event)"
+            />
+            <div class="icon" (click)="onSubmitSearch()">
+              <mat-icon>search</mat-icon>
+            </div>
+            <div *ngIf="isLoading" class="sk-fading-circle">
+              <div class="sk-circle1 sk-circle"></div>
+              <div class="sk-circle2 sk-circle"></div>
+              <div class="sk-circle3 sk-circle"></div>
+              <div class="sk-circle4 sk-circle"></div>
+              <div class="sk-circle5 sk-circle"></div>
+              <div class="sk-circle6 sk-circle"></div>
+              <div class="sk-circle7 sk-circle"></div>
+              <div class="sk-circle8 sk-circle"></div>
+              <div class="sk-circle9 sk-circle"></div>
+              <div class="sk-circle10 sk-circle"></div>
+              <div class="sk-circle11 sk-circle"></div>
+              <div class="sk-circle12 sk-circle"></div>
+            </div>
+          </form>
+          <!-- Suggestion View -->
+          <ul
+            id="auto-suggestion"
+            class="auto-complete-box"
+            [ngClass]="searchProducts.length > 0 && isOpen ? 'active' : ''"
+          >
+            <li
+              class="list-view"
+              *ngFor="let data of searchProducts"
+              (click)="onSelectItem(data)"
+            >
+              <img
+                class="img-thumb"
+                [src]="data | productImage: 'single'"
+                [alt]="data.name"
+              />
+
+              <div class="desc">
+                <h3 class="bn-default">{{ data.name }}</h3>
+                <p class="bn-default">{{ data.categoryName }}</p>
+              </div>
+              <div class="price">{{ data.salePrice | number: "":"bn" }} ৳</div>
+            </li>
+          </ul>
+        </div>
+        <div class="action">
+          <button
+            *ngIf="promotionalOffers && promotionalOffers.length"
+            [fxHide.xs]="true"
+            mat-raised-button
+            class="btn-offer offer-mobile"
+            matTooltip="Offers"
+            [routerLink]="['/offers/', promotionalOffers[0]?.slug]"
+          >
+            <mat-icon class="blink">flash_on</mat-icon>
+            {{ promotionalOffers[0]?.title }}
+          </button>
+          <button
+            mat-icon-button
+            class="icon-menu icon-menu-cart"
+            routerLink="/cart"
+            [matBadge]="carts && carts.length > 0 ? carts.length : 0"
+            matBadgeColor="warn"
+            matTooltip="My Cart"
+          >
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+
+          <!-- <button
+            mat-icon-button
+            class="icon-menu icon-compare"
+            [matBadge]="compareItemsCount"
+            matBadgeColor="warn"
+            matTooltip="Compare"
+            [routerLink]="['compare']"
+          >
+            <mat-icon>compare_arrows</mat-icon>
+          </button> -->
+
+          <button
+            *ngIf="promotionalOffers && promotionalOffers.length"
+            [fxHide.xs]="true"
+            mat-raised-button
+            class="btn-offer"
+            matTooltip="Offers"
+            [routerLink]="['/offers/', promotionalOffers[0]?.slug]"
+          >
+            <mat-icon class="blink">flash_on</mat-icon>
+            {{ promotionalOffers[0]?.title }}
+          </button>
+
+          <a
+            fxShow="false"
+            fxShow.lt-sm
+            class="icon-menu"
+            matTooltip="Search"
+            (click)="showSearch = !showSearch"
+          >
+            <img
+              class="icon"
+              [src]="
+                !showSearch
+                  ? '/assets/svg/magnifiying-glass.svg'
+                  : '/assets/svg/cancel.svg'
+              "
+              alt=""
+            />
+          </a>
+
+          <!--        <button class="glow-on-hover" type="button">Offers</button>-->
+
+          <div class="build-pc-area" [fxHide.xs]="true">
+            <button
+              mat-raised-button
+              class="btn-build-pc"
+              [routerLink]="['pc-builder']"
+            >
+              <mat-icon>computer</mat-icon>
+              {{ "Build Your Own Pc" | uppercase }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    (click)="onClickHeader()"
+    [class.sticky-on-scroll]="scrollPosition > 100"
+    class="mega-menu-header"
+  >
+    <div id="mega-menu">
+      <app-menu fxShow="false" fxShow.gt-sm></app-menu>
+    </div>
+  </div>
+
+  <!--  <app-promotional></app-promotional>-->
+
+  <div class="toolbar-gap"></div>
+
+  <!--  <app-menu fxShow="false" fxShow.gt-sm></app-menu>-->
+
+  <!--  <div style="margin-bottom: 15px;"></div>-->
+
+  <div class="theme-container main">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- Floating Buttons -->
+  <div routerLink="/cart" class="f-btn mc-toggler" id="cart">
+    <i class="material-icons">shopping_basket</i>
+    <div class="label">Cart</div>
+    <span class="counter">{{
+      carts && carts.length > 0 ? carts.length : 0
+    }}</span>
+  </div>
+
+  <div [routerLink]="['compare']" class="f-btn cmpr-toggler" id="cmpr-btn">
+    <i class="material-icons">library_add</i>
+    <div class="label">Compare</div>
+    <span class="counter">{{ compareItemsCount }}</span>
+  </div>
+
+  <!--  <div class="gap-large"></div>-->
+  <!--  <div class="gap-large"></div>-->
+  <app-footer-new
+    [contactInfo]="contactInfoData"
+    [addressLines]="addressLines"
+  ></app-footer-new>
+
+  <!-- Overlay Area -->
+  <div class="overlay" *ngIf="overlay" (click)="handleOverlay()"></div>
+
+  <!-- sticky footer nav -->
+  <app-footer-sticky></app-footer-sticky>
+</mat-sidenav-container>

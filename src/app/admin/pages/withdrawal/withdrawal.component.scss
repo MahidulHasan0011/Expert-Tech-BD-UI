@@ -1,0 +1,13 @@
+
+@media(max-width:800px){
+    .admin-table.mat-table .mat-row{
+        display: grid;
+        grid-template-columns: repeat(8,160px);
+        padding-top: 5px;
+    }
+     .admin-table.mat-table .mat-header-row{
+        display: grid;
+        grid-template-columns: repeat(7,160px);
+        padding-top: 5px;
+    }
+}

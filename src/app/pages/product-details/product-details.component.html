@@ -1,0 +1,576 @@
+<app-ng-dynamic-breadcrumb [fontSize]="'13px'"></app-ng-dynamic-breadcrumb>
+
+<div class="product-view-card" fxLayout.lt-md="column">
+  <!-- {{ product | json }} -->
+  <div class="left-image-area">
+    <div class="product-image">
+      <button mat-icon-button fxHide="false" fxHide.gt-md>
+        <mat-icon>fullscreen</mat-icon>
+      </button>
+      <img
+        class="share-img"
+        *ngIf="image"
+        [src]="image"
+        (mousemove)="onMouseMove($event)"
+        (mouseleave)="onMouseLeave($event)"
+      />
+      <div *ngIf="product?.availableQuantity === 0">Out of Stock</div>
+    </div>
+    <!-- END PRODUCT PRIMARY IMAGE -->
+
+    <div class="product-view-img-bottom">
+      <div class="container-with-carousel">
+        <swiper
+          [navigation]="true"
+          [breakpoints]="{
+            '0': {
+              slidesPerView: 2.2,
+              slidesPerGroup: 2,
+              freeMode: true
+            },
+            '768': {
+              slidesPerView: 3,
+              slidesPerGroup: 3
+            }
+          }"
+        >
+          <!-- <ng-container *ngFor="product | productImage: 'multiple' "> -->
+          <ng-container *ngFor="let image of product | productImage: 'multi'">
+            <!-- <ng-container *ngFor="let image of product.images "> -->
+            <!-- <ng-container> -->
+            <ng-template swiperSlide>
+              <div class="img-carousel" (click)="selectImage(image)">
+                <img [src]="image" alt="" />
+                <!-- <img [src]="image.big" alt=""> -->
+              </div>
+            </ng-template>
+          </ng-container>
+        </swiper>
+      </div>
+      <!-- END SWIPER CAROUSEL VIEW -->
+    </div>
+  </div>
+  <!-- LEFT IMAGE AREA -->
+
+  <div class="product-details">
+    <div #zoomViewer fxShow="false" fxShow.gt-md>
+      <mat-card
+        *ngIf="zoomImage"
+        class="zoom-viewer mat-elevation-z18"
+        [ngStyle]="{ 'background-image': 'url(' + zoomImage + ')' }"
+      ></mat-card>
+    </div>
+    <!-- END IMAGE ZOOM VIEW -->
+
+    <h2 class="name">{{ product?.name }}</h2>
+
+    <table class="product-info-table">
+      <tbody>
+        <tr class="product-info-group">
+          <td class="product-info-label">Price</td>
+          <td class="product-info-data product-price">
+            {{ product | price: "priceWithDiscount" | number: "":"bn" }}৳
+          </td>
+        </tr>
+        <tr class="product-info-group" *ngIf="product?.regularPrice !== null">
+          <td class="product-info-label">Regular Price</td>
+          <td class="product-info-data product-regular-price">
+            {{ product?.regularPrice | number: "":"bn" }}৳
+          </td>
+        </tr>
+        <tr class="product-info-group">
+          <td class="product-info-label">Status</td>
+          <td class="product-info-data product-status">
+            <span style="color: #09a209; font-weight: bold">{{
+              product?.availableQuantity > 0 ? "In Stock"
+                : product?.availableQuantity < 0 ? "Upcoming"
+                  : product?.availableQuantity == 0 ? "Out of Stock"
+                    : ''
+            }}</span>
+          </td>
+        </tr>
+        <tr class="product-info-group" *ngIf="product?.productCode !== null">
+          <td class="product-info-label">Product Code</td>
+          <td class="product-info-data product-code">
+            {{ product?.productCode }}
+          </td>
+        </tr>
+        <tr class="product-info-group" itemprop="brand">
+          <td class="product-info-label">Brand</td>
+          <td class="product-info-data product-brand" itemprop="name">
+            {{ product?.brandName }}
+          </td>
+        </tr>
+        <tr class="product-info-group" itemprop="category">
+          <td class="product-info-label">Category</td>
+          <td class="product-info-data product-brand" itemprop="name">
+            {{ product?.categoryName }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--    <ul class="py-1 overview">-->
+    <!--      <li class="p-title">Price: <span>{{product?.salePrice | number:'':'bn'}} ৳</span></li>-->
+    <!--      <li class="p-title">Regular Price: <span>{{product?.regularPrice | number:'':'bn'}} ৳</span></li>-->
+    <!--      <li class="p-title">Status: <span style="color: #09a209; font-weight: bold">{{product?.availableQuantity > 0 ? 'In Stock' : 'Out of Stock'}}</span></li>-->
+    <!--      <li class="p-title">Product Code:: <span>{{product?.productCode}}</span></li>-->
+    <!--      <li class="p-title">Brands: <span>{{product?.brandName}}</span></li>-->
+    <!--      <li class="p-title">Category: <span>{{product?.categoryName}}</span></li>-->
+    <!--    </ul>-->
+
+    <div class="short-features py-1">
+      <div class="title">
+        <h4>Features</h4>
+      </div>
+      <ul class="ul">
+        <li *ngFor="let fe of product?.features">{{ fe }}</li>
+      </ul>
+    </div>
+    <!-- END SHORT AREA -->
+
+    <div class="py-1">
+      <app-rating
+        [ratingsCount]="product?.extraData.ratingsCount"
+        [ratingsValue]="product?.extraData.ratingsValue"
+        [direction]="'row'"
+      >
+      </app-rating>
+    </div>
+
+    <div class="emi-area">
+      <mat-checkbox class="example-margin" [(ngModel)]="checked"
+        >Avail EMI Offer</mat-checkbox
+      >
+      <h2>0% EMI AVAILABLE FOR 6 MONTHS</h2>
+    </div>
+
+    <div class="price-view">
+      <!--      <h2>{{product?.salePrice * selectedQty | number:'':'bn'}} ৳</h2>-->
+      <h2>
+        {{ product | price: "priceWithDiscount":selectedQty | number: "":"bn" }}
+        ৳
+      </h2>
+    </div>
+    <!--    <div class="divider mt-1"></div>-->
+
+    <div class="action-btn-view">
+      <div class="quantity-manage">
+        <button
+          [disabled]="selectedQty === 1"
+          class="decrement"
+          (click)="decrementQty()"
+          [ngClass]="{ 'btn-disabled': selectedQty === 1 }"
+        >
+          -
+        </button>
+        <div class="qty-view">{{ selectedQty }}</div>
+        <button class="increment" (click)="incrementQty()">+</button>
+      </div>
+      <div class="action">
+        <!-- <button *ngIf="!existsInCart" (click)="addToCartItem()" class="btn-buy" mat-raised-button color="warn">Buy now
+        </button>
+        <button *ngIf="existsInCart" class="btn-buy" mat-raised-button color="warn" routerLink="/cart">
+          <mat-icon>shopping_cart</mat-icon>
+          Go to Cart
+        </button> -->
+
+        <button
+          *ngIf="!existsInCart && product?.availableQuantity > 0"
+          (click)="addToCart()"
+          class="btn-buy"
+          mat-raised-button
+          color="warn"
+        >
+          Add to Cart
+        </button>
+        <button
+          *ngIf="existsInCart && product?.availableQuantity !== 0"
+          class="btn-buy"
+          mat-raised-button
+          color="warn"
+          routerLink="/cart"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Go to Cart
+        </button>
+        <button
+          *ngIf="product?.availableQuantity === 0"
+          mat-raised-button
+          color="warn"
+        >
+          No Stock
+        </button>
+        <button
+          *ngIf="product?.availableQuantity < 0"
+          mat-raised-button
+          color="warn"
+        >
+          Up Coming
+        </button>
+
+        <button
+          class="btn-comp"
+          mat-raised-button
+          color="primary"
+          (click)="addToCompare()"
+        >
+          <mat-icon>compare</mat-icon>
+        </button>
+        <button
+          *ngIf="ifLoggedIn()"
+          mat-raised-button
+          color="accent"
+          class="btn-wishlist"
+          (click)="addToWishlistItemAfterCheck()"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="share-view">
+      <div class="divider mt-1"></div>
+
+      <div class="row-view">
+        <div class="title">
+          <mat-icon>share</mat-icon>
+          <h3>Share In</h3>
+        </div>
+        <!-- <div class="social-buttons"></div> -->
+
+        <!--        <share-buttons [theme]="'default'"-->
+        <!--                       [include]="['facebook','twitter','linkedin','pinterest']"-->
+        <!--                       [show]="4"-->
+        <!--                       [size]="-3"-->
+        <!--                       [url]="'https://www.ronecomputersbd.com' + router.url"-->
+        <!--                       [image]="product?.images[0].big"-->
+        <!--                       [title]="product?.name"-->
+        <!--                       [autoSetMeta]="false"-->
+        <!--                       [description]="product?.categoryName"-->
+        <!--        ></share-buttons>-->
+
+        <div id="social-buttons" class="social-buttons">
+          <a
+            href="{{
+              'https://www.facebook.com/sharer.php?u=https://experttechbd.com/product/' +
+                product?.slug
+            }}"
+            target="_blank"
+            class="facebook-btn"
+          >
+            <img
+              class="icon"
+              src="/assets/images/icons/social/facebook.svg"
+              alt=""
+            />
+          </a>
+          <a
+            href="{{
+              'https://twitter.com/share?url=https://experttechbd.com/product/' +
+                product?.slug +
+                '&text=' +
+                product?.name
+            }}"
+            target="_blank"
+            class="twitter-btn"
+          >
+            <img
+              class="icon"
+              src="/assets/images/icons/social/twitter.svg"
+              alt=""
+            />
+          </a>
+          <a href="#" target="_blank" data-id="instagram-btn">
+            <img
+              class="icon"
+              src="/assets/images/icons/social/instagram-t.svg"
+              alt=""
+            />
+          </a>
+          <!-- <a [href]="contactInfoData?.youtubeLink" target="_blank">
+                   <img class="icon" src="/assets/images/icons/social/youtube.svg" alt="">
+                 </a> -->
+        </div>
+      </div>
+
+      <!---Export-area--->
+      <div class="export-area">
+        <div class="export-details">
+          <!---export-top-details-->
+          <div class="export-top">
+            <div class="top-icon">
+              <!--            <span><i class="fa fa-phone-square-alt"></i></span>-->
+            </div>
+
+            <div class="top-title">
+              <!--            <h2>Ask Our Experts For Details</h2>-->
+              <!--            <ul>-->
+              <!--&lt;!&ndash;              <li><a href="#">Live Chat</a></li>&ndash;&gt;-->
+              <!--              <li><a href="tel:{{contactInfoData?.primaryPhoneNo}}">| {{contactInfoData?.primaryPhoneNo}}</a></li>-->
+              <!--              <li><a href="mailto:{{contactInfoData?.email}}">|Email</a></li>-->
+              <!--            </ul>-->
+            </div>
+          </div>
+          <!---export-top-details-end-->
+
+          <!---export-midle-->
+          <div class="export-midle-btn">
+            <!--        <div class="price">-->
+            <!--          <a><i class="fa fa-hand"></i>Price Match Promise</a>-->
+            <!--        </div>-->
+
+            <div class="pay-method">
+              <!--          <div class="bkash">-->
+              <!--            <a>Bkash Pay</a>-->
+              <!--          </div>-->
+              <!--          <div class="nogad">-->
+              <!--            <a>Nagad Pay</a>-->
+              <!--          </div>-->
+            </div>
+          </div>
+          <!---export-midle-end-->
+          <!---export-bottom-start-->
+          <div class="export-bottom">
+            <!--bottom-details-->
+            <!--        <div class="bottom-details">-->
+            <!--          <div class="star-icon">-->
+            <!--            <i class="fa fa-star"></i>-->
+            <!--          </div>-->
+            <!--          <div class="bottom-description">-->
+            <!--            <p>Product image for illustration purposes only. Actual product may vary</p>-->
+            <!--          </div>-->
+            <!--        </div>-->
+            <!--        &lt;!&ndash;bottom-details&ndash;&gt;-->
+            <div class="bottom-details">
+              <div class="star-icon">
+                <!--            <i class="fa fa-star"></i>-->
+              </div>
+              <div class="bottom-description">
+                <p>
+                  বিঃদ্রঃ নির্দিষ্ট মডেল এর প্রসেসর, মাদারবোর্ড, গ্রাফিক্স
+                  কার্ড, র‍্যাম ও মনিটর স্টক সিমিত থাকায় সিঙ্গেল প্রোডাক্ট
+                  অনলাইন ডেলিভারি দেয়া সম্ভব নাও হতে পারে। <br />
+                  বিস্তারিত জানতে কল করুনঃ -০১৬৩১-০০৩৮০০
+                </p>
+              </div>
+            </div>
+          </div>
+          <!---export-bottom-end-->
+        </div>
+      </div>
+      <!---export-area-end-->
+    </div>
+  </div>
+  <!-- END MIDDLE MAIN INFO VIEW -->
+</div>
+<!-- END MAIN TOP VIEW -->
+
+<div fxLayout="row wrap" class="mt-2">
+  <div fxFlex="100" fxFlex.gt-md="78" fxFlex.md="74">
+    <mat-card>
+      <mat-tab-group [@.disabled]="true" [selectedIndex]="0">
+        <mat-tab label="Specifications">
+          <div class="specification">
+            <table
+              class="data-table"
+              cellpadding="0"
+              cellspacing="0"
+              *ngFor="let data of product?.extraData.specification"
+            >
+              <thead>
+                <tr>
+                  <td class="heading-row" colspan="3">{{ data.heading }}</td>
+                </tr>
+              </thead>
+              <!-- END OF TABLE HEAD -->
+
+              <tbody>
+                <tr *ngFor="let td of data.tableData">
+                  <td class="name">{{ td.name }}</td>
+                  <td class="value">{{ td.value }}</td>
+                </tr>
+              </tbody>
+              <!-- END OF TABLE BODY -->
+            </table>
+          </div>
+          <!--          <div class="specification" [innerHTML]="product?.extraData.specification | safeHtmlCustom"></div>-->
+        </mat-tab>
+        <!-- END SPECIFICATION TABLE -->
+        <mat-tab label="Description">
+          <div
+            class="description"
+            [innerHTML]="product?.extraData.description | safeHtmlCustom"
+          ></div>
+        </mat-tab>
+        <mat-tab label="Reviews">
+          <div class="review-area">
+            <div class="add-review-area">
+              <app-rating-and-review
+                [productId]="product?._id"
+              ></app-rating-and-review>
+              <div class="line"></div>
+            </div>
+
+            <!--** review-title **-->
+            <!--            <div class="reviews-title">-->
+            <!--              <h2>LEWEL Girl's Cotton Color block Hooded T-Shirt</h2>-->
+            <!--            </div>-->
+
+            <!--******************* user-and-Esquare-review-area-start **********-->
+
+            <div
+              class="user-and-Esquare-review-area"
+              *ngFor="let data of allReviews"
+            >
+              <!--******* user-review-main *******-->
+              <div class="user-review">
+                <!--** user-img ***-->
+                <div class="user-img">
+                  <img
+                    [src]="
+                      data.user?.profileImg
+                        ? data.user?.profileImg
+                        : '/assets/images/avatar/user-cmnt.png'
+                    "
+                    [alt]="data.user?.fullName"
+                  />
+                </div>
+
+                <!--*** user-comment **-->
+                <div class="user-comment clearfix">
+                  <div style="margin-bottom: 10px" class="clearfix">
+                    <div class="user-name">
+                      <h3 class="Name">
+                        {{ data.user?.fullName }}
+                        <span>– {{ data.reviewDate | date: "fullDate" }}</span>
+                      </h3>
+                    </div>
+                    <div class="user-rating">
+                      <ul>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!--*** user-comment-end**-->
+                  <div class="comment">
+                    <p>{{ data?.review }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!--ans-area-->
+              <div class="e-square-ans" *ngIf="data.reply">
+                <!--*** user-review ***-->
+                <div class="user-review">
+                  <!--** user-img ***-->
+                  <div class="user-img">
+                    <img
+                      src="/assets/images/logo/r1-logo-sm.png"
+                      alt="e-logo.png"
+                    />
+                  </div>
+
+                  <!--*** user-comment **-->
+                  <div class="user-comment clearfix">
+                    <div style="margin-bottom: 10px">
+                      <div class="user-name e-square-title">
+                        <h3 class="Name">
+                          R ONE COMPUTER
+                          <span
+                            >– {{ data?.reviewDate | date: "fullDate" }}</span
+                          >
+                        </h3>
+                      </div>
+                    </div>
+                    <!--*** user-comment-end**-->
+                    <div class="comment">
+                      <p>{{ data.reply }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--******************* user-and-Esquare-review-area-end  *********-->
+          </div>
+          <!---END Review-->
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+
+    <!---*************** addd-youtube-video-area **************-->
+    <app-youtube-video
+      *ngIf="product?.youtubeUrl"
+      [product]="product"
+    ></app-youtube-video>
+
+    <!---******  youtube-video-end *******-->
+  </div>
+
+  <div
+    fxFlex="100"
+    fxFlex.gt-md="22"
+    fxFlex.md="26"
+    ngClass.gt-sm="pl-3"
+    fxHide
+    fxShow.gt-sm
+  >
+    <div
+      class="mw-100 d-block mt-1"
+      *ngFor="let bannerCard of offerBannerCards"
+    >
+      <img
+        [routerLink]="bannerCard?.url"
+        style="object-fit: scale-down; width: 100%; height: 100%"
+        [src]="bannerCard.image"
+        alt=""
+      />
+    </div>
+  </div>
+</div>
+
+<!--<div class="py-2 mt-2">-->
+<!--  <h2>Related Products</h2>-->
+<!--  <div class="divider"></div>-->
+<!--  <app-products-carousel [productData]="relatedProducts"></app-products-carousel>-->
+<!--</div>-->
+
+<div class="py-2 mt-2 related_prod">
+  <h2>Related Products</h2>
+  <div class="divider"></div>
+</div>
+<div class="container-with-carousel">
+  <swiper
+    [navigation]="true"
+    [breakpoints]="{
+      '0': {
+        slidesPerView: 1.1,
+        slidesPerGroup: 1,
+        freeMode: true
+      },
+      '599': {
+        slidesPerView: 2,
+        slidesPerGroup: 2
+      },
+      '768': {
+        slidesPerView: 3,
+        slidesPerGroup: 3
+      },
+      '1024': {
+        slidesPerView: 4,
+        slidesPerGroup: 4
+      }
+    }"
+  >
+    <ng-container *ngFor="let data of relatedProducts">
+      <ng-template swiperSlide>
+        <app-product-card-one [product]="data"></app-product-card-one>
+      </ng-template>
+    </ng-container>
+  </swiper>
+</div>
+<!-- END SWIPER CAROUSEL VIEW -->

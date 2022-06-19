@@ -1,0 +1,186 @@
+<div class="container">
+  <div class="carousel-group">
+    <div class="big-carousel-view">
+      <app-slider-big-banner [carousels]="carousels"></app-slider-big-banner>
+    </div>
+    <!-- END BIG CAROUSEL BANNER -->
+
+    <div
+      [fxHide.xs]="true"
+      class="offer_card"
+      [routerLink]="[offerBannerCards[0]?.url]"
+    >
+      <img
+        [defaultImage]="'/assets/images/placeholder/anim.gif'"
+        [lazyLoad]="offerBannerCards[0]?.image"
+      />
+    </div>
+    <!-- END OF OFFER CARD -->
+  </div>
+  <!-- END Carousel Data -->
+
+  <!-- OFFER SERVICES Category Area -->
+  <div class="container off-ser-cat-area">
+    <div class="off-ser-cat-body">
+      <div
+        class="off-serv-cat-item"
+        *ngFor="
+          let data of allOfferCategoryCard | sort: 'priority';
+          let i = index
+        "
+      >
+        <a [routerLink]="data.link" class="off-serv-cat-info">
+          <img
+            [src]="
+              data?.image ? data.image : '/assets/images/placeholder/test.png'
+            "
+            width="80"
+            height="80"
+            [alt]="data.title"
+            class="off-serv-cat-img"
+          />
+          <div class="off-serv-cat-content">
+            <div class="off-serv-cat-title">
+              {{ data.promotionalOffer?.title }}
+            </div>
+            <div class="off-serv-cat-text">
+              {{ data.title }}
+              <p style="font-size: 13px; color: 31daff">
+                {{ data.description }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- End OFFER SERVICES Category Area -->
+
+  <!-- Featured Category Area -->
+  <div class="container">
+    <div class="m-home m-cat">
+      <h2 class="m-header">Featured Category</h2>
+      <p class="m-blurb">Get Your Desired Product from Featured Category!</p>
+      <div class="cat-items-wrap">
+        <div class="cat-item" *ngFor="let data of featuredCategory">
+          <a [routerLink]="data.url" class="cat-item-inner">
+            <span class="cat-icon">
+              <img
+                [src]="
+                  data?.image
+                    ? data.image
+                    : '/assets/images/placeholder/test.png'
+                "
+                [alt]="data.featuredCategoryName"
+                width="48"
+                height="48"
+            /></span>
+            <p>{{ data.featuredCategoryName }}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Featured Category Area -->
+
+  <div class="container">
+    <div class="card-view" fxLayout="row wrap">
+      <ng-container
+        *ngFor="let data of offerBanners | sort: 'priority'; let i = index"
+      >
+        <div
+          class="card"
+          [fxFlex]="i % 5 === 0 ? '66.67' : '33.33'"
+          [fxFlex.xs]="i % 5 === 0 ? '100' : '50'"
+          [routerLink]="data.url"
+        >
+          <img
+            [defaultImage]="'/assets/images/placeholder/anim.gif'"
+            [lazyLoad]="data.image"
+          />
+          <div class="overlay"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!-- FLASH SALE -->
+
+  <!--  <div class="gap-mid"></div>-->
+  <!--  <div class="cat-title">-->
+  <!--    <h2>New Arrival</h2>-->
+  <!--    <div class="underline"></div>-->
+  <!--  </div>-->
+  <!--  <app-products-carousel [productData]="offerProductsNew"></app-products-carousel>-->
+
+<!--  <div class="gap-mid"></div>-->
+<!--  <div *ngFor="let data of allFeaturedProduct">-->
+<!--    <div class="cat-title">-->
+<!--      <h2>{{ data.type }}</h2>-->
+<!--      <div class="underline"></div>-->
+<!--    </div>-->
+<!--    <div class="container-with-carousel">-->
+<!--      <swiper-->
+<!--        [navigation]="true"-->
+<!--        [breakpoints]="{-->
+<!--          '0': {-->
+<!--            slidesPerView: 1,-->
+<!--            slidesPerGroup: 1,-->
+<!--            freeMode: true-->
+<!--          },-->
+<!--          '599': {-->
+<!--            slidesPerView: 2,-->
+<!--            slidesPerGroup: 2-->
+<!--          },-->
+<!--          '768': {-->
+<!--            slidesPerView: 3,-->
+<!--            slidesPerGroup: 3-->
+<!--          },-->
+<!--          '1024': {-->
+<!--            slidesPerView: 4,-->
+<!--            slidesPerGroup: 4-->
+<!--          }-->
+<!--        }"-->
+<!--      >-->
+<!--        <ng-container *ngFor="let product of data.products">-->
+<!--          <ng-template swiperSlide>-->
+<!--            <app-product-card-one [product]="product"></app-product-card-one>-->
+<!--          </ng-template>-->
+<!--        </ng-container>-->
+<!--      </swiper>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; END SWIPER CAROUSEL VIEW &ndash;&gt;-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;  &lt;!&ndash; BRANDS AREA &ndash;&gt;&ndash;&gt;-->
+
+<!--  &lt;!&ndash;  <app-brands-carousel [brands]="brands"></app-brands-carousel>&ndash;&gt;-->
+<!--</div>-->
+
+  <div class="container-fluid">
+    <section class="section-2 section-deal-of-day section-md">
+      <h2 class="oName" >Featured Products</h2>
+      <div class="container" *ngFor="let data of allFeaturedProduct">
+
+        <div class="deal-on-play-view">
+          <ng-container *ngFor="let p of data?.products">
+            <app-product-card-offer [product]="p"></app-product-card-offer>
+          </ng-container>
+        </div>
+      </div>
+    </section>
+    <!--Deal On Play end-->
+  </div>
+
+<div class="footer-marquee">
+  <marquee width="100%" direction="left">
+    {{ contactInfoData?.notification }}
+  </marquee>
+</div>
+
+<!-- Your Chat Plugin code -->
+<div id="fb-customer-chat"
+     class="fb-customerchat"
+     attribution="page_inbox"
+     page_id="1554031914895850">
+</div>

@@ -1,0 +1,95 @@
+<div style="position: relative">
+  <mat-spinner *ngIf="isLoading"
+               style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Campaign</h1>
+    <mat-checkbox [(ngModel)]="autoSlug" (change)="autoGenerateSlug()" color="primary">Auto Slug</mat-checkbox>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()"
+        #templateForm="ngForm"
+        fxLayout="column"
+        fxLayoutAlign="space-around center">
+
+    <div (click)="onHoldInputData()" class="imag-view"
+         [routerLink]="[id ? '../../../' : '../../', 'image-gallery']"
+         [state]="{url: router.url}">
+      <img [src]="pickedImage" alt="">
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Campaign title</mat-label>
+      <input formControlName="title" matInput placeholder="Enter Promotional Offer title" required>
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Slug</mat-label>
+      <input formControlName="slug" matInput placeholder="Enter Promotional Offer slug" required>
+      <mat-error>This field is required</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="10px" class="d-flex">
+      <mat-form-field appearance="outline" (click)="startDate.open()" class="w-100">
+        <mat-label>Campaign Start Date</mat-label>
+        <input readonly [matDatepicker]="startDate" formControlName="campaignStartDate" matInput
+               placeholder="Enter campaign Start Date">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Campaign Start Time</mat-label>
+        <input [required]="dataForm.get('campaignStartDate').value" type="time" formControlName="campaignStartTime" matInput placeholder="Enter campaign start time" >
+        <!--              <mat-icon matSuffix>schedule</mat-icon>-->
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="10px" class="d-flex">
+      <mat-form-field appearance="outline" (click)="expiryDate.open()" class="w-100">
+        <mat-label>Campaign End Date</mat-label>
+        <input readonly [matDatepicker]="expiryDate" formControlName="campaignEndDate" matInput
+               placeholder="Enter campaign End Date">
+        <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
+        <mat-datepicker #expiryDate></mat-datepicker>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Campaign End Time</mat-label>
+        <input [required]="dataForm.get('campaignEndDate').value" type="time" formControlName="campaignEndTime" matInput placeholder="Enter campaign end time" >
+        <!--                <mat-icon matSuffix>schedule</mat-icon>-->
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+    <!--    <div class="w-100" style="margin-bottom: 16px;">-->
+    <!--      <label for="short-desc">Enter Description</label>-->
+    <!--      <angular-editor id="short-desc" formControlName="description"-->
+    <!--                      placeholder="Enter Blog body"-->
+    <!--                      [config]="textEditorCtrService.shortDescConfig"></angular-editor>-->
+    <!--    </div>-->
+
+    <div fxFlex="100" class="px-1">
+      <angular-editor id="description" formControlName="description"
+                      [config]="editorConfigDesc" ></angular-editor>
+    </div>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Colorful Short Description</mat-label>
+      <textarea matInput formControlName="shortDescription" placeholder="Enter Short Description"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">{{ promotionalOffer ? 'Edit Campaign' : 'Add Campaign' }}</button>
+  </form>
+</div>
+
+<!-- LOADING TEMPLATE -->
+<ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"
+             type="ball-clip-rotate" [fullScreen]="true"><p style="color: white"> Loading... </p></ngx-spinner>

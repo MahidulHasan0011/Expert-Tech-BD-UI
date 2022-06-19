@@ -1,0 +1,85 @@
+<div class="top-action">
+  <button mat-raised-button color="primary" (click)="navigateTo('add-new')">
+    Add New
+  </button>
+</div>
+
+<hr class="center-square" />
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr class="table-head">
+        <th scope="col">{{ "Image" }}</th>
+        <th scope="col">{{ "Name" }}</th>
+        <th scope="col">{{ "Sub-title" }}</th>
+        <th scope="col">{{ "Url" }}</th>
+        <th scope="col">{{ "Priority" }}</th>
+        <th scope="col">{{ "Actions" }}</th>
+      </tr>
+    </thead>
+    <!-- End Table Head -->
+    <tr
+      *ngFor="
+        let data of carousels
+          | paginate
+            : {
+                itemsPerPage: productsPerPage,
+                currentPage: currentPage,
+                totalItems: totalProducts
+              };
+        let i = index
+      "
+    >
+      <td [attr.data-label]="'Image'">
+        <img
+          class="table-image"
+          [src]="
+            data?.image ? data.image : '/assets/images/placeholder/test.png'
+          "
+          [alt]="data.title"
+        />
+      </td>
+      <td [attr.data-label]="'Name'">{{ data.title }}</td>
+      <td [attr.data-label]="'Sub-title'">{{ data.subTitle }}</td>
+      <td [attr.data-label]="'Url'">{{ data.url }}</td>
+      <td [attr.data-label]="'Priority'">{{ data.priority }}</td>
+      <td [attr.data-label]="'Actions'">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Edit"
+          [routerLink]="['add-new', data._id]"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          matTooltip="delete"
+          (click)="openConfirmDialog(data)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <!-- End Table Body -->
+  </table>
+</div>
+
+<!--<div class="container-fluid">-->
+<!--  <div class="data-view">-->
+<!--    <mat-card *ngFor="let c of carousels" class="data-card">-->
+<!--      <div class="img-thumb">-->
+<!--        <img [src]="c.image" alt="">-->
+<!--      </div>-->
+<!--      <div class="desc">-->
+<!--        <h3>{{c.title}}</h3>-->
+<!--        <p>{{c.subTitle}}</p>-->
+<!--      </div>-->
+<!--      <div class="actions">-->
+<!--        <button (click)="openConfirmDialog(c)" mat-raised-button color="warn">Delete</button>-->
+<!--      </div>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+<!--</div>-->

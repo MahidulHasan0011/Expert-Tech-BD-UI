@@ -1,0 +1,74 @@
+
+<div class="search">
+  <form class="search-form" #searchForm=ngForm>
+    <input #searchInput
+           type="text"
+           placeholder="Search here..."
+           name="searchTerm"
+           autocomplete="off"
+           ngModel
+           required>
+    <div class="icon">
+      <mat-icon>search</mat-icon>
+    </div>
+  </form>
+</div>
+
+<hr class="center-square">
+
+
+<div class="table-container">
+  <table>
+    <thead>
+    <tr class="table-head">
+      <th scope="col">{{'Name'}}</th>
+      <th scope="col">{{'Image'}}</th>
+      <th scope="col">{{'Brand'}}</th>
+      <th scope="col">{{'Category'}}</th>
+      <th scope="col">{{'Regular Price'}}</th>
+      <th scope="col">{{'Sale Price'}}</th>
+      <th scope="col">{{'Available'}}</th>
+      <th scope="col">{{'Action'}}</th>
+    </tr>
+    </thead> <!-- End Table Head -->
+    <tr
+      *ngFor="let data of products | paginate: { itemsPerPage: productsPerPage, currentPage: query !== null ? currentPageSearch : currentPage, totalItems: totalProducts }; let i = index">
+      <td [attr.data-label]="'Name'">{{data.name}}</td>
+      <td [attr.data-label]="'Image'">
+        <img [src]="data | productImage : 'single' ">
+      </td>
+      <td [attr.data-label]="'Brand'">{{data.brandSlug}}</td>
+      <td [attr.data-label]="'Category'">{{data.categoryName}}</td>
+      <td [attr.data-label]="'Regular Price'">৳ {{data.regularPrice | number: '': 'bn'}}</td>
+      <td [attr.data-label]="'Sale Price'">{{data.salePrice}}</td>
+      <td [attr.data-label]="'Available'">{{data.availableQuantity ? data.availableQuantity : 'N/A'}}</td>
+      <td [attr.data-label]="'Details'">
+        <a [routerLink]="['/admin/products/edit-product', data._id]" mat-mini-fab color="primary" matTooltip="Edit">
+          <mat-icon>edit</mat-icon>
+        </a>
+        <span class="px-1"> <a [routerLink]="['/product', data.slug]" target="_blank" mat-mini-fab
+                               color="primary"
+                               matTooltip="View"><mat-icon>remove_red_eye</mat-icon></a></span>
+        <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(data)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr><!-- End Table Body -->
+  </table>
+</div>
+
+
+<div *ngIf="products.length > 0" fxLayout="row wrap">
+  <div fxFlex="100" class="p-1">
+    <mat-card class="p-0 text-center">
+<!--      <mat-paginator-->
+<!--        [length]="totalProducts"-->
+<!--        [pageSize]="productsPerPage"-->
+<!--        [pageSizeOptions]="pageSizeOption"-->
+<!--        (page)="onChangePage($event)"-->
+<!--      ></mat-paginator>-->
+      <pagination-controls class="product-pagination" autoHide="true" maxSize="20"
+                           (pageChange)="onPageChanged($event)"></pagination-controls>
+    </mat-card>
+  </div>
+</div>

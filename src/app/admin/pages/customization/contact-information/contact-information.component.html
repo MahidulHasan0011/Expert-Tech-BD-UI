@@ -1,0 +1,137 @@
+<div style="position: relative" class="container">
+
+  <mat-spinner *ngIf="isLoading"
+               style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Contact Info</h1>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Primary Phone No</mat-label>
+            <input matInput formControlName="primaryPhoneNo" required placeholder="Enter primary phone number">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Secondary Phone No</mat-label>
+            <input matInput formControlName="secondaryPhoneNo" placeholder="Enter secondary phone number">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address Line 1</mat-label>
+            <input matInput formControlName="addressLineOne" required placeholder="Enter address line one">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address Line 2</mat-label>
+            <input matInput formControlName="addressLineTwo" placeholder="Enter address line two">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required placeholder="Enter email address" type="email">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Facebook Link</mat-label>
+            <input matInput formControlName="facebookLink" placeholder="Enter facebook link">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Youtube Link</mat-label>
+            <input matInput formControlName="youtubeLink" placeholder="Enter youtube link">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Instagram Link</mat-label>
+            <input matInput formControlName="instagramLink" placeholder="Enter instagram link">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Twitter Link</mat-label>
+            <input matInput formControlName="twitterLink" placeholder="Enter twitter link">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Shop Open Time</mat-label>
+            <input matInput formControlName="shopOpenTime" required placeholder="Enter shop open time">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Notification Message</mat-label>
+            <input matInput formControlName="notification" placeholder="Enter notification message">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div mat-dialog-actions>
+      <div fxLayout="row" fxLayoutAlign="space-between end" class="w-100">
+        <button [disabled]="isLoading" mat-raised-button color="primary" type="submit">Update Information</button>
+      </div>
+    </div> -->
+    <div fxFlex="-80" class="form-action-bottom">
+      <div class="actions">
+        <!--        <button routerLink="/admin/products/sub-categories/" [disabled]="isLoading" mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>-->
+        <button [disabled]="isLoading" mat-raised-button color="primary" type="submit" class="btn-submit">
+          Update Information
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Address Info</h1>
+  </div>
+
+  <div fxLayout="row wrap">
+    <div fxFlex="100" class="component-field-area" *ngFor="let a of addressLines; let i = index">
+      <mat-form-field fxFlex="100" appearance="outline" class="mat-form-field-component">
+        <mat-label>Address Line {{i + 1}}</mat-label>
+        <input matInput placeholder=""
+        [(ngModel)]="addressLines[i].key" [value]="key?.a" required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+      <button
+        (click)="removeAddress(i)"
+        class="btn-remove-field"
+        mat-icon-button type="button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <button mat-mini-fab type="button" color="accent" (click)="addAddress()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+
+</div>

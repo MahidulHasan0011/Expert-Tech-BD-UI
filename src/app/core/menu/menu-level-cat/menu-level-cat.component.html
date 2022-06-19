@@ -1,0 +1,9 @@
+<ul>
+  <li (click)="clickParent($event, menu)" [ngClass]="[isOpen ? 'opened' : '', getClass(menu.depth)]">
+    <a> {{menu.name}}</a>
+    <mat-icon [fxHide]="!menu?.hasChild.length">{{isOpen ? 'arrow_drop_down' : 'arrow_right'}}</mat-icon>
+  </li>
+  <div  *ngIf="menu?.hasChild.length > 0" class="sub">
+    <app-menu-level-cat [fxHide]="!isOpen" *ngFor="let m of menu.hasChild" [menu]="m"></app-menu-level-cat>
+  </div>
+</ul>

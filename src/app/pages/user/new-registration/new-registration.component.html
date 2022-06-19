@@ -1,0 +1,88 @@
+
+<section class="registration-area">
+    <!-- <div>
+
+    </div> -->
+    <div class="info-container" > 
+        <form [formGroup]="dataForm!!" (ngSubmit)="onSubmitForm()" #formTemplate="ngForm"
+        fxLayout="column">
+        <h3>your personal Details</h3> <!-- Personal Details -->
+        
+        <div class="data-feild" style="margin-right: 15px;">
+          <mat-form-field class="data-feild-sub" appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input formControlName="fullName" matInput placeholder="" value="">
+          </mat-form-field>
+          </div> <!-- firstname -->
+         <!-- lastName -->
+       
+          <div class="data-feild">
+            <mat-form-field class="data-feild-sub" appearance="outline">
+              <mat-label>Address</mat-label>
+              <input formControlName="shippingAddress" matInput placeholder="" value="">
+            </mat-form-field>
+            </div>
+          <div class="data-feild">
+            <mat-form-field class="data-feild-sub" appearance="outline">
+              <mat-label>Phone </mat-label>
+              <input formControlName="phoneNo" matInput placeholder="" value="">
+            </mat-form-field>
+            <!-- <span class="invalid" *ngIf="email.touched && email.invalid">Enter a valid email</span> -->
+          </div> <!-- Phone -->
+          <div *ngIf="!isUser">
+            <div class="pass-feild"  >
+              <mat-form-field class="pass-feild-sub" appearance="outline">
+                <mat-label>Enter your password</mat-label>
+                <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix  (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <div class="pass-feild" >
+              <mat-form-field class="pass-feild-sub" appearance="outline">
+                <mat-label>Confirm password</mat-label>
+                <input matInput formControlName="confirmPassword" [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            
+          </div>
+            
+          <div class="data-feild">
+            <mat-form-field class="data-feild-sub" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input formControlName="email" matInput placeholder="" value="">
+            </mat-form-field>
+            </div>  <!-- Email -->
+            <div class="area-detail" >
+              <div class="name-container" >
+                <mat-form-field class="data-feild-sub" appearance="outline">
+                  <mat-label>City</mat-label>
+                  <input formControlName="city" required matInput placeholder="" value="">
+                </mat-form-field>
+                </div>  <!-- Email -->
+                <div >
+                  <mat-form-field class="data-feild-sub" appearance="outline">
+                    <mat-label>Thana</mat-label>
+                    <input formControlName="thana" required matInput placeholder="" value="">
+                  </mat-form-field>
+                  </div>  <!-- Email -->
+            </div>
+            <div class="data-feild">
+              <mat-form-field class="data-feild-sub" appearance="outline">
+                <mat-label>Leave a comment</mat-label>
+                <textarea formControlName="comment" matInput placeholder="Ex. It makes me feel..."></textarea>
+              </mat-form-field>
+              </div>  <!-- Email -->
+              <div  >
+                <button mat-raised-button color="primary" (click)="onSubmitForm()">Confirm</button>
+              </div>
+            
+    </form>
+
+    </div>
+    
+</section>

@@ -1,0 +1,71 @@
+@import "src/theme/variables";
+
+.clock {
+  // border: 1px solid #E5E5E5;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  padding: 8px 2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  //margin-bottom: 25px;
+  margin: 0 auto 25px;
+  margin-top: 8px;
+}
+
+
+.time {
+  //max-width: 75px;
+  //width: 100%;
+  //text-align: center;
+  //border-right: 1px solid #E5E5E5;
+
+  background: $color-primary-2;
+  padding: 3px 7px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 5px;
+  color: white;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 5px;
+}
+.time:last-child{
+  border: none;
+}
+
+.time h3 {
+  color: #fff;
+  font-style: normal;
+  display: block;
+  font-family: $font-en-primary;
+  line-height: 20px;
+  margin-bottom: 4px;
+
+  padding: 3px 7px;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 5px;
+}
+
+.time span {
+  font-size: 24px;
+  font-weight: 500;
+  font-family: $font-en-primary;
+  color: white;
+}
+
+@media(max-width: 756px) {
+  .clock {
+    margin: 0 auto 20px;
+  }
+  .time h3 {
+    font-size: 16px;
+  }
+  .time span {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="p-1" id="main-add-container">
+  <mat-card class="container-card">
+    <mat-card-header>
+      <mat-card-title>Edit Price Info</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div>
+        <form fxLayout="column" fxLayoutAlign="center center"  class="px-2" [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="on"
+              #formDirective="ngForm">
+          <div fxLayout="column">
+<!--            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">-->
+<!--              <mat-form-field appearance="outline" class="w-100">-->
+<!--                <mat-label>Regular Price</mat-label>-->
+<!--                <input matInput formControlName="oldPrice" type="number">-->
+<!--                <mat-error>Old Price is required</mat-error>-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>New Price</mat-label>
+                <input matInput formControlName="newPrice" required type="number" digitOnly>
+                <mat-error>New Price is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Discount</mat-label>
+                <input matInput formControlName="discount" type="number" digitOnly>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <div fxFlex="100" class="mt-2 text-center w-100 submit-action">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>check</mat-icon>
+              {{'Update Product' | uppercase}}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </mat-card-content>
+
+
+  </mat-card>
+</div>
+

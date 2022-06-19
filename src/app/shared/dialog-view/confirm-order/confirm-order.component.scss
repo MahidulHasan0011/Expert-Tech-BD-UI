@@ -1,0 +1,45 @@
+@import "src/theme/cart-calculation";
+.mat-dialog-container {
+  border: 5px solid #404040;
+}
+.header{
+  width: 70%;
+  float: left;
+}
+.cart-section2-table{
+  width: 30%;
+  float: left;
+}
+.dialog-container{
+  button{
+  }
+  p{
+    mat-icon{
+      margin-bottom: 10px;
+      float: right!important;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  }
+  .header{
+    p.dial-p{
+      padding: 30px 0;
+      font-size: 15px;
+      mat-icon{
+        color: #15B579;
+        float: left!important;
+      }
+      span{
+        color: red;
+      }
+    }
+  }
+  .action-area{
+    button{
+      margin-right: 10px;
+    }
+  }
+}
+.cart-section2-table table th{
+    background: white;
+}

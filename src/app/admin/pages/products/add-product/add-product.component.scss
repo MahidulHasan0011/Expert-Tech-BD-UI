@@ -1,0 +1,131 @@
+.book-img-place {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .ttl {
+    margin-bottom: 15px;
+  }
+}
+.add-image {
+  margin-left: 10px;
+  .btn-pick-image {
+    margin-top: 15px;
+    width: 200px;
+    height: 200px;
+    padding: 0;
+  }
+}
+
+.image-view-area {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  .img-item {
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    &:hover {
+      .action-btn {
+        visibility: visible;
+        opacity: 1;
+      }
+      img {
+        opacity: 0.3;
+      }
+    }
+    img {
+       transition: opacity 0.2s, ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .action-btn {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.3s linear;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}
+
+
+.container-card {
+  margin-bottom: 50px;
+}
+
+.sp-table-data {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.submit-action {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgb(255 0 59 / 12%);;
+  text-align: right;
+  padding: 10px  0;
+  button {
+    margin-right: 60px;
+    padding: 5px 15px;
+    font-size: 15px;
+    background: #ff3a83;
+  }
+}
+
+.img-container {
+  width: 100%;
+  margin-top: 24px;
+  .preview {
+    position: relative;
+    width: 85%;
+    max-width: 150px;
+    margin: 0 auto;
+    height: 150px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      .overlay-ac {
+        visibility: visible;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .overlay-ac {
+      visibility: hidden;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background: rgba(6, 6, 6, 0.19);
+
+      button {
+        mat-icon {
+          color: orangered;
+        }
+      }
+    }
+  }
+
+}

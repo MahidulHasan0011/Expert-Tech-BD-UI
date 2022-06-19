@@ -1,0 +1,184 @@
+
+@import "variables";
+
+.specification {
+  width: 100%;
+  table {
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-family: $font-en;
+  }
+
+  .data-table {
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid #e1e1e1;
+    }
+
+    .heading-row {
+      background: $bg-primary;
+      padding: 10px 30px;
+      font-size: 15px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .name {
+      padding: 0 30px;
+      width: 25%;
+      background: #eeeeee;
+      text-align: right;
+      color: #464444;
+      font-size: 13px;
+      line-height: 35px;
+      font-weight: 600;
+    }
+
+    .value {
+      padding: 0 30px;
+      width: 75%;
+      background: #ffffff;
+      color: #222222;
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+
+
+}
+
+.specification-dynamic-table {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .action-add-table {
+    button {
+      width: 120px;
+      height: 80px;
+    }
+  }
+
+  .action-delete-table {
+    button {
+      width: 120px;
+      height: 80px;
+    }
+  }
+
+  table {
+    background-color: transparent;
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  .data-table {
+    flex: 1;
+
+    tr {
+      border-bottom: 1px solid #e1e1e1;
+    }
+
+    .data-table-head {
+      width: 100%;
+      background: #16164630;
+
+      .action-thead {
+        text-align: center;
+      }
+    }
+
+    .heading-row {
+      font-size: 15px;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .name {
+      width: 25%;
+      text-align: right;
+    }
+
+    .value {
+      width: 65%;
+    }
+
+    .action-td {
+      width: 5%;
+      text-align: center;
+      //background: #ffdcdc;;
+    }
+
+    .input-in-table {
+      width: 100%;
+      height: 45px;
+      border: none;
+      outline: none;
+      padding: 0 15px;
+      box-sizing: border-box;
+      overflow: hidden;
+      font-family: $font-en;
+    }
+
+    .t-head {
+      font-size: 18px;
+      font-weight: bold;
+      background: #16164630;
+      color: #262626;
+    }
+
+    .t-row-head {
+      font-size: 14px;
+      font-weight: bold;
+      background: #f5f5f5;
+      color: #2f2f2f;
+    }
+
+    .t-row-value {
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+
+  }
+
+
+}
+
+@media screen and (max-width: 599px) {
+  .specification {
+
+    .data-table {
+  
+      .heading-row {
+        padding: 10px 30px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+  
+      .name {
+        padding: 0 30px;
+        width: 25%;
+        font-size: 13px;
+        line-height: 32px;
+        font-weight: 600;
+      }
+  
+      .value {
+        padding: 0 30px;
+        width: 75%;
+        font-size: 13px;
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+@media(max-width:400px){
+  .specification {
+    
+  }
+}

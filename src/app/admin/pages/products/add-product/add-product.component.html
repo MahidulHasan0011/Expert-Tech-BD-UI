@@ -1,0 +1,275 @@
+<div class="p-1" id="main-add-container">
+  <mat-card class="container-card">
+    <mat-card-header>
+      <mat-card-title>Add New Product</mat-card-title>
+      <mat-checkbox [(ngModel)]="autoSlug" (change)="autoGenerateSlug()" color="primary">Auto Slug</mat-checkbox>
+    </mat-card-header>
+    <mat-card-content>
+
+      <div fxLayout="row wrap" fxLayout.md="column wrap" fxLayout.lt-sm="column wrap">
+        <div fxFlex="30" class="px-2 book-img-place">
+          <p class="mt-1 ttl"><span class="uppercase fw-500">Image Upload</span><span class="text-muted px-1">(max 5
+              images)</span></p>
+          <input [hidden]="true" #imagePicker type="file" (change)="fileChangeEvent($event)" multiple
+            accept="image/*" />
+
+          <div class="add-image">
+            <button class="btn-pick-image" mat-raised-button (click)="openComponentDialog()">
+            <!-- <button *ngIf="pickedImageFiles.length !== 5" class="btn-pick-image" mat-raised-button
+              (click)="imagePicker.click()"> -->
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+
+          <div *ngIf="chooseImage && chooseImage.length > 0" class="img-container" cdkDropList
+            cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event)">
+         <div class="preview" *ngFor="let data of chooseImage" cdkDrag>
+           <img [src]="data" [alt]="data">
+           <div class="overlay-ac">
+             <button mat-icon-button color="warn" (click)="removeSelectImage(data)">
+               <mat-icon>delete</mat-icon>
+             </button>
+           </div>
+         </div>
+       </div>
+
+          <!-- <div class="image-view-area" *ngIf="pickedImageFiles.length > 0">
+            <div class="img-item" *ngFor="let img of imageFiles; let i = index">
+              <img [src]="img" alt="">
+              <button (click)="removeFile(i)" class="action-btn" mat-mini-fab>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div> -->
+        </div>
+
+        <form fxFlex="70" class="px-2" [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="on"
+          #formDirective="ngForm">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error>Name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Slug</mat-label>
+                <input matInput formControlName="slug" required>
+                <mat-error>Slug is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Category</mat-label>
+                <mat-select [disableOptionCentering]="true" #select placeholder="Select category" required
+                  formControlName="category" (selectionChange)="onSelectCategory($event)">
+                  <mat-select-filter [placeholder]="'Filter Category List'" *ngIf="select.focused" [array]="categories"
+                    [displayMember]="'categoryName'" (filteredReturn)="filteredCatList = $event"></mat-select-filter>
+                  <mat-option *ngFor="let cat of filteredCatList" [value]="cat">
+                    {{cat.categoryName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>Category is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Sub Category</mat-label>
+                <mat-select #selectSubCat [disableOptionCentering]="true"
+                  (selectionChange)="onSelectSubCategory($event)" formControlName="subCategory" required
+                  placeholder="Select sub-category">
+                  <mat-select-filter [placeholder]="'Filter Sub Category List'" *ngIf="selectSubCat.focused"
+                    [array]="subCategories" [displayMember]="'subCatName'"
+                    (filteredReturn)="filteredSubCatList = $event"></mat-select-filter>
+                  <mat-option *ngFor="let subCat of filteredSubCatList" [value]="subCat">
+                    <span>{{subCat.subCatName}}</span>
+                  </mat-option>
+                </mat-select>
+                <mat-error>SubCategory is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Brand</mat-label>
+                <mat-select #selectBrand [disableOptionCentering]="true" formControlName="brand"
+                  placeholder="Select brand">
+                  <mat-select-filter [placeholder]="'Filter Brand List'" *ngIf="selectBrand.focused" [array]="brands"
+                    [displayMember]="'brandName'" (filteredReturn)="filteredBrandList = $event"></mat-select-filter>
+                  <mat-option *ngFor="let brand of filteredBrandList" [value]="brand">
+                    <span>{{brand.brandName}}</span>
+                  </mat-option>
+                </mat-select>
+                <mat-error>Category is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Product Code</mat-label>
+                <input matInput formControlName="productCode" type="text">
+                <mat-error>Product Code is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Regular Price</mat-label>
+                <input matInput formControlName="oldPrice" type="number">
+                <mat-error>Old Price is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>New Price</mat-label>
+                <input matInput formControlName="newPrice" required type="number">
+                <mat-error>New Price is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Discount</mat-label>
+                <input matInput formControlName="discount" type="number">
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Available Quantity</mat-label>
+                <input matInput formControlName="availableQuantity" type="number" required>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>MPN</mat-label>
+                <input matInput formControlName="mpn" type="text">
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>EMI</mat-label>
+                <mat-select formControlName="emi">
+                  <mat-option *ngFor="let data of emiOption" [value]="data.value">{{data.viewValue}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>YouTube URL</mat-label>
+                <input matInput formControlName="youtubeUrl" type="text">
+              </mat-form-field>
+            </div>
+
+            <label class="w-100" style="padding-left: 12px;" *ngIf="filterDataFields?.length > 0">Filter Data Add
+              *</label>
+            <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" *ngFor="let data of filterDataFields; let i = index">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{data.title}}</mat-label>
+                <mat-select (selectionChange)="onSelectChange($event, i, data)" [value]="get">
+                  <mat-option [value]="null">None</mat-option>
+                  <mat-option *ngFor="let m of data.components" [value]="m.key">
+                    {{m.key}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> <!-- END OF FILTER AREA -->
+
+            <div fxFlex="100" class="px-1">
+              <!--              <label>Short Features *</label>-->
+              <ngx-mat-tag-input #shortFeatures (change)="change($event)" appearance="outline"
+                placeholder="Enter Short Features **">
+              </ngx-mat-tag-input>
+            </div>
+
+            <div fxFlex="100" class="px-1">
+              <angular-editor id="description" formControlName="description" [config]="editorConfigDesc">
+              </angular-editor>
+            </div>
+          </div>
+
+
+          <div fxFlex="100" class="mt-2 text-center w-100 submit-action">
+            <button mat-raised-button color="primary" type="submit">
+              <mat-icon>check</mat-icon>
+              {{'SUBMIT Product' | uppercase}}
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="sp-table-data">
+        <div class="specification-dynamic-table" *ngFor="let data of specificationTable; let i = index">
+
+          <div class="action-add-table">
+            <button (click)="onAddTable()" mat-raised-button color="primary">Add New Table</button>
+          </div> <!-- END OF ADD ACTION TABLE -->
+
+          <table class="data-table" cellpadding="0" cellspacing="0">
+            <thead>
+              <tr class="data-table-head">
+                <td class="heading-row" colspan="2">
+                  <input class="input-in-table t-head" type="text" [placeholder]="'Enter data name'"
+                    [(ngModel)]="specificationTable[i].heading" required>
+                </td>
+
+                <td class="action-thead">
+                  <button [disabled]="specificationTable.length === 1" mat-mini-fab type="button" color="warn"
+                    (click)="onDeleteTable(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+
+              </tr>
+            </thead> <!-- END OF TABLE HEAD -->
+
+            <tbody>
+              <tr *ngFor="let td of data.tableData; let ic = index">
+                <td class="name">
+                  <input class="input-in-table t-row-head" type="text" [placeholder]="'Enter data name'"
+                    [(ngModel)]="specificationTable[i].tableData[ic].name" required>
+                </td>
+                <td class="value">
+                  <input class="input-in-table t-row-value" type="text" [placeholder]="'Enter data value'"
+                    [(ngModel)]="specificationTable[i].tableData[ic].value" required>
+                </td>
+                <td class="action-td">
+                  <button [disabled]="data.tableData.length === 1" mat-icon-button type="button"
+                    (click)="onRemoveRow(i, ic)">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody> <!-- END OF TABLE BODY -->
+
+            <tbody>
+              <tr>
+                <td style=" text-align: center">
+                  <button mat-mini-fab (click)="onAddTableRow(i)" style="margin: 12px 0;">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+
+          </table> <!-- END OF MAIN TABLE -->
+
+
+        </div>
+      </div>
+    </mat-card-content>
+
+
+  </mat-card>
+</div>
+
+
+<!-- TEMPLATE -->
+<ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"
+  type="ball-clip-rotate" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

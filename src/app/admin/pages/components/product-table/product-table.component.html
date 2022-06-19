@@ -1,0 +1,116 @@
+<div class="container-fluid">
+
+  <div class="filter-area">
+    <div class="select-views">
+
+        <mat-form-field appearance="outline" class="mat-filter-select">
+          <mat-label>Filter Books</mat-label>
+          <mat-select #matCatSelect (selectionChange)="onFilterSelectChange($event)">
+            <mat-option *ngFor="let filter of filtersSelections" [value]="filter.value">
+              <span>{{filter.viewValue}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      <div class="clear" *ngIf="query">
+        <button mat-raised-button color="warn" (click)="onClearFilter()">
+          <mat-icon>clear</mat-icon>
+          Clear Filter
+        </button>
+      </div>
+    </div>
+
+    <div class="search search-area">
+      <form class="search-form" #searchForm=ngForm>
+        <input #searchInput
+               style="background: aliceblue;"
+               type="text"
+               placeholder="Search here..."
+               name="searchTerm"
+               autocomplete="off"
+               ngModel
+               required>
+        <div class="icon">
+          <mat-icon>search</mat-icon>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+
+  <hr class="center-square">
+
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr class="table-head">
+        <th scope="col">{{'Select'}}</th>
+        <th scope="col">{{'Name'}}</th>
+        <th scope="col">{{'Image'}}</th>
+        <th scope="col">{{'Category'}}</th>
+        <th scope="col">{{'Price'}}</th>
+        <th scope="col">{{'Discount'}}</th>
+        <th scope="col">{{'Available'}}</th>
+        <th scope="col">{{'Action'}}</th>
+      </tr>
+      </thead> <!-- End Table Head -->
+      <tr
+        *ngFor="let data of products | paginate: { itemsPerPage: productsPerPage, currentPage: currentPage, totalItems: totalProducts }; let i = index">
+        <td [attr.data-label]="'Select'">
+          <mat-checkbox class="example-margin" [(ngModel)]="data.select"
+                        (ngModelChange)="onCheckChange($event, i, data._id)"></mat-checkbox>
+        </td>
+        <td [attr.data-label]="'Name'">{{data.name}}</td>
+        <td [attr.data-label]="'Image'">
+          <img [src]="data | productImage : 'single' " alt="">
+        </td>
+        <td [attr.data-label]="'Category'">{{data.categoryName}}</td>
+        <td [attr.data-label]="'Retail Price'">৳ {{data.salePrice | number: '': 'bn'}}</td>
+        <td [attr.data-label]="'Sale Price'">{{data.discount}}%</td>
+        <td [attr.data-label]="'Available'">{{data.availableQuantity ? data.availableQuantity : 'N/A'}}</td>
+        <td [attr.data-label]="'Details'">
+          <a mat-mini-fab color="primary" [href]="['/product-details/' + data.slug]" target="_blank">
+            <mat-icon>remove_red_eye</mat-icon>
+          </a>
+          <button mat-mini-fab color="accent" [routerLink]="['../', 'edit-product', data._id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr><!-- End Table Body -->
+
+    </table>
+
+  </div>
+
+  <div class="pagination-container">
+    <pagination-controls
+      class="product-pagination"
+      [autoHide]="true"
+      [maxSize]="15"
+      (pageChange)="onPageChanged($event)">
+    </pagination-controls>
+  </div>     <!-- END PAGINATION -->
+
+  <div class="button-bottom">
+    <button mat-raised-button color="warn" (click)="onCloseDialog()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="onCloseDialog(true)">Save</button>
+  </div>
+
+</div>
+
+
+<!-- LOADING TEMPLATE -->
+<ngx-spinner style="width: 100vw; height: 100vh" bdColor="rgba(0,0,0,0.25)" size="medium" color="#fff"
+             type="ball-clip-rotate" [fullScreen]="true"><p style="color: white"> Loading... </p></ngx-spinner>
+
+<!-- NO DATA TEMPLATE -->
+<ng-template #noData>
+  <div style="margin-top: 50px; text-align: center">
+    <h2>No Product Found</h2>
+  </div>
+</ng-template>

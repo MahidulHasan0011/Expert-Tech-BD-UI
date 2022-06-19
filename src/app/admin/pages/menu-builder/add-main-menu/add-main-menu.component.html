@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="main-top">
+    <div class="px-1">
+      <mat-form-field appearance="outline" class="mat-form-field">
+        <mat-label>Priority Number</mat-label>
+        <input #inputElement matInput [(ngModel)]="priority" placeholder="Enter priority number" type="number" (ngModelChange)="priorityChangeFn($event)">
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="px-1">
+      <mat-form-field appearance="outline" class="mat-form-field">
+        <mat-label>Category</mat-label>
+        <mat-select [disableOptionCentering]="true" #select placeholder="Select category" (selectionChange)="onSelectCategory($event)">
+          <mat-select-filter [placeholder]="'Filter Category List'"
+                             *ngIf="select.focused"
+                             [array]="categories"
+                             [displayMember]="'categoryName'"
+                             (filteredReturn)="filteredCatList = $event"></mat-select-filter>
+          <mat-option *ngFor="let cat of filteredCatList" [value]="cat">
+            {{cat.categoryName}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Category is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="px-1">
+      <mat-form-field appearance="outline" class="mat-form-field">
+        <mat-label>Sub Category</mat-label>
+        <mat-select required multiple (selectionChange)="onSelectSubCat($event)">
+          <mat-option *ngFor="let sub of subCategories" [value]="sub">
+            <span>{{sub.subCatName}}</span>
+          </mat-option>
+        </mat-select>
+        <mat-error>SubCategory is required</mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div class="sub-cat-list" *ngIf="primaryMenu !== null && primaryMenu.subCategories.length > 0">
+    <mat-card *ngFor="let sub of primaryMenu.subCategories; let i = index" class="m-card">
+      <h3>{{sub.subCatName}}</h3>
+      <!--      <button mat-mini-fab (click)="addBrandToSubCat(sub)"><mat-icon>add</mat-icon></button>-->
+      <mat-form-field appearance="outline" class="mat-form-field">
+        <mat-label>Brand</mat-label>
+        <mat-select multiple (selectionChange)="onSelectSubCatBrand($event, i)">
+          <mat-option *ngFor="let br of brands" [value]="br">
+            <span>{{br.brandName}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card>
+  </div>
+
+  <div class="action-view" *ngIf="primaryMenu !== null && primaryMenu.categoryName !== null">
+    <button class="btn-round" mat-raised-button color="primary" (click)="openConfirmDialog()">Save Menu</button>
+  </div>
+
+
+</div>
+
+

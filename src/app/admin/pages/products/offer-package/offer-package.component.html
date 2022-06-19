@@ -1,0 +1,56 @@
+<div class="header">
+  <button mat-raised-button color="primary" [routerLink]="['add-new']">Add Offer Package</button>
+</div>
+
+<!--<p>{{offerProducts | json}}</p>-->
+<hr class="center-square">
+
+<div class="table-container">
+  <table>
+    <thead>
+    <tr class="table-head">
+      <th scope="col">{{'Image'}}</th>
+      <th scope="col">{{'Name'}}</th>
+      <th scope="col">{{'Branch'}}</th>
+      <th scope="col">{{'Actions'}}</th>
+    </tr>
+    </thead> <!-- End Table Head -->
+    <tr *ngFor="let data of offerPackages">
+      <td [attr.data-label]="'Image'">
+        <img class="table-image" [src]="data?.image ? data.image : '/assets/images/png/image-placeholder-r1.png'"
+             [alt]="data.title">
+      </td>
+      <td [attr.data-label]="'Name'">{{data.title}}</td>
+      <td [attr.data-label]="'Branch'">{{data.branch}}</td>
+      <td [attr.data-label]="'Actions'">
+        <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(data._id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr><!-- End Table Body -->
+
+  </table>
+
+</div>
+
+<!--<div fxLayout="row wrap" *ngIf="offerPackages.length > 0">-->
+<!--  <div *ngFor="let product of offerPackages" fxFlex="100" [fxFlex.gt-sm]="25" fxFlex.sm="50" class="p-1">-->
+<!--    <mat-card class="product-item text-center">-->
+<!--      <mat-chip-list>-->
+<!--        <mat-chip color="accent" selected="true">{{product.branch}}</mat-chip>-->
+<!--      </mat-chip-list>-->
+
+<!--      <img class="img-product-view" [src]="product?.image !== null ? product?.image : '/assets/images/png/image-placeholder-r1.png'" alt="">-->
+<!--      <h4 class="category text-muted">{{ product?.title}}</h4>-->
+<!--      <div class="title text-truncate">-->
+<!--        {{product.shortDesc}}-->
+<!--      </div>-->
+<!--      <div class="divider mt-2"></div>-->
+<!--      <div class="icons">-->
+<!--        <button mat-mini-fab color="warn" matTooltip="Remove" (click)="remove(product._id)">-->
+<!--          <mat-icon>delete</mat-icon>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+<!--</div>-->

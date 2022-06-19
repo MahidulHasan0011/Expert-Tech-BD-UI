@@ -1,0 +1,45 @@
+.top-action {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.menu-accordion-container {
+  margin-top: 15px;
+}
+
+
+.main-content {
+  ul {
+    list-style: none;
+  }
+  .menu-ul-child {
+    .menu-li-child {
+      margin-left: 15px;
+      color: #212121;
+      font-weight: bold;
+      font-size: 15px;
+       margin-bottom: 8px;
+    }
+  }
+
+  .menu-ul-grand-child {
+    .menu-li-grand-child {
+      color: #484848;
+      font-weight: normal;
+      font-size: 14.5px;
+      margin-left: 30px;
+    }
+  }
+
+  .action {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+  }
+}
+
+.btn-remove {
+  margin-left: 10px;
+  font-size: 16px;
+}

@@ -1,0 +1,92 @@
+<mat-card class="p-0">
+  <div
+    fxLayout="row wrap"
+    fxLayoutAlign="space-between center"
+    class="w-100 p-2"
+  >
+    <h2>Offer Category Card List</h2>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['add-offer-category-card']"
+    >
+      Add New Offer Category Card
+    </button>
+  </div>
+  <mat-divider></mat-divider>
+</mat-card>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr class="table-head">
+        <th scope="col">{{ "Image" }}</th>
+        <th scope="col">{{ "Title" }}</th>
+        <th scope="col">{{ "Description" }}</th>
+        <th scope="col">{{ "Url" }}</th>
+        <th scope="col">{{ "Offer Name" }}</th>
+        <th scope="col">{{ "Priority" }}</th>
+        <th scope="col">{{ "Actions" }}</th>
+      </tr>
+    </thead>
+    <!-- End Table Head -->
+    <tr
+      *ngFor="
+        let data of allOfferCategoryCard
+          | paginate: { itemsPerPage: count, currentPage: page };
+        let i = index
+      "
+    >
+      <td [attr.data-label]="'Image'">
+        <img
+          class="table-image"
+          [src]="
+            data?.image ? data.image : '/assets/images/placeholder/test.png'
+          "
+          [alt]="data.title"
+        />
+      </td>
+      <td [attr.data-label]="'Title'">{{ data.title }}</td>
+      <td [attr.data-label]="'Description'">{{ data.description }}</td>
+      <td [attr.data-label]="'Url'">{{ data.link }}</td>
+      <td [attr.data-label]="'Offer Name'">
+        {{ data.promotionalOffer?.title }}
+      </td>
+      <td [attr.data-label]="'Priority'">{{ data.priority }}</td>
+      <td [attr.data-label]="'Actions'">
+        <button
+          mat-mini-fab
+          color="primary"
+          matTooltip="Edit"
+          [routerLink]="['edit-offer-category-card', data._id]"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          matTooltip="Delete"
+          class="mx-1"
+          (click)="remove(data)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <!-- End Table Body -->
+  </table>
+</div>
+
+<div *ngIf="allOfferCategoryCard.length > 0" fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card class="p-0 text-center">
+      <pagination-controls
+        class="product-pagination"
+        autoHide="true"
+        maxSize="5"
+        (pageChange)="onPageChanged($event)"
+      >
+      </pagination-controls>
+    </mat-card>
+  </div>
+</div>

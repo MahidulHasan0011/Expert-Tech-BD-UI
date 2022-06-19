@@ -1,0 +1,110 @@
+<mat-card class="list-card-view">
+  <!-- <div class="img-view" (click)="onClickCard(product.slug)" > -->
+  <a
+    class="img-view"
+    class="image-link"
+    [routerLink]="['/product/' + product.slug]"
+  >
+    <!-- <a [routerLink]="['/product', product.slug]" class="image-link">
+      <img [src]="product.images !== null ? product.images[0].medium : '/assets/images/png/image-placeholder-r1.png'" alt="">
+      <div *ngIf="product?.availableQuantity === 0">Out of Stock</div>
+    </a> -->
+    <a>
+      <img
+        class="product-two-img-thumb"
+        [src]="product | productImage: 'single'"
+        alt=""
+      />
+      <div *ngIf="product?.availableQuantity == 0">Out of Stock</div>
+      <!--      <div *ngIf="product?.availableQuantity < 0">Upcoming</div>-->
+    </a>
+  </a>
+  <div class="desc-area">
+    <!-- <a [routerLink]="['/product', product.slug]" class="list-product-title">
+      {{product.name}}
+    </a> -->
+
+    <a
+      style="cursor: pointer"
+      class="list-product-title"
+      [routerLink]="['/product/' + product.slug]"
+    >
+      {{ product.name }}
+    </a>
+
+    <div class="product-features">
+      <ul>
+        <li *ngFor="let fe of product?.features">{{ fe }}</li>
+      </ul>
+    </div>
+
+    <div class="footer-action">
+      <div class="prices">
+        <!--                <p class="old-price"><span *ngIf="product.regularPrice">{{product.salePrice | number : '1.2-2'}}</span></p>-->
+        <p class="new-price">{{ product.salePrice | number: "1.2-2" }}৳</p>
+      </div>
+
+      <!-- <button
+        [routerLink]="['/product/' + product.slug]"
+        *ngIf="!existsInCart && product?.availableQuantity > 0"
+        class="btn btn-hover-anim"
+        (click)="addToCart($event)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Buy Now
+      </button> -->
+
+      <button
+        *ngIf="!existsInCart && product?.availableQuantity > 0"
+        class="btn btn-hover-anim"
+        (click)="addToCart($event)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Buy Now
+      </button>
+      <!--      <button  [routerLink]="['/product/' + product.slug]" *ngIf="product?.availableQuantity < 0" class="btn btn-hover-anim">-->
+      <!--        <mat-icon>shopping_cart</mat-icon>-->
+      <!--        Up Coming-->
+      <!--      </button>-->
+
+      <button
+        *ngIf="existsInCart"
+        class="btn btn-hover-anim"
+        (click)="viewInCart($event)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        View on Cart
+      </button>
+
+      <button
+        *ngIf="product?.availableQuantity == 0 || !product?.availableQuantity"
+        class="btn btn-hover-anim"
+        [routerLink]="['/product/' + product.slug]"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Out of Stock
+      </button>
+      <button
+        *ngIf="product?.availableQuantity < 0"
+        class="btn btn-hover-anim"
+        [routerLink]="['/product/' + product.slug]"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Upcoming
+      </button>
+
+      <!--      <button *ngIf="existsInCart" class="btn btn-hover-anim" [disabled]="product.availableQuantity === 0" (click)="viewInCart($event)">-->
+      <!--        &lt;!&ndash; <mat-icon></mat-icon> &ndash;&gt;-->
+      <!--        Product Details-->
+      <!--      </button>-->
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addToCompareList($event, product)"
+      >
+        <mat-icon>compare</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-card>

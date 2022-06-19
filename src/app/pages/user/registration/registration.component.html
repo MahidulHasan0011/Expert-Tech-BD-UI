@@ -1,0 +1,147 @@
+<div class="ss">
+  <div id="recaptcha-container"></div>
+</div>
+
+<!-- orajon-singup-area -->
+<section class="singup-area">
+  <div class="container">
+    <div class="singup-title clearfix">
+      <div class="singup-title-left">
+        <h2>Create Your Expert Tech BD Account</h2>
+      </div>
+      <div class="singup-title-right">
+        <h3>Already member? <a routerLink="/login"> sign in here.</a></h3>
+      </div>
+    </div>
+
+    <div class="singup-form">
+      <form [formGroup]="formData" (ngSubmit)="onSubmitForm()">
+
+
+        <div class="form-details-left">
+          <ng-container *ngIf="isEmailReg">
+            <div class="phone-num">
+              <label for="email"> Email <sup>*</sup></label>
+              <input type="text" formControlName="email" placeholder="Please enter your email address" id="email">
+              <span class="invalid" *ngIf="email.touched && email.invalid">Enter a valid email</span>
+            </div>
+          </ng-container> <!-- END EMAIL REG AREA -->
+
+          <ng-container *ngIf="isPhoneReg">
+            <div class="phone-num">
+              <label for="num"><i [fxHide]="!otpMatched" class="fas fa-check"></i> Phone Number <sup>*</sup></label>
+              <input type="text" formControlName="phoneNo" placeholder="Please enter your phone number" id="num">
+              <span class="invalid" *ngIf="phoneNo.touched && phoneNo.invalid">This field is required</span>
+            </div>
+
+            <div class="resent-view" [fxHide]="!sendVerificationCode">
+              <div class="count-area" [hidden]="countDown === 0">
+                <span class="count-down">{{'0:' + countDown}}</span>
+              </div>
+              <button *ngIf="countDown === 0" mat-button color="primary"
+                      (click)="resendLoginCode()">
+                Resend Code
+              </button>
+            </div> <!-- END RESENT AREA -->
+
+            <div class="otp" [fxHide]="otpMatched">
+              <div class="otp-btn" [fxHide]="sendVerificationCode">
+                <button type="button" (click)="onSentOtp()">Get OTP Code</button>
+              </div>
+              <div class="otp-btn" [fxHide]="!sendVerificationCode">
+                <button type="button" class="verify" (click)="verifyOtpCode()">Verify Code</button>
+              </div>
+              <div class="otp-code" [fxHide]="!sendVerificationCode">
+                <input type="text" formControlName="otpCode" placeholder="Please enter six digit code">
+              </div>
+            </div> <!-- OTP AREA -->
+          </ng-container> <!-- END PHONE REG AREA -->
+
+
+          <div class="pass-details">
+            <label for="pass">Password <sup>*</sup></label>
+            <div class="pass">
+              <input type="password" formControlName="password"
+                     placeholder="Minimum 6 characters with a number and latter"
+                     id="pass">
+              <mat-error class="invalid" *ngIf="password.touched && password.invalid">This field is required</mat-error>
+              <span class="view"><i class="fa fa-eye"></i></span>
+            </div>
+
+            <label for="cPass" style="margin-top: 12px;">Confirm Password <sup>*</sup></label>
+            <div class="pass">
+              <input type="password" formControlName="confirmPassword" placeholder="Confirm your password here"
+                     id="cPass">
+              <mat-error class="invalid" *ngIf="confirmPassword.touched && confirmPassword.invalid">This field is required</mat-error>
+              <span class="view"><i class="fa fa-eye"></i></span>
+            </div>
+          </div>
+          <div class="birth-gender">
+            <div class="gender">
+              <label for="gender">Gender</label>
+              <mat-select formControlName="gender" required id="gender" placeholder="Gender">
+                <mat-option *ngFor="let data of utilsService.genders" [value]="data">
+                  {{data}}
+                </mat-option>
+              </mat-select>
+            </div> <!-- END GENDER SELECT -->
+          </div>
+        </div>
+
+        <div class="form-details-right">
+          <div class="name">
+            <label for="name">Full name<sup>*</sup></label>
+            <input type="text" formControlName="fullName" placeholder="Enter your first and lust name" id="name">
+            <span class="invalid" *ngIf="fullName.touched && fullName.invalid">This field is required</span>
+
+          </div>
+
+          <div class="check-box">
+            <div class="check">
+              <mat-checkbox formControlName="agree" id="check"></mat-checkbox>
+            </div>
+            <div class="check-rules">
+              <label for="check">I want to receive exclusive offers and promotions
+                from Esquire</label>
+            </div>
+          </div>
+          <div class="submit-btn">
+            <button [disabled]="disableSubmit" type="submit">SING UP</button>
+          </div>
+          <div class="privacy">
+            <p>By clicking "SING UP", I agree to Expert Tech BD <a href="https://www.experttechbd.com/pages/terms-and-conditions" target="_blank">terms of use</a>
+              and <a href="https://www.experttechbd.com/pages/privacy-policy" target="_blank">Privacy Policy</a>
+            </p>
+          </div>
+          <div class="other-singup">
+            <h4>Or, sing up with</h4>
+            <a (click)="onToggleRegType()" [ngClass]="isEmailReg ? 'phone' : null">
+              {{isPhoneReg ? 'Sign up with email' : 'Sign up with phone'}}
+            </a>
+
+            <ul>
+              <li><a (click)="userService.FacebookAuth()" class="singup-facebook"><span><i class="fab fa-facebook-f"></i></span>Facebook</a>
+              </li>
+              <li><a (click)="userService.GoogleAuth()" class="singup-google"><span><i class="fab fa-google-plus-g"></i></span>Google</a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- NGX SPINNER -->
+<ngx-spinner style="width: 100vw; height: 100vh"
+             bdColor = "rgba(0,0,0,0.25)"
+             size = "medium"
+             color = "#fff"
+             type = "ball-clip-rotate"
+             [fullScreen] = "true">
+  <p style="color: white" > Loading... </p>
+</ngx-spinner>

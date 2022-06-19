@@ -1,0 +1,36 @@
+.form-builder-container {
+  width: 100%;
+}
+
+.form-area {
+  margin-top: 15px;
+
+  .title-field-area {
+    width: 100%;
+
+    .mat-form-field-title {
+      width: 550px;
+    }
+  }
+
+  .component-field-area {
+    width: 100%;
+    .mat-form-field-component {
+      width: 380px;
+    }
+
+    .btn-remove-field {
+      margin-left: 15px;
+    }
+  }
+}
+
+.action {
+  text-align: end;
+  .btn-save-filter {
+    mat-icon {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+  }
+}

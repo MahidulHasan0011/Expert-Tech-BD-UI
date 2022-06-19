@@ -1,0 +1,89 @@
+
+    .footer-sticky{
+        display: none;
+    } 
+@media only screen and (max-device-width: 1200px) {
+    .footer-sticky{
+        display: none;
+    }
+}
+@media(max-width:900px){
+    .footer-sticky{
+        display: none;
+    }  
+}
+@media only screen and (max-width: 599px) {
+    .footer-sticky{
+        display: block;
+    }
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    .ht-item.q-actions {
+        position: fixed;
+        display: flex;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 61px;
+        background: #081621;
+        z-index: 999;
+        box-shadow: 0 -4px 4px rgb(0 0 0 / 20%), 0 -1px 0 rgb(255 255 255 / 20%);
+        flex: 1 1 auto;
+        width: 100%;
+        padding: 0;
+    }
+    .ht-item.q-actions {
+        flex: 0 0 550px;
+        padding: 9px 0 0 10px;
+    }
+    .ht-item {
+        flex: 1 1 auto;
+    }
+    .q-actions .ac {
+        float: none;
+        display: flex;
+        padding-left: 0;
+        flex-direction: column;
+        flex: 0 0 25%;
+        text-align: center;
+        align-items: center;
+    }
+    .q-actions .ac .ic {
+        float: none;
+        margin: 0 0 7px;
+        font-size: 24px;
+        line-height: 24px;
+        height: 24px;
+        border: none;
+    }
+    .q-actions .ac .ic i {
+        color: #fff;
+        font-size: 20px;
+    }
+    .q-actions .ac h5 {
+        font-size: 12px!important;
+        color: #fff;
+        line-height: 16px;
+    }
+    .q-actions .ac h5 {
+        margin: 0;
+        font-weight: normal;
+        font-size: 15px;
+    }
+    .q-actions .ac p {
+        display: none;
+    }
+    .q-actions .ac p {
+        font-size: 11px;
+        line-height: 16px;
+        margin: 0;
+        white-space: nowrap;
+        color: rgba(255, 255, 255, 0.5);
+    }
+}

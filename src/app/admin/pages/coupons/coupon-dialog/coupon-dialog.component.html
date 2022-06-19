@@ -1,0 +1,94 @@
+<h1 mat-dialog-title>Coupon</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" class="user-form">
+  <div mat-dialog-content>
+    <div fxLayout="row wrap" class="mt-2">
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Name</mat-label>
+          <input matInput formControlName="couponName" required>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Amount</mat-label>
+          <input matInput formControlName="couponAmount" required type="number">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Code</mat-label>
+          <input matInput formControlName="couponCode" required type="text">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Type</mat-label>
+          <!-- <input matInput formControlName="couponType" required type="text">
+          <mat-error>This field is required</mat-error> -->
+          <mat-select formControlName="couponType">
+            <mat-option [value]="">-</mat-option>
+            <mat-option *ngFor="let type of couponType" [value]="type.value">
+              <span>{{type.viewValue}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Discount Type</mat-label>
+          <!-- <input matInput formControlName="couponDiscountType" required type="text">
+          <mat-error>This field is required</mat-error> -->
+          <mat-select formControlName="couponDiscountType">
+            <mat-option [value]="">-</mat-option>
+            <mat-option *ngFor="let discountType of couponDiscountType" [value]="discountType.value">
+              <span>{{discountType.viewValue}}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Limit</mat-label>
+          <input matInput formControlName="couponLimit" required type="text">
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon Start Date</mat-label>
+          <input matInput [matDatepicker]="startDate" formControlName="couponStartDate" required>
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-md="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Coupon End Date</mat-label>
+          <input matInput [matDatepicker]="expiryDate" formControlName="couponEndDate" required>
+          <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
+          <mat-datepicker #expiryDate></mat-datepicker>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+      <button mat-raised-button color="warn" type="button" mat-dialog-close>Close</button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </div>
+</form>

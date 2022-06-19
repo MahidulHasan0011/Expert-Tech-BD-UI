@@ -1,0 +1,88 @@
+<div class="dialog-container">
+  <mat-spinner
+    *ngIf="isLoading"
+    style="
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    "
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Featured Category</h1>
+    <!-- <mat-checkbox [(ngModel)]="autoSlug" (change)="autoGenerateSlug()" color="primary">Auto Slug</mat-checkbox> -->
+  </div>
+
+  <div class="profile-upload">
+    <img class="user_icon" [src]="imgPlaceHolder" alt="" />
+    <input
+      [hidden]="true"
+      #profileImagePicker
+      type="file"
+      (change)="fileChangeEvent($event)"
+      accept="image/*"
+    />
+    <button
+      class="btn-upload"
+      mat-raised-button
+      (click)="profileImagePicker.click()"
+    >
+      Upload Image
+    </button>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Featured Category Name</mat-label>
+            <input
+              matInput
+              formControlName="featuredCategoryName"
+              required
+              placeholder="Enter Featured Category name"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Url</mat-label>
+            <input
+              matInput
+              formControlName="url"
+              required
+              placeholder="Enter a url"
+            />
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+        <button
+          [disabled]="isLoading"
+          mat-raised-button
+          color="warn"
+          type="button"
+          mat-dialog-close
+        >
+          Close
+        </button>
+        <button
+          [disabled]="isLoading"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

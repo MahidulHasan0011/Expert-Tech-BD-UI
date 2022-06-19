@@ -1,0 +1,23 @@
+<app-ng-dynamic-breadcrumb [fontSize]="'13px'"></app-ng-dynamic-breadcrumb>
+<section>
+  <div class="container">
+    <div class="offer">
+
+      <div class="offer-card item" *ngFor="let pa of offerPackages" [routerLink]="[pa._id]">
+        <img [src]="pa?.image !== null ? pa?.image : '/assets/images/png/image-placeholder-r1.png'" alt="">
+        <div class="offer-details">
+          <div class="details">
+            <h4>{{pa.title}}</h4>
+            <p>{{pa.shortDesc}}</p>
+            <p><strong>Validation :</strong> {{pa.validation}}</p>
+          </div>
+          <div class="read-more">
+            <h4>{{pa.branch}}</h4>
+            <a [routerLink]="[pa._id]">View Details</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

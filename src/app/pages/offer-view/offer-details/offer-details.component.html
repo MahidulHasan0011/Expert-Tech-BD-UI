@@ -1,0 +1,8 @@
+<app-ng-dynamic-breadcrumb [fontSize]="'13px'"></app-ng-dynamic-breadcrumb>
+
+<div class="container">
+  <div class="card-view">
+    <h2>{{offerPackage?.title}}</h2>
+    <div class="description" [innerHTML]="offerPackage?.description | safeHtmlCustom"></div>
+  </div>
+</div>

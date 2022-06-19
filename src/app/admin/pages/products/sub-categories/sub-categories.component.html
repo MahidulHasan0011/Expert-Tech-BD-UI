@@ -1,0 +1,48 @@
+
+  <mat-card class="p-0">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+      <h2>Sub Category List</h2>
+      <button mat-raised-button color="primary" (click)="navigateTo('add')">Add Sub Category</button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card>
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr class="table-head">
+        <th scope="col">{{'Name'}}</th>
+        <th scope="col">{{'Slug'}}</th>
+        <th scope="col">{{'Parent Category'}}</th>
+        <th scope="col">{{'Actions'}}</th>
+      </tr>
+      </thead> <!-- End Table Head -->
+      <tr *ngFor="let data of subCategories | paginate: { itemsPerPage: count, currentPage: page }; let i = index">
+        <td [attr.data-label]="'Name'">{{data.subCatName}}</td>
+        <td [attr.data-label]="'Slug'">{{data.slug}}</td>
+        <td [attr.data-label]="'Parent Category'">{{data.parentCategoryName}}</td>
+        <td [attr.data-label]="'Actions'">
+          <button mat-mini-fab color="primary" matTooltip="Edit" [routerLink]="['edit', data._id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1" (click)="remove(data._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr><!-- End Table Body -->
+
+    </table>
+  </div>
+
+  <div *ngIf="subCategories.length > 0" fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card class="p-0 text-center">
+        <pagination-controls
+          class="product-pagination"
+          autoHide="true" maxSize="5"
+          (pageChange)="onPageChanged($event)">
+        </pagination-controls>
+      </mat-card>
+    </div>
+  </div>
+

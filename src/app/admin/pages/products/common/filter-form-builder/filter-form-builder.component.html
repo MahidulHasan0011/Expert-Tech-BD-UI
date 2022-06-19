@@ -1,0 +1,46 @@
+<div class="form-builder-container">
+
+  <form [formGroup]="newFilterForm" class="form-area">
+    <div class="title-field-area">
+      <mat-form-field appearance="outline" class="mat-form-field-title">
+        <mat-label>Filter Title *</mat-label>
+        <input [readonly]="formDisabled" formControlName="title" matInput placeholder="Enter Filter Title.." required>
+        <mat-error>This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div formArrayName="components">
+      <div *ngFor="let item of componentKeys.controls; let keyIndex=index" [formGroupName]="keyIndex"
+           class="component-field-area">
+        <mat-form-field appearance="outline" class="mat-form-field-component">
+          <mat-label>#{{keyIndex + 1}} Component Key</mat-label>
+          <input [readonly]="formDisabled" formControlName="key" matInput placeholder="Enter Component Key.." required>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+        <button
+          class="btn-remove-field"
+          [disabled]="keyIndex === 0"
+          *ngIf="!formDisabled"
+          mat-icon-button type="button"
+          (click)="deleteComponentKey(keyIndex)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <button *ngIf="!formDisabled" mat-mini-fab type="button" color="accent" (click)="addComponentKey()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </form>
+
+  <div class="action">
+    <button *ngIf="!formDisabled" class="btn-save-filter"
+            [disabled]="newFilterForm.invalid"
+            mat-raised-button color="primary"
+            (click)="addNewItem(this.newFilterForm.value)">
+      <mat-icon inline="true">save</mat-icon>
+      Save Filter
+    </button>
+  </div>
+
+</div>
+

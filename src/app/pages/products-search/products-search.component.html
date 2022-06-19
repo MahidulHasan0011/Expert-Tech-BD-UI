@@ -1,0 +1,286 @@
+<mat-sidenav-container>
+  <mat-sidenav-content class="all-products" ngClass.gt-sm="p-left">
+    <div
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-between center"
+      class="filter-row mat-elevation-z1 text-muted"
+    >
+      <div>
+        <a
+          mat-button
+          [matMenuTriggerFor]="sortMenu"
+          #sortMenuTrigger="matMenuTrigger"
+        >
+          {{ sort }}
+          <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+        </a>
+        <mat-menu
+          #sortMenu="matMenu"
+          xPosition="before"
+          class="app-dropdown"
+          overlapTrigger="true"
+        >
+          <span (mouseleave)="sortMenuTrigger.closeMenu()">
+            <button
+              mat-menu-item
+              *ngFor="let sort of sorting"
+              (click)="changeSorting(sort)"
+            >
+              <span style="color: #000000">{{ sort }}</span>
+            </button>
+          </span>
+        </mat-menu>
+      </div>
+      <div>
+        <a
+          mat-button
+          [matMenuTriggerFor]="countsMenu"
+          #countsMenuTrigger="matMenuTrigger"
+        >
+          Show {{ count }}
+          <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+        </a>
+        <mat-menu
+          #countsMenu="matMenu"
+          xPosition="before"
+          class="app-dropdown"
+          overlapTrigger="true"
+        >
+          <span (mouseleave)="countsMenuTrigger.closeMenu()">
+            <button
+              mat-menu-item
+              *ngFor="let count of counts"
+              (click)="changeCount(count)"
+            >
+              <span style="color: #000000">{{ count }}</span>
+            </button>
+          </span>
+        </mat-menu>
+        <button mat-icon-button (click)="changeViewType('list')">
+          <mat-icon>view_list</mat-icon>
+        </button>
+        <!--        <button mat-icon-button (click)="changeViewType('grid', 33.3)">-->
+        <!--          <mat-icon>view_module</mat-icon>-->
+        <!--        </button>-->
+        <button mat-icon-button (click)="changeViewType('grid')">
+          <mat-icon>view_comfy</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- HEADER AREA -->
+
+    <div class="" *ngIf="noProduct === false; else noData">
+      <div *ngIf="viewType == 'grid'" class="products-wrapper">
+        <div
+          *ngFor="
+            let product of products
+              | paginate
+                : {
+                    itemsPerPage: productsPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalProducts
+                  }
+          "
+          class="product-col"
+        >
+          <div class="card product-card">
+            <div class="img-thumb" (click)="onClickCard(product.slug)">
+              <img
+                [src]="product | productImage: 'single'"
+                [alt]="product.name"
+              />
+              <div *ngIf="product?.availableQuantity === 0">Out of Stock</div>
+            </div>
+            <div class="desc">
+              <h2 class="title" (click)="onClickCard(product.slug)">
+                {{ product.name }}
+              </h2>
+            </div>
+
+            <div class="product-features">
+              <ul>
+                <li *ngFor="let fe of product?.features">{{ fe }}</li>
+              </ul>
+            </div>
+
+            <div class="productCard__footer">
+              <div class="productCard__price">
+                <!--                <span class="productCard__regularPrice">Tk. {{product.regularPrice}}</span>-->
+                <span class="productCard__salePrice"
+                  >{{ product.salePrice }}৳</span
+                >
+              </div>
+
+              <div class="productCard__footerIcons">
+                <button
+                  mat-mini-fab
+                  color="primary"
+                  (click)="addToCompareList($event, product)"
+                >
+                  <mat-icon>compare</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="action">
+              <button
+                class="btn btn-hover-anim"
+                *ngIf="product?.availableQuantity !== 0"
+                (click)="addToCart($event, product)"
+              >
+                <mat-icon>shopping_cart</mat-icon>
+                Add to Cart
+              </button>
+              <button
+                class="btn btn-hover-anim"
+                *ngIf="product.availableQuantity === 0"
+              >
+                <!-- <mat-icon></mat-icon>S -->
+                Product Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END GRID VIEW -->
+
+      <div
+        *ngIf="viewType == 'list'"
+        fxLayout="row wrap"
+        class="products-wrapper-list"
+      >
+        <div
+          *ngFor="
+            let product of products
+              | paginate
+                : {
+                    itemsPerPage: productsPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalProducts
+                  }
+          "
+          class="product-col-list"
+        >
+          <mat-card class="list-card-view">
+            <!-- <div class="img-view" (click)="onClickCard(product.slug)" > -->
+            <div class="img-view">
+              <!-- <a [routerLink]="['/product', product.slug]" class="image-link">
+                  <img [src]="product.images !== null ? product.images[0].medium : '/assets/images/png/image-placeholder-r1.png'" alt="">
+                  <div *ngIf="product?.availableQuantity === 0">Out of Stock</div>
+                </a> -->
+
+              <a class="image-link" (click)="onClickCard(product.slug)">
+                <img [src]="product | productImage: 'single'" alt="" />
+                <div *ngIf="product?.availableQuantity === 0">Out of Stock</div>
+              </a>
+            </div>
+            <div class="desc-area">
+              <!-- <a [routerLink]="['/product', product.slug]" class="list-product-title">
+                  {{product.name}}
+                </a> -->
+
+              <a class="list-product-title" (click)="onClickCard(product.slug)">
+                {{ product.name }}
+              </a>
+
+              <div class="product-features">
+                <ul>
+                  <li *ngFor="let fe of product?.features">{{ fe }}</li>
+                </ul>
+              </div>
+
+              <div class="footer-action">
+                <div class="prices">
+                  <!--                <p class="old-price"><span *ngIf="product.regularPrice">{{product.salePrice | number : '1.2-2'}}</span></p>-->
+                  <p class="new-price">
+                    {{ product.salePrice | number: "1.2-2" }}৳
+                  </p>
+                </div>
+
+                <button
+                  class="btn btn-hover-anim"
+                  *ngIf="
+                    product.availableQuantity > 0 ||
+                    product.availableQuantity === null
+                  "
+                  (click)="addToCart($event, product)"
+                >
+                  <mat-icon>shopping_cart</mat-icon>
+                  Add to Cart
+                </button>
+                <button
+                  class="btn btn-hover-anim"
+                  *ngIf="product.availableQuantity === 0"
+                >
+                  <!-- <mat-icon></mat-icon> -->
+                  Product Details
+                </button>
+
+                <button
+                  mat-raised-button
+                  color="primary"
+                  (click)="addToCompareList($event, product)"
+                >
+                  <mat-icon>compare</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <!--      <div *ngIf="products.length > 0" fxLayout="row wrap">-->
+      <!--        <div fxFlex="100">-->
+      <!--          <mat-card class="p-0 text-center">-->
+      <!--            <pagination-controls class="product-pagination" autoHide="true" maxSize="5"-->
+      <!--                                 (pageChange)="onPageChanged($event)"></pagination-controls>-->
+      <!--          </mat-card>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </div>
+  </mat-sidenav-content>
+  <!-- END MAIN PRODUCT VIEW -->
+</mat-sidenav-container>
+
+<!--<mat-paginator-->
+<!--  [length]="totalProducts"-->
+<!--  [pageSize]="productsPerPage"-->
+<!--  [pageSizeOptions]="pageSizeOption"-->
+<!--  (page)="onChangePage($event)"-->
+<!--&gt;</mat-paginator>-->
+
+<div *ngIf="products.length > 0" fxLayout="row wrap" style="margin-top: 15px">
+  <div fxFlex="100" class="p-1">
+    <mat-card class="p-0 text-center">
+      <!--      <mat-paginator-->
+      <!--        [length]="totalProducts"-->
+      <!--        [pageSize]="productsPerPage"-->
+      <!--        [pageSizeOptions]="pageSizeOption"-->
+      <!--        (page)="onChangePage($event)"-->
+      <!--      ></mat-paginator>-->
+      <pagination-controls
+        class="product-pagination"
+        autoHide="true"
+        maxSize="20"
+        (pageChange)="onChangePage($event)"
+      ></pagination-controls>
+    </mat-card>
+  </div>
+</div>
+
+<!-- TEMPLATE -->
+<ngx-spinner
+  style="width: 100vw; height: 100vh"
+  bdColor="rgba(0,0,0,0.25)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<ng-template #noData>
+  <div style="margin-top: 50px; text-align: center">
+    <h2>No Product Found</h2>
+  </div>
+</ng-template>

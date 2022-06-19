@@ -1,0 +1,74 @@
+<mat-card class="container">
+
+  <mat-spinner *ngIf="isLoading"
+               style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto"
+  ></mat-spinner>
+
+  <div class="header-dialog">
+    <h1 mat-dialog-title>Add Offer Package</h1>
+  </div>
+
+  <div class="image-view-area">
+    <img class="img-placeholder" [src]="imgPlaceHolder" alt="">
+    <!-- <input [hidden]="true" #profileImagePicker type="file" (change)="fileChangeEvent($event)" accept="image/*" /> -->
+    <!-- <button class="btn-upload" mat-raised-button (click)="profileImagePicker.click()">Upload Image</button> -->
+    <button class="btn-upload" mat-raised-button (click)="openComponentDialog()">Upload Image</button>
+  </div>
+
+  <form [formGroup]="dataForm" (ngSubmit)="onSubmit()" autocomplete="off" #formDirective="ngForm">
+    <div mat-dialog-content>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'title' | titlecase}}</mat-label>
+            <input matInput formControlName="title" placeholder="Enter title" required>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'short description' | titlecase}}</mat-label>
+            <input matInput formControlName="shortDesc" placeholder="Enter short description" required>
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{'validation' | titlecase}}</mat-label>
+            <input matInput formControlName="validation" required placeholder="Enter validation date">
+            <mat-error>This field is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Branch</mat-label>
+            <mat-select placeholder="Select Branch" required formControlName="branch" >
+
+              <mat-option *ngFor="let branch of branches" [value]="branch.value">
+                {{branch.viewValue}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Branch is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" class="px-1">
+          <angular-editor id="description" formControlName="description"
+                          [config]="editorConfigDesc"></angular-editor>
+        </div>
+
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+        <button mat-raised-button color="warn" type="button"  [routerLink]="['../']">Close</button>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+      </div>
+    </div>
+  </form>
+
+
+</mat-card>
+

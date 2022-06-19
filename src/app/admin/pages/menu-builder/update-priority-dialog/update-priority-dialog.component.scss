@@ -1,0 +1,27 @@
+.container-fluid {
+  width: 95%;
+  max-width: 1050px;
+  margin: 25px  auto;
+}
+
+.main-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-form-field {
+    width: 380px;
+  }
+}
+
+
+.action-view {
+  text-align: center;
+  margin-top: 18px;
+
+  .btn-round {
+    padding: 5px 35px;
+    border-radius: 35px !important;
+  }
+}

@@ -1,0 +1,20 @@
+.card {
+  .card-title {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+}
+
+.address {
+  padding: 16px 0;
+}
+
+.address-list {
+  border: 1px solid #d8d8d8;
+  padding: 8px 16px;
+  margin-top: 5px;
+  margin-bottom: 32px;
+}
+

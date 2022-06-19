@@ -1,0 +1,14 @@
+
+<div class="video">
+  <div class="videoFrame">
+    <div *ngIf="product?.youtubeUrl">
+      <youtube-player
+        [videoId]="utilsService.getYoutubeVideoId(product.youtubeUrl)"
+        suggestedQuality="highres"
+         [width]="'100%'"
+         [height]="'400px'">
+      </youtube-player>
+    </div>
+  </div>
+</div>
+

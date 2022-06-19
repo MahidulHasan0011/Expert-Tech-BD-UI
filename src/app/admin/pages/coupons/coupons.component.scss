@@ -1,0 +1,13 @@
+@import "src/theme/exports/table-one";
+
+
+.admin-table.mat-table .mat-row{
+    display: grid;
+    grid-template-columns: repeat(5,160px);
+    padding-top: 5px;
+}
+ .admin-table.mat-table .mat-header-row{
+    display: grid;
+    grid-template-columns: repeat(4,160px);
+    padding-top: 5px;
+}

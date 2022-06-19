@@ -1,0 +1,44 @@
+<div class="top-action">
+  <button color="primary" (click)="navigateTo('add')" mat-raised-button>Add New Menu</button>
+</div>
+
+
+<div class="menu-accordion-container">
+  <mat-accordion multi>
+    <mat-expansion-panel *ngFor="let cat of menuList | sort:'priority'; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{cat.categoryName}} <span style="margin-left: 10px; font-size: 12px">Priority -> {{cat.priority}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="main-content">
+        <ul *ngIf="cat.subCategories.length > 0" class="menu-ul-child">
+          <li *ngFor="let subCat of cat.subCategories | sort:'priority'" class="menu-li-child">
+            {{subCat.subCatName}} <span style="margin-left: 10px; font-size: 12px">Priority -> {{subCat?.priority}}</span>
+            <button mat-mini-fab color="warn" class="btn-remove" (click)="openConfirmDialogSubCat(cat._id, subCat.subCatId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-mini-fab color="accent" class="btn-remove" (click)="openPriorityDialogSubCat(subCat, cat._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <ul *ngIf="subCat?.brands.length > 0" class="menu-ul-grand-child">
+              <li *ngFor="let brand of subCat.brands" class="menu-li-grand-child">
+                {{brand.brandName}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="action">
+          <button mat-raised-button color="primary" (click)="openPriorityDialog(cat)">Update Priority</button>
+          <button mat-raised-button color="primary" (click)="openItemDialog(cat)">Add Item</button>
+          <button (click)="openConfirmDialog(cat._id)" mat-raised-button color="warn">Delete</button>
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>
+
+
