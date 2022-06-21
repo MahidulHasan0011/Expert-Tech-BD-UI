@@ -6,6 +6,7 @@
   background: #f2f4f8;
 }
 
+
 .container-fluid {
   padding: 0px 0;
   min-height: 70vh;
@@ -13,10 +14,11 @@
 
 .container {
   margin-bottom: 30px;
+  background-color: #f2f4f8;
 }
 .section1-container {
   padding: 30px;
-  background: #f2f4f8;
+  background-color: #f2f4f8;
   border-radius: 5px;
   box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
 }
@@ -45,17 +47,22 @@
     width: 100%;
   }
 }
+
 .oName {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
+  background-color:#e9f8f8 ;
+  //
 }
 .deal-on-play-view {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 15px 8px;
+  padding: 7px;
+  // background-color: #C8E9E9;
 }
 
 @media (min-width: 1510px) {
@@ -269,6 +276,7 @@ OFFER SERVICES CATEGORY
 .container {
   // width: 100%;
   max-width: $theme-max-width;
+  background-color:#e9f8f8;
 }
 
 .carousel-group {
