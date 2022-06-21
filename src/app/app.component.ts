@@ -29,11 +29,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // Facebook Script
-    if (isPlatformBrowser(this.platformId)) {
-      const tag = document.createElement('script');
-      tag.src = 'https://connect.facebook.net/en_US/sdk.js';
-      document.body.appendChild(tag);
-    }
+    // if (isPlatformBrowser(this.platformId)) {
+    //   const tag = document.createElement('script');
+    //   tag.src = 'https://connect.facebook.net/en_US/sdk.js';
+    //   document.body.appendChild(tag);
+    // }
     this.updateMetaData();
   }
 
@@ -50,14 +50,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.meta.addTag({name: 'og:site_name', content: 'Expert Tech BD'});
     // Twitter
     this.meta.addTag({name: 'twitter:card', content: 'Expert Tech BD'});
-    this.meta.addTag({
-      name: 'twitter:site',
-      content: 'https://experttechbd.com.bd/',
-    });
-    this.meta.addTag({
-      name: 'twitter:creator',
-      content: 'https://experttechbd.com.bd/',
-    });
+    // this.meta.addTag({
+    //   name: 'twitter:site',
+    //   content: 'https://experttechbd.com.bd/',
+    // });
+    // this.meta.addTag({
+    //   name: 'twitter:creator',
+    //   content: 'https://experttechbd.com.bd/',
+    // });
   }
 
   ngAfterViewInit(): void {

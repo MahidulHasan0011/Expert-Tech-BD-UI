@@ -226,6 +226,6 @@ export class CartComponent implements OnInit {
 
 
   showDevMsg() {
-    this.uiService.warn('Coupon is disable by r one computer');
+    this.uiService.warn('Coupon is disable by Expert TechBD computer');
   }
 }

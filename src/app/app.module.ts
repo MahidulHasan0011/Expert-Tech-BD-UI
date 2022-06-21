@@ -27,7 +27,7 @@ import {AuthUserInterceptor} from './auth-interceptor/auth-user.interceptor';
 import {AuthAdminInterceptor} from './auth-interceptor/auth-admin.interceptor';
 import {AppSettings} from './app.settings';
 import {AppService} from './app.service';
-import { FacebookModule } from 'ngx-facebook';
+// import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { FacebookModule } from 'ngx-facebook';
     MaterialModule,
     MenuModule,
     // Ngx Facebook
-    FacebookModule.forRoot()
+    // FacebookModule.forRoot()
   ],
   providers: [
     Title,

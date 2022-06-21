@@ -56,6 +56,35 @@ export class UploadImageComponent implements OnInit {
   /**
    * ON IMAGE UPLOAD
    */
+  // onUploadImages() {
+  //   if (!this.selectedFolder) {
+  //     this.uiService.warn('No Folder name found!');
+  //     return;
+  //   }
+  //   if (!this.files || this.files.length <= 0) {
+  //     this.uiService.warn('No Image selected!');
+  //     return;
+  //   }
+  //   // console.log("see the res", this.files);
+  //   this.fileUploadService.uploadMultiImageOriginal(this.files)
+    
+  //     .subscribe(res => {
+  //       const downloadUrls = res.downloadUrls;
+  //       const data: ImageGallery[] = downloadUrls.map(m => {
+  //         return {
+  //           url: m,
+  //           name: this.utilsService.getPopString(m),
+  //           folder: this.selectedFolder,
+  //         } as ImageGallery;
+  //       });
+
+  //       this.addImagesToGallery(data);
+
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  // }
+
   onUploadImages() {
     if (!this.selectedFolder) {
       this.uiService.warn('No Folder name found!');
@@ -78,9 +107,11 @@ export class UploadImageComponent implements OnInit {
 
         this.addImagesToGallery(data);
 
-      }, error => {
+      },
+       error => {
         console.log(error);
-      });
+      }
+      );
   }
 
   /**

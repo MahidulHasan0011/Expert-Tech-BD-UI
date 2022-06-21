@@ -372,7 +372,7 @@ export class CheckoutComponent implements OnInit {
       emi_selected_inst: this.selectedEMIOption,
       emi_allow_only: 1,
       cus_name: this.order.name,
-      cus_email: this.order.email ? this.order.email : 'roneuser@gmail.com',
+      cus_email: this.order.email ? this.order.email : 'contact@softlabit.com',
       cus_add1: this.order.shippingAddress,
       cus_add2: '',
       cus_city: this.order.city,

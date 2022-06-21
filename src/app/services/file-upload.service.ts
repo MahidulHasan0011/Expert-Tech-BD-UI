@@ -43,6 +43,7 @@ export class FileUploadService {
 
   uploadMultiImageOriginal(files: File[]) {
     const data = new FormData();
+    console.log("see res on service",files)
     files.forEach(f => {
       const fileName = this.utilsService.getImageName(f.name) + this.utilsService.getRandomInt(100, 5000) + '.' + f.name.split('.').pop();
       data.append('imageMulti', f, fileName);

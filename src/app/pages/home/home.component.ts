@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
     private offerCategoryCardService: OfferCategoryCardService,
     private reloadService: ReloadService,
     private featuredProductService: FeaturedProductService,
-    private facebookService: FacebookService,
+    // private facebookService: FacebookService,
     private router: Router
   ) {}
 
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
     this.getAllFeaturedProduct();
     this.getFeaturedCategoryList();
     // Init Facebook Service
-    this.initFacebookService();
+    // this.initFacebookService();
   }
 
   /**
@@ -212,8 +212,8 @@ export class HomeComponent implements OnInit {
     /**
    * INIT FACEBOOK
    */
-     private initFacebookService(): void {
-      const initParams: InitParams = {xfbml: true, version: 'v11.0'};
-      this.facebookService.init(initParams);
-    }
+    //  private initFacebookService(): void {
+    //   const initParams: InitParams = {xfbml: true, version: 'v11.0'};
+    //   this.facebookService.init(initParams);
+    // }
 }
